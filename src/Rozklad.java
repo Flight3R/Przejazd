@@ -4,8 +4,8 @@ public class Rozklad {
     private Integer ilePociagow;
     private ArrayList<Pociag> tabelaPociagow;
 
-    public Integer getIlePociagow() {
-        return ilePociagow;
+    public Integer ilePociagow() {
+        return tabelaPociagow.size();
     }
 
     public Pociag najblizszyPociag(){
@@ -13,13 +13,13 @@ public class Rozklad {
     }
 
     public void wyswietl(){
-
+        // wyświetlanie na ekranie a nie w konsoli raczej
     }
-    public void dodaj(){
-
+    public void dodaj(Pociag pociag){
+        tabelaPociagow.add(pociag);
     }
-    public void usun(String nazwa){
-        tabelaPociagow.remove(new Pociag().getNazwa() == nazwa);
+    public void usunPierwszy(String nazwa){
+        tabelaPociagow.remove(0);
     }
 
     public Rozklad(ArrayList<Pociag> tabelaPociagow) {

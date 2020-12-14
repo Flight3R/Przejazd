@@ -11,15 +11,16 @@ public class Przejazd {
     private Swiatlo swiatloGorne;
     private Swiatlo swiatlDolne;
 
-    public void sprawdz(){
-        if (czas + 30 < "czas przyjazdu najblizszego"){
+    public void sprawdz() throws InterruptedException {
+        if (czas + 30 < rozklad.najblizszyPociag().getCzasPrzyjazdu()){
             swiatloGorne.zapal();
             swiatlDolne.zapal();
             sleep(5000);
             rogatkaGorna.zamknij();
             rogatkaDolna.zamknij();
 
-            sleep((czas - czasprzyjazdu)*1000 + 2000);
+//powinno być: gdy przejedzie (bo mogą z dwóch stron naraz)
+            sleep((czas - rozklad.najblizszyPociag().getCzasPrzyjazdu())*1000 + 2000);
             rogatkaGorna.otworz();
             rogatkaDolna.otworz();
             sleep(2000);
