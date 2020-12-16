@@ -24,4 +24,12 @@ public class Polozenie {
                 break;
         }
     }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
 }

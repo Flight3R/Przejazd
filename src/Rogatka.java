@@ -15,9 +15,7 @@ public class Rogatka extends ElementInfrastruktury {
         this.stan = stan;
     }
 
-    public boolean isStan() {
-        return stan;
-    }
+    public boolean isOtwarta() { return stan; }
 
     public void otworz(){
 

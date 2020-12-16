@@ -1,9 +1,9 @@
 public abstract class Pojazd {
-    private double dlugosc;
+    protected double dlugosc;
     private double masa;
     private double predkosc;
     private double maxPredkosc;
-    private Polozenie polozenie;
+    protected Polozenie polozenie;
 
     public void zatrzymaj(){
         predkosc = 0;
