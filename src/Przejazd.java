@@ -41,11 +41,7 @@ public class Przejazd extends Thread {
             if (rogatkaGorna.isOtwarta() || rogatkaDolna.isOtwarta()) {
                 swiatloGorne.zapal();
                 swiatlDolne.zapal();
-                try {
-                    sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
                 rogatkaGorna.zamknij();
                 rogatkaDolna.zamknij();
             }
@@ -53,11 +49,7 @@ public class Przejazd extends Thread {
             if (!rogatkaGorna.isOtwarta() || !rogatkaDolna.isOtwarta()) {
                 rogatkaGorna.otworz();
                 rogatkaDolna.otworz();
-                try {
-                    sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
                 swiatloGorne.zgas();
                 swiatlDolne.zgas();
             }
