@@ -19,27 +19,37 @@ public class Pociag extends Pojazd {
         // DOROBIC MECHANIKE:  czujnik.aktywacje PRZEJAZD SPRAWDZA CZY czujnik przed i za maja tyle samo aktywacji czyli suma jest = 0(mod 2), na tej podstawie wie czy mozna otworzy szlaban, jak maja rozna to trzeba zamknac szlaban
 
         if (tor.getKierunek() == "prawo") {
-            boolean przedPrzejazdem = (this.polozenie.getX()+dlugosc < przejazd.getPolozenie().getX());
-            if(przedPrzejazdem) {
-                boolean czujnikPodPociagiem = (tor.getCzujnik_przed().getPolozenie().getX() < (this.polozenie.getX() + this.dlugosc)); // OK
-                if (czujnikPodPociagiem)
-                    tor.getCzujnik_przed().aktywuj();
 
-            } else {
-                boolean czujnikPodPociagiem = (tor.getCzujnik_za().getPolozenie().getX() < (this.polozenie.getX() - this.dlugosc)); //OK
+            boolean przedPrzejazdem = (this.polozenie.getX() + dlugosc/2) < przejazd.getPolozenie().getX();
+            boolean zaPrzejazdem = przejazd.getPolozenie().getX() < (this.polozenie.getX() - dlugosc/2);
+
+            if(przedPrzejazdem) {
+
+                boolean czujnikPodPociagiem = (this.polozenie.getX() - this.dlugosc/2) < tor.getCzujnik_przed().getPolozenie().getX() && tor.getCzujnik_przed().getPolozenie().getX() < (this.polozenie.getX() + this.dlugosc/2); // OK
                 if (czujnikPodPociagiem)
-                    tor.getCzujnik_za().aktywuj();
+                    tor.getCzujnik_przed().aktywuj(this.nazwa);
+
+            } else if (zaPrzejazdem) {
+
+                boolean czujnikPodPociagiem = (this.polozenie.getX() - this.dlugosc/2) < tor.getCzujnik_za().getPolozenie().getX() && tor.getCzujnik_za().getPolozenie().getX() < (this.polozenie.getX() + this.dlugosc/2); // OK
+                if (czujnikPodPociagiem)
+                    tor.getCzujnik_za().aktywuj(this.nazwa);
             }
         } else if (tor.getKierunek() == "lewo") {
-            boolean przedPrzejazdem = this.polozenie.getX()-dlugosc > przejazd.getPolozenie().getX();
+
+            boolean przedPrzejazdem = przejazd.getPolozenie().getX() < (this.polozenie.getX() - this.dlugosc/2) ;
+            boolean zaPrzejazdem = (this.polozenie.getX() + dlugosc/2) < przejazd.getPolozenie().getX();
+
             if(przedPrzejazdem) {
-                boolean czujnikPodPociagiem = (this.polozenie.getX() - this.dlugosc) < tor.getCzujnik_za().getPolozenie().getX(); //OK
+
+                boolean czujnikPodPociagiem = (this.polozenie.getX() - this.dlugosc/2) < tor.getCzujnik_przed().getPolozenie().getX() && tor.getCzujnik_przed().getPolozenie().getX() < (this.polozenie.getX() + this.dlugosc/2); // OK
                 if (czujnikPodPociagiem)
-                    tor.getCzujnik_przed().aktywuj();
-            } else {
-                boolean czujnikPodPociagiem = (this.polozenie.getX() + this.dlugosc) < tor.getCzujnik_przed().getPolozenie().getX(); //OK
+                    tor.getCzujnik_przed().aktywuj(this.nazwa);
+            } else if (zaPrzejazdem) {
+
+                boolean czujnikPodPociagiem = (this.polozenie.getX() - this.dlugosc/2) < tor.getCzujnik_za().getPolozenie().getX() && tor.getCzujnik_za().getPolozenie().getX() < (this.polozenie.getX() + this.dlugosc/2); // OK
                 if (czujnikPodPociagiem)
-                    tor.getCzujnik_za().aktywuj();
+                    tor.getCzujnik_za().aktywuj(this.nazwa);
             }
         }
     }

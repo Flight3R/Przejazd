@@ -24,8 +24,6 @@ public class Przejazd extends Thread {
             rogatkaGorna.zamknij();
             rogatkaDolna.zamknij();
 
-
-
 //powinno być: gdy przejedzie (bo mogą z dwóch stron naraz)
             sleep((czas - rozklad.najblizszyPociag().getCzasPrzyjazdu())*1000 + 2000);
             rogatkaGorna.otworz();
@@ -36,21 +34,10 @@ public class Przejazd extends Thread {
         }
     }
     public void sprawdzCzujniki() {
-        boolean stanCzujnikowStabilny = (torDolny.getCzujnik_przed().getZadzialania() + torDolny.getCzujnik_za().getZadzialania()) %2 == 0;
-        // jak tak to znaczy ze pociagu nie ma między czujnikami
-        if(stanCzujnikowStabilny) {
-            if (!rogatkaGorna.isOtwarta() && !rogatkaDolna.isOtwarta()) {
-                rogatkaGorna.otworz();
-                rogatkaDolna.otworz();
-                try {
-                    sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                swiatloGorne.zgas();
-                swiatlDolne.zgas();
-            }
-        } else {
+        boolean zajetoscToruGornego = (torGorny.getCzujnik_przed().getAktywacje() + torGorny.getCzujnik_za().getAktywacje()) %2 != 0;
+        boolean zajetoscToruDolnego = (torDolny.getCzujnik_przed().getAktywacje() + torDolny.getCzujnik_za().getAktywacje()) %2 != 0;
+
+        if(zajetoscToruGornego || zajetoscToruDolnego) {
             if (rogatkaGorna.isOtwarta() || rogatkaDolna.isOtwarta()) {
                 swiatloGorne.zapal();
                 swiatlDolne.zapal();
@@ -61,6 +48,18 @@ public class Przejazd extends Thread {
                 }
                 rogatkaGorna.zamknij();
                 rogatkaDolna.zamknij();
+            }
+        } else {
+            if (!rogatkaGorna.isOtwarta() || !rogatkaDolna.isOtwarta()) {
+                rogatkaGorna.otworz();
+                rogatkaDolna.otworz();
+                try {
+                    sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                swiatloGorne.zgas();
+                swiatlDolne.zgas();
             }
         }
     }

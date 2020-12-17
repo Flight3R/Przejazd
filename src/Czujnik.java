@@ -1,11 +1,15 @@
+import java.util.ArrayList;
+
 public class Czujnik extends ElementInfrastruktury{
-    private Integer zadzialania;
+    private Integer aktywacje = 0;
+    private ArrayList<String> listaAktywacji;
 
-    public void aktywuj(){
-            this.zadzialania = this.zadzialania + 1;
+    public void aktywuj(String nazwa){
+        if (!listaAktywacji.contains(nazwa)) {
+            aktywacje = aktywacje + 1;
+            listaAktywacji.add(nazwa);
+        }
     }
 
-    public Integer getZadzialania() {
-        return zadzialania;
-    }
+    public Integer getAktywacje() { return aktywacje; }
 }
