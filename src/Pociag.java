@@ -17,19 +17,21 @@ public class Pociag extends Pojazd {
 
         boolean czujnik1PodPociagiem = (this.polozenie.getX() - this.dlugosc/2) < tor.getCzujnik_przed().getPolozenie().getX() && tor.getCzujnik_przed().getPolozenie().getX() < (this.polozenie.getX() + this.dlugosc/2); // OK
         boolean czujnik2PodPociagiem = (this.polozenie.getX() - this.dlugosc/2) < tor.getCzujnik_za().getPolozenie().getX() && tor.getCzujnik_za().getPolozenie().getX() < (this.polozenie.getX() + this.dlugosc/2); // OK
-
+        // --->>>---<czujnik1>-----|przejazd|-----<czujnik2>-->>>---
         if (tor.getKierunek() == "prawo") {
-            if (czujnik1PodPociagiem)
+            boolean zaPrzejazdem = przejazd.getPolozenie().getX() < (this.polozenie.getX() - this.dlugosc/2);
+            if (czujnik1PodPociagiem) {
                 tor.getCzujnik_przed().aktywuj(this.nazwa);
 
-            if (czujnik2PodPociagiem)
+            } else if (czujnik2PodPociagiem && zaPrzejazdem)
                 tor.getCzujnik_za().aktywuj(this.nazwa);
 
         } else if (tor.getKierunek() == "lewo") {
-            if (czujnik1PodPociagiem)
+            boolean zaPrzejazdem = (this.polozenie.getX() + this.dlugosc/2) < przejazd.getPolozenie().getX();
+            if (czujnik1PodPociagiem) {
                 tor.getCzujnik_przed().aktywuj(this.nazwa);
 
-             if (czujnik2PodPociagiem)
+            } else if (czujnik2PodPociagiem && zaPrzejazdem)
                 tor.getCzujnik_za().aktywuj(this.nazwa);
         }
     }
