@@ -2,25 +2,28 @@ public class Polozenie {
     private double x;
     private double y;
 
-    public void przenies(double predkosc, double deltaT, String kierunek){
+    public void przenies(double predkosc, double deltaT, String kierunek, Polozenie cel){
         double deltaX;
         double deltaY;
         switch (kierunek) {
             case "prawo":
                 deltaX = predkosc * deltaT;
-                this.x = this.x + deltaX;
+                if (deltaX < Math.abs(cel.getX() - x ))
+                    x = x + deltaX;
+                else
+                    x = cel.getX();
                 break;
             case "lewo":
                 deltaX = predkosc * deltaT;
-                this.x = this.x - deltaX;
+                x = x - deltaX;
                 break;
             case "gora":
                 deltaY = predkosc * deltaT;
-                this.y = this.y + deltaY;
+                y = y + deltaY;
                 break;
             case "dol":
                 deltaY = predkosc * deltaT;
-                this.y = this.y - deltaY;
+                y = y - deltaY;
                 break;
         }
     }

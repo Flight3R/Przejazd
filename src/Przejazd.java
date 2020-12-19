@@ -8,18 +8,19 @@ public class Przejazd extends Thread {
     private Rogatka rogatkaDolna;
     private Integer czas;
     private Rozklad rozklad;
-    private Swiatlo swiatloGorne;
-    private Swiatlo swiatlDolne;
+    //private Swiatlo swiatloGorne;
+    //private Swiatlo swiatloDolne;
     private Tor torGorny;
     private Tor torDolny;
     private Polozenie polozenie;
+    private Ulica ulica;
 
     public Polozenie getPolozenie() { return polozenie; }
 
     public void sprawdz() throws InterruptedException {
         if (czas + 30 < rozklad.najblizszyPociag().getCzasPrzyjazdu()){
-            swiatloGorne.zapal();
-            swiatlDolne.zapal();
+            ulica.getSwiatloGorne().zapal();
+            ulica.getSwiatloDolne().zapal();
             sleep(5000);
             rogatkaGorna.zamknij();
             rogatkaDolna.zamknij();
@@ -29,8 +30,8 @@ public class Przejazd extends Thread {
             rogatkaGorna.otworz();
             rogatkaDolna.otworz();
             sleep(2000);
-            swiatloGorne.zgas();
-            swiatlDolne.zgas();
+            ulica.getSwiatloGorne().zgas();
+            ulica.getSwiatloDolne().zgas();
         }
     }
     public void sprawdzCzujniki() {
@@ -39,8 +40,8 @@ public class Przejazd extends Thread {
 
         if(zajetoscToruGornego || zajetoscToruDolnego) {
             if (rogatkaGorna.isOtwarta() || rogatkaDolna.isOtwarta()) {
-                swiatloGorne.zapal();
-                swiatlDolne.zapal();
+                ulica.getSwiatloGorne().zapal();
+                ulica.getSwiatloDolne().zapal();
                 try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
                 rogatkaGorna.zamknij();
                 rogatkaDolna.zamknij();
@@ -50,8 +51,8 @@ public class Przejazd extends Thread {
                 rogatkaGorna.otworz();
                 rogatkaDolna.otworz();
                 try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
-                swiatloGorne.zgas();
-                swiatlDolne.zgas();
+                ulica.getSwiatloGorne().zgas();
+                ulica.getSwiatloDolne().zgas();
             }
         }
     }
