@@ -6,17 +6,21 @@ public class Auto extends Pojazd {
     public void sprawdzSwiatla() {
         if (pas.getKierunek() == "dol") {
             boolean przedPrzejazdem = ulica.getSwiatloGorne().getPolozenie().getY() < (polozenie.getY() - dlugosc/2);
-            boolean mozliwoscWyhamowania = 2*Math.abs(ulica.getSwiatloGorne().getPolozenie().getY() - polozenie.getY()) < Math.pow(predkosc,2)/opoznienie;
+           // boolean mozliwoscWyhamowania = 2*Math.abs(ulica.getSwiatloGorne().getPolozenie().getY() - polozenie.getY()) < Math.pow(predkosc,2)/opoznienie;
+            boolean mozliwoscWyhamowania = drogaHamowania < (polozenie.getY() - ulica.getSwiatloGorne().getPolozenie().getY());
+
             if (przedPrzejazdem && ulica.getSwiatloGorne().isZapalone() && mozliwoscWyhamowania) {
                 cel = ulica.getSwiatloGorne().polozenie;
             }
         } else if (pas.getKierunek() == "gora") {
             boolean przedPrzejazdem = (polozenie.getY() + dlugosc/2) < ulica.getSwiatloGorne().getPolozenie().getY();
-            boolean mozliwoscWyhamowania = 2*Math.abs(ulica.getSwiatloDolne().getPolozenie().getY() - polozenie.getY()) < Math.pow(predkosc,2)/opoznienie;
+           // boolean mozliwoscWyhamowania = 2*Math.abs(ulica.getSwiatloDolne().getPolozenie().getY() - polozenie.getY()) < Math.pow(predkosc,2)/opoznienie;
+            boolean mozliwoscWyhamowania = drogaHamowania < (ulica.getSwiatloDolne().getPolozenie().getY() - polozenie.getY());
             if (przedPrzejazdem && ulica.getSwiatloDolne().isZapalone() && mozliwoscWyhamowania) {
                 cel = ulica.getSwiatloDolne().polozenie;
             }
         }
     }
+
 
 }

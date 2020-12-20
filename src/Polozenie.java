@@ -8,22 +8,31 @@ public class Polozenie {
         switch (kierunek) {
             case "prawo":
                 deltaX = predkosc * deltaT;
-                if (deltaX < Math.abs(cel.getX() - x ))
+                if (deltaX < Math.abs(cel.getX() - x))
                     x = x + deltaX;
                 else
                     x = cel.getX();
                 break;
             case "lewo":
                 deltaX = predkosc * deltaT;
-                x = x - deltaX;
+                if (deltaX < Math.abs(cel.getX() - x))
+                    x = x - deltaX;
+                else
+                    x = cel.getX();
                 break;
             case "gora":
                 deltaY = predkosc * deltaT;
-                y = y + deltaY;
+                if (deltaY < Math.abs(cel.getY() - y))
+                    y = y + deltaY;
+                else
+                    y = cel.getY();
                 break;
             case "dol":
                 deltaY = predkosc * deltaT;
-                y = y - deltaY;
+                if (deltaY < Math.abs(cel.getY() - y))
+                    y = y - deltaY;
+                else
+                    y = cel.getY();
                 break;
         }
     }
