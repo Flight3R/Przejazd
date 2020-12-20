@@ -2,10 +2,15 @@ public class Polozenie {
     private double x;
     private double y;
 
-    public void przenies(double predkosc, double deltaT, String kierunek, Polozenie cel){
+    public Polozenie(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void przenies(double predkosc, double deltaT, String zwrot, Polozenie cel){
         double deltaX;
         double deltaY;
-        switch (kierunek) {
+        switch (zwrot) {
             case "prawo":
                 deltaX = predkosc * deltaT;
                 if (deltaX < Math.abs(cel.getX() - x))

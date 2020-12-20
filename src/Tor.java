@@ -1,6 +1,6 @@
 public class Tor extends ElementInfrastruktury {
     private double dlugosc;
-    private String kierunek; // prawo lub lewo
+    private String zwrot; // prawo lub lewo
 
     private Czujnik czujnik_przed;
     private Czujnik czujnik_za;
@@ -9,8 +9,8 @@ public class Tor extends ElementInfrastruktury {
         return dlugosc;
     }
 
-    public String getKierunek() {
-        return kierunek;
+    public String getZwrot() {
+        return zwrot;
     }
 
     public Czujnik getCzujnik_przed() {
