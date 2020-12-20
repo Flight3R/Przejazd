@@ -2,7 +2,7 @@ public abstract class Pojazd extends Thread {
     protected double dlugosc;
 
     private double maxPredkosc;
-    protected Polozenie polozenie;
+    protected Polozenie polozenie; // POLOZENIE PRZODU POJAZDU
     protected Przejazd przejazd;
 
     protected Polozenie cel;
@@ -11,6 +11,7 @@ public abstract class Pojazd extends Thread {
     protected double opoznienie;
     protected double przyspieszenie;
     protected double drogaHamowania;
+
 
     public Pojazd(double dlugosc, double masa, double maxPredkosc, Polozenie polozenie, Przejazd przejazd) {
         this.dlugosc = dlugosc;
@@ -27,6 +28,7 @@ public abstract class Pojazd extends Thread {
 
     public Polozenie getPolozenie() { return polozenie; }
     public double getPredkosc() { return predkosc; }
+    public double getDlugosc() { return dlugosc; }
 
     public void zatrzymaj() { predkosc = 0; }
     public void jedz() { predkosc = maxPredkosc; }
