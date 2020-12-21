@@ -34,11 +34,11 @@ public class Przejazd extends Thread {
             ulica.getSwiatloDolne().zgas();
         }
     }
-    public void sprawdzCzujniki() {
-        boolean zajetoscToruGornego = (torGorny.getCzujnik_przed().getAktywacje() + torGorny.getCzujnik_za().getAktywacje()) %2 != 0;
-        boolean zajetoscToruDolnego = (torDolny.getCzujnik_przed().getAktywacje() + torDolny.getCzujnik_za().getAktywacje()) %2 != 0;
+    public void sterowanieAutomatyczne() {
+        boolean zajetoscOdcinkaGornego = (torGorny.getCzujnik_przed().getAktywacje() + torGorny.getCzujnik_za().getAktywacje()) %2 != 0;
+        boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnik_przed().getAktywacje() + torDolny.getCzujnik_za().getAktywacje()) %2 != 0;
 
-        if(zajetoscToruGornego || zajetoscToruDolnego) {
+        if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
             if (rogatkaGorna.isOtwarta() || rogatkaDolna.isOtwarta()) {
                 ulica.getSwiatloGorne().zapal();
                 ulica.getSwiatloDolne().zapal();
@@ -57,12 +57,30 @@ public class Przejazd extends Thread {
         }
     }
 
+    // SSP - Samoczynna Sygnalizacja Przejazdowa (info dla maszynisty czy rogatki działają)
+    public void kontrolaSSP() {
+        boolean zajetoscOdcinkaGornego = (torGorny.getCzujnik_przed().getAktywacje() + torGorny.getCzujnik_za().getAktywacje()) %2 != 0;
+        boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnik_przed().getAktywacje() + torDolny.getCzujnik_za().getAktywacje()) %2 != 0;
+
+        if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
+            if (rogatkaGorna.isOtwarta() || rogatkaDolna.isOtwarta()) {
+                torGorny.getSSP().zapal();
+                torDolny.getSSP().zapal();
+            }
+        } else {
+            if (torGorny.getSSP().isZapalone() || torDolny.getSSP().isZapalone()) {
+                torGorny.getSSP().zgas();
+                torDolny.getSSP().zgas();
+            }
+        }
+
+    }
 
     @Override
     public void run() {
         super.run();
 
-        sprawdzCzujniki();
+        sterowanieAutomatyczne();
 
         try {
             sleep(200);

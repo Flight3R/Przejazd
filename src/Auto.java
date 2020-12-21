@@ -20,7 +20,7 @@ public class Auto extends Pojazd implements Runnable {
             przedPrzejazdem = getPolozenie().getY() < ulica.getSwiatloDolne().getPolozenie().getY();
             mozliwoscWyhamowania = getDrogaHamowania() <= (ulica.getSwiatloDolne().getPolozenie().getY() - getPolozenie().getY());
             swiatlo = ulica.getSwiatloDolne();
-        } else {
+        } else { // zwrot == "dol"
             przedPrzejazdem = ulica.getSwiatloGorne().getPolozenie().getY() < getPolozenie().getY();
             mozliwoscWyhamowania = getDrogaHamowania() <= (getPolozenie().getY() - ulica.getSwiatloGorne().getPolozenie().getY());
             swiatlo = ulica.getSwiatloGorne();
@@ -40,7 +40,7 @@ public class Auto extends Pojazd implements Runnable {
                 getCel().setY(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc());
                 return true;
             }
-        } else {
+        } else { // zwrot == "dol"
             if (Math.abs(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc() - getPolozenie().getY()) < getDrogaHamowania()) {
                 getCel().setY(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc());
                 return true;
