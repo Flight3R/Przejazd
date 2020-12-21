@@ -1,76 +1,52 @@
 import static java.lang.Thread.sleep;
 
-public class Przejazd extends Thread {
-    private String nazwa;
-    private Integer iloscTorow;
-    private Integer iloscUlic;
-    private Rogatka rogatkaGorna;
-    private Rogatka rogatkaDolna;
-    private Integer czas;
-    private Rozklad rozklad;
-    //private Swiatlo swiatloGorne;
-    //private Swiatlo swiatloDolne;
+public class Przejazd extends ElementInfrastruktury {
+   // private Ulica ulica;
+    private Droga pasLewy;
+    private Droga pasPrawy;
     private Tor torGorny;
     private Tor torDolny;
-    private Polozenie polozenie;
-    private Ulica ulica;
 
-    public Polozenie getPolozenie() { return polozenie; }
+    private Rozklad rozklad;
+    private Integer czas;
 
-    public void sprawdz() throws InterruptedException {
-        if (czas + 30 < rozklad.najblizszyPociag().getCzasPrzyjazdu()){
-            ulica.getSwiatloGorne().zapal();
-            ulica.getSwiatloDolne().zapal();
-            sleep(5000);
-            rogatkaGorna.zamknij();
-            rogatkaDolna.zamknij();
-
-//powinno być: gdy przejedzie (bo mogą z dwóch stron naraz)
-            sleep((czas - rozklad.najblizszyPociag().getCzasPrzyjazdu())*1000 + 2000);
-            rogatkaGorna.otworz();
-            rogatkaDolna.otworz();
-            sleep(2000);
-            ulica.getSwiatloGorne().zgas();
-            ulica.getSwiatloDolne().zgas();
-        }
-    }
     public void sterowanieAutomatyczne() {
-        boolean zajetoscOdcinkaGornego = (torGorny.getCzujnik_przed().getAktywacje() + torGorny.getCzujnik_za().getAktywacje()) %2 != 0;
-        boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnik_przed().getAktywacje() + torDolny.getCzujnik_za().getAktywacje()) %2 != 0;
+        boolean zajetoscOdcinkaGornego = (torGorny.getCzujnikPrzed().getAktywacje() + torGorny.getCzujnikZa().getAktywacje()) %2 != 0;
+        boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnikPrzed().getAktywacje() + torDolny.getCzujnikZa().getAktywacje()) %2 != 0;
 
         if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
-            if (rogatkaGorna.isOtwarta() || rogatkaDolna.isOtwarta()) {
-                ulica.getSwiatloGorne().zapal();
-                ulica.getSwiatloDolne().zapal();
+            if (pasPrawy.getRogatka().isOtwarta() || pasLewy.getRogatka().isOtwarta()) {
+                pasPrawy.getSwiatlo().zapal();
+                pasLewy.getSwiatlo().zapal();
                 try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
-                rogatkaGorna.zamknij();
-                rogatkaDolna.zamknij();
+                pasPrawy.getRogatka().zamknij();
+                pasLewy.getRogatka().zamknij();
             }
         } else {
-            if (!rogatkaGorna.isOtwarta() || !rogatkaDolna.isOtwarta()) {
-                rogatkaGorna.otworz();
-                rogatkaDolna.otworz();
+            if (!pasPrawy.getRogatka().isOtwarta() || !pasLewy.getRogatka().isOtwarta()) {
+                pasPrawy.getRogatka().otworz();
+                pasLewy.getRogatka().otworz();
                 try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
-                ulica.getSwiatloGorne().zgas();
-                ulica.getSwiatloDolne().zgas();
+                pasPrawy.getSwiatlo().zgas();
+                pasLewy.getSwiatlo().zgas();
             }
         }
     }
 
     // SSP - Samoczynna Sygnalizacja Przejazdowa (info dla maszynisty czy rogatki działają)
     public void kontrolaSSP() {
-        boolean zajetoscOdcinkaGornego = (torGorny.getCzujnik_przed().getAktywacje() + torGorny.getCzujnik_za().getAktywacje()) %2 != 0;
-        boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnik_przed().getAktywacje() + torDolny.getCzujnik_za().getAktywacje()) %2 != 0;
+        boolean zajetoscOdcinkaGornego = (torGorny.getCzujnikPrzed().getAktywacje() + torGorny.getCzujnikZa().getAktywacje()) %2 != 0;
+        boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnikPrzed().getAktywacje() + torDolny.getCzujnikZa().getAktywacje()) %2 != 0;
 
         if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
-            if (rogatkaGorna.isOtwarta() || rogatkaDolna.isOtwarta()) {
-                torGorny.getSSP().zapal();
-                torDolny.getSSP().zapal();
+            if (pasPrawy.getRogatka().isOtwarta() || pasLewy.getRogatka().isOtwarta()) {
+                torGorny.getSwiatlo().zapal();
+                torDolny.getSwiatlo().zapal();
             }
         } else {
-            if (torGorny.getSSP().isZapalone() || torDolny.getSSP().isZapalone()) {
-                torGorny.getSSP().zgas();
-                torDolny.getSSP().zgas();
+            if (torGorny.getSwiatlo().isZapalone() || torDolny.getSwiatlo().isZapalone()) {
+                torGorny.getSwiatlo().zgas();
+                torDolny.getSwiatlo().zgas();
             }
         }
 

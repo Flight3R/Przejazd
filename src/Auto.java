@@ -1,13 +1,11 @@
-public class Auto extends Pojazd implements Runnable {
+public class Auto extends Pojazd {
 
-    private PasRuchu pas;
-    private Ulica ulica;
+    private Droga pas;
     private Auto autoPrzed;
 
-    public Auto(double dlugosc, double masa, double maxPredkosc, Polozenie polozenie, Przejazd przejazd, PasRuchu pas, Ulica ulica, Auto autoPrzed) {
-        super(dlugosc, masa, maxPredkosc, polozenie, przejazd);
+    public Auto(double dlugosc, double masa, double maxPredkosc, Polozenie polozenie, Przejazd przejazd, Droga pas, Auto autoPrzed) {
+        super(dlugosc, masa, maxPredkosc, polozenie);
         this.pas = pas;
-        this.ulica = ulica;
         this.autoPrzed = autoPrzed;
     }
 
@@ -17,13 +15,13 @@ public class Auto extends Pojazd implements Runnable {
         Swiatlo swiatlo;
 
         if (pas.getZwrot() == "gora") {
-            przedPrzejazdem = getPolozenie().getY() < ulica.getSwiatloDolne().getPolozenie().getY();
-            mozliwoscWyhamowania = getDrogaHamowania() <= (ulica.getSwiatloDolne().getPolozenie().getY() - getPolozenie().getY());
-            swiatlo = ulica.getSwiatloDolne();
+            przedPrzejazdem = getPolozenie().getY() < pas.getSwiatlo().getPolozenie().getY();
+            mozliwoscWyhamowania = getDrogaHamowania() <= (pas.getSwiatlo().getPolozenie().getY() - getPolozenie().getY());
+            swiatlo = pas.getSwiatlo();
         } else { // zwrot == "dol"
-            przedPrzejazdem = ulica.getSwiatloGorne().getPolozenie().getY() < getPolozenie().getY();
-            mozliwoscWyhamowania = getDrogaHamowania() <= (getPolozenie().getY() - ulica.getSwiatloGorne().getPolozenie().getY());
-            swiatlo = ulica.getSwiatloGorne();
+            przedPrzejazdem = pas.getSwiatlo().getPolozenie().getY() < getPolozenie().getY();
+            mozliwoscWyhamowania = getDrogaHamowania() <= (getPolozenie().getY() - pas.getSwiatlo().getPolozenie().getY());
+            swiatlo = pas.getSwiatlo();
         }
 
         if (przedPrzejazdem && swiatlo.isZapalone() && mozliwoscWyhamowania) {
