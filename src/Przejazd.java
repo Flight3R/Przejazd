@@ -2,8 +2,8 @@ import static java.lang.Thread.sleep;
 
 public class Przejazd extends ElementInfrastruktury {
    // private Ulica ulica;
-    private Droga pasLewy;
-    private Droga pasPrawy;
+    private PasRuchu pasLewy;
+    private PasRuchu pasPrawy;
     private Tor torGorny;
     private Tor torDolny;
 
@@ -15,20 +15,22 @@ public class Przejazd extends ElementInfrastruktury {
         boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnikPrzed().getAktywacje() + torDolny.getCzujnikZa().getAktywacje()) %2 != 0;
 
         if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
-            if (pasPrawy.getRogatka().isOtwarta() || pasLewy.getRogatka().isOtwarta()) {
-                pasPrawy.getSwiatlo().zapal();
+            if (pasLewy.getRogatka().isOtwarta() || pasPrawy.getRogatka().isOtwarta() ) {
                 pasLewy.getSwiatlo().zapal();
+                pasPrawy.getSwiatlo().zapal();
                 try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
-                pasPrawy.getRogatka().zamknij();
                 pasLewy.getRogatka().zamknij();
+                pasPrawy.getRogatka().zamknij();
+
             }
         } else {
-            if (!pasPrawy.getRogatka().isOtwarta() || !pasLewy.getRogatka().isOtwarta()) {
-                pasPrawy.getRogatka().otworz();
+            if (!pasLewy.getRogatka().isOtwarta() || !pasPrawy.getRogatka().isOtwarta()) {
                 pasLewy.getRogatka().otworz();
+                pasPrawy.getRogatka().otworz();
                 try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
-                pasPrawy.getSwiatlo().zgas();
                 pasLewy.getSwiatlo().zgas();
+                pasPrawy.getSwiatlo().zgas();
+
             }
         }
     }
