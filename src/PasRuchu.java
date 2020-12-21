@@ -1,5 +1,5 @@
 public class PasRuchu extends ElementInfrastruktury {
-    private String zwrot; // gora lub dol
+    private String zwrot; // gora lub dol (ważne do metody przenies)
     private double dlugosc;
     private Polozenie polozenie;
     private Polozenie koniec;

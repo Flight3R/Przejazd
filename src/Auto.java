@@ -4,10 +4,11 @@ public class Auto extends Pojazd implements Runnable {
     private Ulica ulica;
     private Auto autoPrzed;
 
-    public Auto(double dlugosc, double masa, double maxPredkosc, Polozenie polozenie, Przejazd przejazd, PasRuchu pas, Ulica ulica) {
+    public Auto(double dlugosc, double masa, double maxPredkosc, Polozenie polozenie, Przejazd przejazd, PasRuchu pas, Ulica ulica, Auto autoPrzed) {
         super(dlugosc, masa, maxPredkosc, polozenie, przejazd);
         this.pas = pas;
         this.ulica = ulica;
+        this.autoPrzed = autoPrzed;
     }
 
     public boolean sprawdzSwiatla() {
@@ -15,34 +16,33 @@ public class Auto extends Pojazd implements Runnable {
         boolean mozliwoscWyhamowania;
         Swiatlo swiatlo;
 
-        if (pas.getZwrot() == "dol") {
-            przedPrzejazdem = ulica.getSwiatloGorne().getPolozenie().getY() < polozenie.getY();
-            mozliwoscWyhamowania = drogaHamowania <= (polozenie.getY() - ulica.getSwiatloGorne().getPolozenie().getY());
-            swiatlo = ulica.getSwiatloGorne();
-
-        } else {
-            przedPrzejazdem = polozenie.getY() < ulica.getSwiatloDolne().getPolozenie().getY();
-            mozliwoscWyhamowania = drogaHamowania <= (ulica.getSwiatloDolne().getPolozenie().getY() - polozenie.getY());
+        if (pas.getZwrot() == "gora") {
+            przedPrzejazdem = getPolozenie().getY() < ulica.getSwiatloDolne().getPolozenie().getY();
+            mozliwoscWyhamowania = getDrogaHamowania() <= (ulica.getSwiatloDolne().getPolozenie().getY() - getPolozenie().getY());
             swiatlo = ulica.getSwiatloDolne();
+        } else {
+            przedPrzejazdem = ulica.getSwiatloGorne().getPolozenie().getY() < getPolozenie().getY();
+            mozliwoscWyhamowania = getDrogaHamowania() <= (getPolozenie().getY() - ulica.getSwiatloGorne().getPolozenie().getY());
+            swiatlo = ulica.getSwiatloGorne();
         }
 
         if (przedPrzejazdem && swiatlo.isZapalone() && mozliwoscWyhamowania) {
-            cel = swiatlo.getPolozenie();
+            getCel().setY(swiatlo.getPolozenie().getX());
             return true;
         }
+        return false;
     }
-
-
 
     public boolean sprawdzAutoPrzed() {
 
-        if (pas.getZwrot() == "dol") {
-            if (Math.abs(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc() - polozenie.getY()) < drogaHamowania) {
-                cel.setY(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc());
+        if (pas.getZwrot() == "gora") {
+            if (Math.abs(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc() - getPolozenie().getX()) < getDrogaHamowania()) {
+                getCel().setY(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc());
                 return true;
+            }
         } else {
-            if (Math.abs(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc() - polozenie.getX()) < drogaHamowania) {
-                cel.setY(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc());
+            if (Math.abs(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc() - getPolozenie().getY()) < getDrogaHamowania()) {
+                getCel().setY(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc());
                 return true;
             }
         }
@@ -54,16 +54,19 @@ public class Auto extends Pojazd implements Runnable {
         super.run();
         double deltaT = 200/1000;
         while(true) {
-            if ( !(sprawdzSwiatla() || sprawdzAutoPrzed()) && cel != pas.getKoniec())
-                cel = pas.getKoniec();
+            boolean swiatla = sprawdzSwiatla();         // Aby zawsze sie wykonalo
+            boolean autoPrzed = sprawdzAutoPrzed();     // Aby zawsze sie wykonalo i nadpisało jak cos
 
-            if (cel.getY() != polozenie.getY()) {
-                if (Math.abs(cel.getY() - polozenie.getY()) < drogaHamowania)
+            if ( !swiatla && !autoPrzed && getCel() != pas.getKoniec())
+               setCel(pas.getKoniec());
+
+            if (getCel().getY() != getPolozenie().getY()) {
+                if (Math.abs(getCel().getY() - getPolozenie().getY()) < getDrogaHamowania())
                     hamuj(deltaT);
                 else
                     przyspiesz(deltaT);
 
-                polozenie.przenies(predkosc, deltaT, pas.getZwrot(), cel);
+                getPolozenie().przenies(getPredkosc(), deltaT, pas.getZwrot(), getCel());
             }
 
             try { sleep((long) deltaT*1000); } catch (InterruptedException interruptedException) { interruptedException.printStackTrace(); }

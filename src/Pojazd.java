@@ -1,16 +1,16 @@
 public abstract class Pojazd extends Thread {
-    protected double dlugosc;
+    private double dlugosc;
 
     private double maxPredkosc;
-    protected Polozenie polozenie; // POLOZENIE PRZODU POJAZDU
-    protected Przejazd przejazd;
+    private Polozenie polozenie; // POLOZENIE PRZODU POJAZDU
+    private Przejazd przejazd;
 
-    protected Polozenie cel;
-    protected double predkosc;
+    private Polozenie cel;
+    private double predkosc;
 
-    protected double opoznienie;
-    protected double przyspieszenie;
-    protected double drogaHamowania;
+    private double opoznienie;
+    private double przyspieszenie;
+    private double drogaHamowania;
 
 
     public Pojazd(double dlugosc, double masa, double maxPredkosc, Polozenie polozenie, Przejazd przejazd) {
@@ -26,9 +26,17 @@ public abstract class Pojazd extends Thread {
         drogaHamowania = Math.pow(maxPredkosc, 2) / (2 * -opoznienie);
     }
 
-    public Polozenie getPolozenie() { return polozenie; }
-    public double getPredkosc() { return predkosc; }
     public double getDlugosc() { return dlugosc; }
+    public double getMaxPredkosc() { return maxPredkosc; }
+    public Polozenie getPolozenie() { return polozenie; }
+    public Przejazd getPrzejazd() { return przejazd; }
+    public Polozenie getCel() { return cel; }
+    public void setCel(Polozenie cel) { this.cel = cel; }
+
+    public double getPredkosc() { return predkosc; }
+    public double getOpoznienie() { return opoznienie; }
+    public double getPrzyspieszenie() { return przyspieszenie; }
+    public double getDrogaHamowania() { return drogaHamowania; }
 
     public void zatrzymaj() { predkosc = 0; }
     public void jedz() { predkosc = maxPredkosc; }

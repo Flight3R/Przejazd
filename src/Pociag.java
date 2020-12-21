@@ -26,16 +26,16 @@ public class Pociag extends Pojazd {
         boolean zaPrzejazdem;
 
         if ( tor.getZwrot() == "prawo") {
-            czujnik1PodPociagiem = (polozenie.getX() - dlugosc) < tor.getCzujnik_przed().getPolozenie().getX() && tor.getCzujnik_przed().getPolozenie().getX() < polozenie.getX() ;
-            czujnik2PodPociagiem = (polozenie.getX() - dlugosc) < tor.getCzujnik_za().getPolozenie().getX() && tor.getCzujnik_za().getPolozenie().getX() < polozenie.getX();
+            czujnik1PodPociagiem = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnik_przed().getPolozenie().getX() && tor.getCzujnik_przed().getPolozenie().getX() < getPolozenie().getX() ;
+            czujnik2PodPociagiem = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnik_za().getPolozenie().getX() && tor.getCzujnik_za().getPolozenie().getX() < getPolozenie().getX();
 
-           zaPrzejazdem = przejazd.getPolozenie().getX() < (polozenie.getX() - dlugosc);
+           zaPrzejazdem = getPrzejazd().getPolozenie().getX() < (getPolozenie().getX() - getDlugosc());
 
         } else { // zwrot == "lewo"
-            czujnik1PodPociagiem = polozenie.getX() < tor.getCzujnik_przed().getPolozenie().getX() && tor.getCzujnik_przed().getPolozenie().getX() < (polozenie.getX() + dlugosc);
-            czujnik2PodPociagiem = polozenie.getX() < tor.getCzujnik_za().getPolozenie().getX() && tor.getCzujnik_za().getPolozenie().getX() < (polozenie.getX() + dlugosc);
+            czujnik1PodPociagiem = getPolozenie().getX() < tor.getCzujnik_przed().getPolozenie().getX() && tor.getCzujnik_przed().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
+            czujnik2PodPociagiem = getPolozenie().getX() < tor.getCzujnik_za().getPolozenie().getX() && tor.getCzujnik_za().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
 
-            zaPrzejazdem = (polozenie.getX() + dlugosc) < przejazd.getPolozenie().getX();
+            zaPrzejazdem = (getPolozenie().getX() + getDlugosc()) < getPrzejazd().getPolozenie().getX();
         }
 
         if (czujnik1PodPociagiem) {
@@ -53,11 +53,11 @@ public class Pociag extends Pojazd {
         double deltaT = 200/1000;
         while(true) {
             // SPRAWDZ SSP
-            if (cel.getX() != polozenie.getX()) {
-                if (Math.abs(cel.getX() - polozenie.getX()) < drogaHamowania) {
+            if (getCel().getX() != getPolozenie().getX()) {
+                if (Math.abs(getCel().getX() - getPolozenie().getX()) < getDrogaHamowania()) {
                     hamuj(deltaT);
                 }
-                polozenie.przenies(predkosc, deltaT, tor.getZwrot(), cel);
+                getPolozenie().przenies(getPredkosc(), deltaT, tor.getZwrot(), getCel());
             }
 
 
