@@ -69,7 +69,11 @@ public class Pociag extends Pojazd {
 
             if (getCel().getX() != getPolozenie().getX()) {
                 if (Math.abs(getCel().getX() - getPolozenie().getX()) < getDrogaHamowania())
-                    hamuj(deltaT);
+                    if (getPredkosc() <= 5.56){ //5.56m/s ~= 20km/h
+                        if (!przejazd.isRogatkiOtwarte())
+                            setCel(tor.getKoniec());
+                    } else
+                        hamuj(deltaT);
                 else
                     przyspiesz(deltaT);
 

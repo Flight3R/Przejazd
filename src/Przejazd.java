@@ -10,6 +10,12 @@ public class Przejazd extends ElementInfrastruktury {
     private Rozklad rozklad;
     private Integer czas;
 
+    public boolean isRogatkiOtwarte() {
+        if (pasLewy.getRogatka().isOtwarta() || pasPrawy.getRogatka().isOtwarta())
+            return true;
+        return false;
+    }
+
     public void sterowanieAutomatyczne() {
         boolean zajetoscOdcinkaGornego = (torGorny.getCzujnikPrzed().getAktywacje() + torGorny.getCzujnikZa().getAktywacje()) %2 != 0;
         boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnikPrzed().getAktywacje() + torDolny.getCzujnikZa().getAktywacje()) %2 != 0;
