@@ -10,5 +10,4 @@ public abstract class ElementInfrastruktury extends Thread {
         return polozenie;
     }
 
-
 }

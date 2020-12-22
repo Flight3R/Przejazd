@@ -1,4 +1,4 @@
-public class Droga {
+public abstract class Droga extends ElementInfrastruktury {
     private Polozenie polozenie;
     private Swiatlo swiatlo;
     private String zwrot;

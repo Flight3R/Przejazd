@@ -21,7 +21,7 @@ public class Pociag extends Pojazd {
 
 
     public void sprawdzCzujniki() {
-        // --->>>---<czujnik1>-----|przejazd|-----<czujnik2>-->>>---
+
         boolean pociagNadCzujnikiem1;
         boolean pociagNadCzujnikiem2;
         boolean zaPrzejazdem;
