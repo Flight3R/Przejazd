@@ -40,6 +40,8 @@ public abstract class Pojazd extends Thread {
         predkosc = predkosc + opoznienie * deltaT;
         if (predkosc < 0)
             predkosc = 0;
+
+        drogaHamowania = Math.pow(predkosc, 2) / (2 * -opoznienie);
     }
 
     public void przyspiesz(double deltaT) {
@@ -47,5 +49,7 @@ public abstract class Pojazd extends Thread {
         predkosc = predkosc + przyspieszenie * deltaT;
         if (predkosc > maxPredkosc)
             predkosc = maxPredkosc;
+
+        drogaHamowania = Math.pow(predkosc, 2) / (2 * -opoznienie);
     }
 }
