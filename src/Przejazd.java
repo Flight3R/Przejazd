@@ -1,7 +1,7 @@
 import static java.lang.Thread.sleep;
 
 public class Przejazd extends ElementInfrastruktury {
-   // private Ulica ulica;
+
     private PasRuchu pasLewy;
     private PasRuchu pasPrawy;
     private Tor torGorny;
