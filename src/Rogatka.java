@@ -1,12 +1,11 @@
 public class Rogatka extends ElementInfrastruktury {
 
     private Integer czasZamykania;
-    private boolean otwarta;
+    private boolean otwarta = true;
 
-    public Rogatka(Polozenie polozenie, String nazwa, Integer czasZamykania, boolean otwarta) {
+    public Rogatka(Polozenie polozenie, String nazwa, Integer czasZamykania) {
         super(polozenie, nazwa);
         this.czasZamykania = czasZamykania;
-        this.otwarta = otwarta;
     }
 
     public void setCzasZamykania(Integer czasZamykania) {
@@ -17,16 +16,12 @@ public class Rogatka extends ElementInfrastruktury {
         return czasZamykania;
     }
 
-    public void setOtwarta(boolean otwarta) {
-        this.otwarta = otwarta;
-    }
-
     public boolean isOtwarta() { return otwarta; }
 
     public void otworz(){
-
+        otwarta = true;
     }
     public void zamknij(){
-
+        otwarta = false;
     }
 }

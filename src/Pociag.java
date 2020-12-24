@@ -77,10 +77,13 @@ public class Pociag extends Pojazd {
             sprawdzCzujniki();
             sprawdzSSP();
 
+//            System.out.println("rogatki " + (przejazd.isRogatkiOtwarte() ? "otwarte" : "zamkniete"));
+//            System.out.println(utrzymujPredkosc ? "utrzymuj" : "zmieniaj");;
+
             if (getCel().getX() != getPolozenie().getX()) {
                 if (Math.abs(getCel().getX() - getPolozenie().getX()) < getDrogaHamowania()) {
                     if (getPredkosc() <= 5.56 && !przejazd.isRogatkiOtwarte()) { // 5.56m/s ~= 20km/h
-                        utrzymujPredkosc = true;
+//>>>>>>>>>>>>>>>>>>>                        utrzymujPredkosc = true;
                         setCel(tor.getKoniec());
                     } else if (!utrzymujPredkosc)
                         hamuj(deltaT);
@@ -101,7 +104,7 @@ public class Pociag extends Pojazd {
                 getPolozenie().przenies(getPredkosc(), deltaT, tor.getZwrot(), getCel());
             }
 
-            try { sleep(200); } catch (InterruptedException interruptedException) { interruptedException.printStackTrace(); }
+            try { sleep((long) (deltaT*1000)); } catch (InterruptedException interruptedException) { interruptedException.printStackTrace(); }
         }
     }
 }

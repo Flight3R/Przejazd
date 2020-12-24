@@ -1,17 +1,16 @@
 public class Swiatlo extends ElementInfrastruktury {
-    private boolean zapalone;
+    private boolean zapalone = false;
 
-    public Swiatlo(Polozenie polozenie, String nazwa, boolean zapalone) {
+    public Swiatlo(Polozenie polozenie, String nazwa) {
         super(polozenie, nazwa);
-        this.zapalone = zapalone;
     }
 
     public boolean isZapalone() { return zapalone; }
 
     public void zapal(){
-        zapalone=true;
+        zapalone = true;
     }
     public void zgas(){
-        zapalone=false;
+        zapalone = false;
     }
 }
