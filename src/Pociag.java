@@ -6,19 +6,20 @@ public class Pociag extends Pojazd {
     private final Przejazd przejazd;
     private boolean utrzymujPredkosc = false;
 
-    public Pociag(double dlugosc, Integer masa, double maxPredkosc, Polozenie polozenie, String nazwa, Integer czasPrzyjazdu, Tor tor, Przejazd przejazd) {
-        super(dlugosc, masa, maxPredkosc, polozenie);
+    public Pociag(double dlugosc, Integer masa, double maxPredkosc, String nazwa, Integer czasPrzyjazdu, Tor tor, Przejazd przejazd) {
+        super(dlugosc, masa, maxPredkosc, new Polozenie(-tor.getKoniec().getX()/2,tor.getKoniec().getY()));
         this.nazwa = nazwa;
         this.czasPrzyjazdu = czasPrzyjazdu;
         this.tor = tor;
         this.przejazd = przejazd;
         copyCel(tor.getKoniec());
-        start();
+//        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ODKOMENTOWAC >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//        start();
     }
 
     @Override
     public String toString() {
-        return "Pociag numer: " + nazwa + "\tV= " + getPredkosc() + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY();
+        return "Pociag: " + nazwa + "\tV= " + getPredkosc() + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY();
     }
 
     public Integer getCzasPrzyjazdu() { return czasPrzyjazdu; }
@@ -42,8 +43,10 @@ public class Pociag extends Pojazd {
         if (pociagNadCzujnikiem1) {
             tor.getCzujnikPrzed().aktywuj(nazwa);
 
-        } else if (pociagNadCzujnikiem2 && tylZaPrzejazdem)
+        } else if (pociagNadCzujnikiem2 && tylZaPrzejazdem) {
             tor.getCzujnikZa().aktywuj(nazwa);
+//            System.out.println(this + "\tZA PRZEJAZDEM !!!");
+        }
     }
 
     public void sprawdzSSP() {
@@ -66,10 +69,10 @@ public class Pociag extends Pojazd {
 
     @Override
     public void run() {
+        System.out.println(this + "\tZGŁASZAM SIĘ!");
         double deltaT = 200.0/1000;
         while(true) {
-            System.out.println(this);
-            System.out.println("cel: "+getCel().getX()+" koniec: "+tor.getKoniec().getX());
+//            System.out.println(this);
 
             sprawdzCzujniki();
             sprawdzSSP();
@@ -98,7 +101,12 @@ public class Pociag extends Pojazd {
                 getPolozenie().przenies(getPredkosc(), deltaT, tor.getZwrot(), getCel());
             }
 
-            try { sleep((long) (deltaT*1000)); } catch (InterruptedException interruptedException) { interruptedException.printStackTrace(); }
+            try {
+                sleep((long) (deltaT*1000));
+            } catch (InterruptedException e) {
+                System.out.println(this + "\tDO WIDZENIA!");
+                stop();
+            }
         }
     }
 }

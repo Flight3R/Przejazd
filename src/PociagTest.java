@@ -24,7 +24,7 @@ public class PociagTest {
         Tor torTestowyG = new Tor(new Polozenie(0, 2), "tor_dolny", sspTestoweG, "lewo", 5000, czujnikTestowy1G, czujnikTestowy2G);
         Przejazd przejazdTestowy = new Przejazd(new Polozenie(0,0), "przejazd",pasTestowyL, pasTestowyP,torTestowyG, torTestowyD,null, 0);
 
-        Pociag pociagTestowy = new Pociag(120,30000,27.67,new Polozenie(-2000,-2),"112200",0, torTestowyD, przejazdTestowy);
+        Pociag pociagTestowy = new Pociag(120,30000,27.67,"112200",0, torTestowyD, przejazdTestowy);
 
         assertFalse(sygnalizacjaTestowaL.isZapalone());
         assertFalse(sygnalizacjaTestowaP.isZapalone());

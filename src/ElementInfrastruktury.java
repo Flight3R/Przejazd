@@ -8,9 +8,6 @@ public abstract class ElementInfrastruktury extends Thread {
         this.nazwa = nazwa;
     }
 
-    public String getNazwa() {
-        return nazwa;
-    }
     public Polozenie getPolozenie() {
         return polozenie;
     }

@@ -6,9 +6,10 @@ public class Przejazd extends ElementInfrastruktury {
     private final Tor torDolny;
 
     private Rozklad rozklad;
-    private Integer czas;
+    private Rozklad lista = new Rozklad();
+    private double czas;
 
-    public Przejazd(Polozenie polozenie, String nazwa, PasRuchu pasLewy, PasRuchu pasPrawy, Tor torGorny, Tor torDolny, Rozklad rozklad, Integer czas) {
+    public Przejazd(Polozenie polozenie, String nazwa, PasRuchu pasLewy, PasRuchu pasPrawy, Tor torGorny, Tor torDolny, Rozklad rozklad, double czas) {
         super(polozenie, nazwa);
         this.pasLewy = pasLewy;
         this.pasPrawy = pasPrawy;
@@ -16,7 +17,16 @@ public class Przejazd extends ElementInfrastruktury {
         this.torDolny = torDolny;
         this.rozklad = rozklad;
         this.czas = czas;
-        start();
+//        start();
+    }
+
+    @Override
+    public String toString() {
+        return "Przejazd: " + nazwa + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY();
+    }
+
+    public Rozklad getRozklad() {
+        return rozklad;
     }
 
     public boolean isRogatkiOtwarte() {
@@ -76,13 +86,35 @@ public class Przejazd extends ElementInfrastruktury {
         }
     }
 
+    public void obslugaRozkladu() {
+        if (rozklad.ilePociagow() != 0) {
+            Pociag najblizszyPrzed = rozklad.najblizszyPociag();
+            double czasDojazdu = 2500/najblizszyPrzed.getMaxPredkosc();
+            if (najblizszyPrzed.getCzasPrzyjazdu()-czasDojazdu < czas) {
+                najblizszyPrzed.start();
+                lista.dodaj(najblizszyPrzed);
+                rozklad.usunPierwszy();
+            }
+        }
+        if (lista.ilePociagow() != 0) {
+            Pociag najblizszyZa = lista.najblizszyPociag();
+            if (Math.abs(najblizszyZa.getPolozenie().getX()) > 2500) {
+                lista.usunPierwszy();
+                najblizszyZa.interrupt();
+            }
+        }
+    }
+
     @Override
     public void run() {
+        System.out.println(this + "\tROZPOCZYNAM SŁUŻBĘ!");
         double deltaT = 200.0/1000;
         while (true) {
             sterowanieAutomatyczne();
             kontrolaSSP();
+            obslugaRozkladu();
 
+            czas = czas + deltaT;
             try { sleep((long) (deltaT*1000)); } catch (InterruptedException e) { e.printStackTrace(); }
         }
     }

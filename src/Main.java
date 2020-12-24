@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+
+import static java.lang.Thread.activeCount;
 import static java.lang.Thread.sleep;
 
 public class Main {
@@ -18,9 +21,40 @@ public class Main {
         Czujnik czujnikTestowy1G = new Czujnik(new Polozenie(1800, 2), "czujnik_przed_tor_gorny");
         Czujnik czujnikTestowy2G = new Czujnik(new Polozenie(-10, 2), "czujnik_za_tor_gorny");
         Tor torTestowyG = new Tor(new Polozenie(0, 2), "tor_dolny", sspTestoweG, "lewo", 5000, czujnikTestowy1G, czujnikTestowy2G);
-        Przejazd przejazdTestowy = new Przejazd(new Polozenie(0,0), "przejazd",pasTestowyL, pasTestowyP,torTestowyG, torTestowyD,null, 0);
 
-        Pociag pociagTestowy = new Pociag(120,30000,27.67,new Polozenie(-2500,-2),"112200",0, torTestowyD, przejazdTestowy);
+        Rozklad rozkladTestowy = new Rozklad();
+        Przejazd przejazdTestowy = new Przejazd(new Polozenie(0,0), "przejazd",pasTestowyL, pasTestowyP,torTestowyG, torTestowyD, rozkladTestowy,0);
+
+        Pociag pociagTestowy1 = new Pociag(120,650000,26,"444",200, torTestowyD, przejazdTestowy);
+        Pociag pociagTestowy2 = new Pociag(200,80000,25,"555",200, torTestowyG, przejazdTestowy);
+        Pociag pociagTestowy3 = new Pociag(30,20000,38.89,"222",120, torTestowyD, przejazdTestowy);
+        Pociag pociagTestowy4 = new Pociag(80,40000,27.67,"600",250, torTestowyD, przejazdTestowy);
+        Pociag pociagTestowy5 = new Pociag(300,100000,22.22,"777", 250, torTestowyG, przejazdTestowy);
+        Pociag pociagTestowy6 = new Pociag(600,200000,16.67,"333",150, torTestowyG, przejazdTestowy);
+        Pociag pociagTestowy7 = new Pociag(10,15000,44.44,"111",60, torTestowyD, przejazdTestowy);
+
+        rozkladTestowy.dodaj(pociagTestowy1);
+        rozkladTestowy.dodaj(pociagTestowy2);
+        rozkladTestowy.dodaj(pociagTestowy3);
+        rozkladTestowy.dodaj(pociagTestowy4);
+        rozkladTestowy.dodaj(pociagTestowy5);
+        rozkladTestowy.dodaj(pociagTestowy6);
+        rozkladTestowy.dodaj(pociagTestowy7);
+
+//        rozkladTestowy.getTabelaPociagow().remove(0);
+//        System.out.println(rozkladTestowy.getTabelaPociagow().get(0));
+
+        przejazdTestowy.start();
+
+        /*ArrayList<String> list = new ArrayList<>();
+
+        list.add("alfa");
+        list.add("beta");
+        list.add("gamma");
+
+        list.remove(0);
+
+        System.out.println(list.get(0));*/
 
     }
 }
