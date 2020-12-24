@@ -26,22 +26,24 @@ public class Pociag extends Pojazd {
 
         boolean pociagNadCzujnikiem1;
         boolean pociagNadCzujnikiem2;
-        boolean zaPrzejazdem = zaPrzejazdem();
+        boolean tylZaPrzejazdem;
 
         if ( tor.getZwrot() == "prawo") {
             pociagNadCzujnikiem1 = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnikPrzed().getPolozenie().getX() && tor.getCzujnikPrzed().getPolozenie().getX() < getPolozenie().getX() ;
             pociagNadCzujnikiem2 = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnikZa().getPolozenie().getX() && tor.getCzujnikZa().getPolozenie().getX() < getPolozenie().getX();
+            tylZaPrzejazdem = przejazd.getPolozenie().getX() < (getPolozenie().getX() - getDlugosc());
 
         } else { // zwrot == "lewo"
             pociagNadCzujnikiem1 = getPolozenie().getX() < tor.getCzujnikPrzed().getPolozenie().getX() && tor.getCzujnikPrzed().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
             pociagNadCzujnikiem2 = getPolozenie().getX() < tor.getCzujnikZa().getPolozenie().getX() && tor.getCzujnikZa().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
+            tylZaPrzejazdem = (getPolozenie().getX() + getDlugosc()) < przejazd.getPolozenie().getX();
 
         }
 
         if (pociagNadCzujnikiem1) {
             tor.getCzujnikPrzed().aktywuj(nazwa);
 
-        } else if (pociagNadCzujnikiem2 && zaPrzejazdem)
+        } else if (pociagNadCzujnikiem2 && tylZaPrzejazdem)
             tor.getCzujnikZa().aktywuj(nazwa);
     }
 
@@ -56,16 +58,6 @@ public class Pociag extends Pojazd {
         }
     }
 
-    public boolean zaPrzejazdem() {
-        boolean zaPrzejazdem;
-        if ( tor.getZwrot() == "prawo")
-            zaPrzejazdem = przejazd.getPolozenie().getX() < (getPolozenie().getX() - getDlugosc());
-        else
-            zaPrzejazdem = (getPolozenie().getX() + getDlugosc()) < przejazd.getPolozenie().getX();
-
-        return zaPrzejazdem;
-    }
-    
     @Override
     public void run() {
         super.run();
@@ -85,11 +77,19 @@ public class Pociag extends Pojazd {
                 } else if (getPredkosc() < getMaxPredkosc() && !utrzymujPredkosc)
                     przyspiesz(deltaT);
 
+                if (utrzymujPredkosc) {
+                    boolean przodZaPrzejazdem;
+                    if (tor.getZwrot() == "prawo")
+                        przodZaPrzejazdem = getPolozenie().getX() < przejazd.getPolozenie().getX();
+                    else // zwrot == "lewo"
+                        przodZaPrzejazdem = przejazd.getPolozenie().getX() < getPolozenie().getX();
+
+                    if (przodZaPrzejazdem)
+                        utrzymujPredkosc = false;
+                }
+
                 getPolozenie().przenies(getPredkosc(), deltaT, tor.getZwrot(), getCel());
             }
-
-            if (utrzymujPredkosc && zaPrzejazdem())
-                utrzymujPredkosc = false;
 
             try { sleep((long) deltaT*1000); } catch (InterruptedException interruptedException) { interruptedException.printStackTrace(); }
         }
