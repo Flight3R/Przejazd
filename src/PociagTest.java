@@ -19,7 +19,7 @@ public class PociagTest {
 
 
     Przejazd przejazdTestowy = new Przejazd(new Polozenie(0,0), "przejazd",pasTestowyL, pasTestowyP,torTestowyG, torTestowyD,null, 0);
-    Pociag pociagTestowy = new Pociag(120,100000,100,new Polozenie(-2500,-2),"112200",0, torTestowyG, przejazdTestowy);
+    Pociag pociagTestowy = new Pociag(120,100000,27.78,new Polozenie(-2500,-2),"112200",0, torTestowyD, przejazdTestowy);
 
     @org.junit.Test
     public void sprawdzCzujniki() {

@@ -50,7 +50,7 @@ public class Przejazd extends ElementInfrastruktury {
 
             }
         }
-        System.out.println("sterowanie auto!");
+//        System.out.println("sterowanie auto!");
     }
 
     // SSP - Samoczynna Sygnalizacja Przejazdowa (info dla maszynisty czy rogatki działają)
@@ -74,7 +74,7 @@ public class Przejazd extends ElementInfrastruktury {
 
     @Override
     public void run() {
-        super.run();
+//        super.run();
         System.out.println("przejazd dziala!");
         sterowanieAutomatyczne();
 

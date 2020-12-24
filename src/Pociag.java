@@ -16,9 +16,11 @@ public class Pociag extends Pojazd {
         start();
     }
 
-    public String getNazwa() {
-        return nazwa;
+    @Override
+    public String toString() {
+        return "P: " + nazwa + "\tV: " + getPredkosc() + "\tX: " + getPolozenie().getX() + "\tY: " + getPolozenie().getY();
     }
+
     public Integer getCzasPrzyjazdu() {
         return czasPrzyjazdu;
     }
@@ -66,10 +68,12 @@ public class Pociag extends Pojazd {
 
     @Override
     public void run() {
-        super.run();
-        double deltaT = 200/1000;
+//        super.run();
+        double deltaT = 200.0/1000;
         while(true) {
-            System.out.println(getPolozenie().getX());
+//            System.out.println("elo");
+            System.out.println(this);
+
             sprawdzCzujniki();
             sprawdzSSP();
 
@@ -97,7 +101,7 @@ public class Pociag extends Pojazd {
                 getPolozenie().przenies(getPredkosc(), deltaT, tor.getZwrot(), getCel());
             }
 
-            try { sleep((long) deltaT*1000); } catch (InterruptedException interruptedException) { interruptedException.printStackTrace(); }
+            try { sleep(200); } catch (InterruptedException interruptedException) { interruptedException.printStackTrace(); }
         }
     }
 }

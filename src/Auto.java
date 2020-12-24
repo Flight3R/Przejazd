@@ -52,7 +52,7 @@ public class Auto extends Pojazd {
     @Override
     public void run() {
         super.run();
-        double deltaT = 200/1000;
+        double deltaT = 200.0/1000;
         while(true) {
             boolean swiatla = sprawdzSwiatla();         // Aby zawsze sie wykonalo
             boolean autoPrzed = sprawdzAutoPrzed();     // Aby zawsze sie wykonalo i nadpisało jak cos
@@ -69,7 +69,7 @@ public class Auto extends Pojazd {
                 getPolozenie().przenies(getPredkosc(), deltaT, pas.getZwrot(), getCel());
             }
 
-            try { sleep((long) deltaT*1000); } catch (InterruptedException interruptedException) { interruptedException.printStackTrace(); }
+            try { sleep(200); } catch (InterruptedException interruptedException) { interruptedException.printStackTrace(); }
         }
     }
 
