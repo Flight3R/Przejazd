@@ -6,11 +6,14 @@ public class Pociag extends Pojazd {
     private Przejazd przejazd;
     private boolean utrzymujPredkosc = false;
 
-    public Pociag(double dlugosc, double masa, double maxPredkosc, Polozenie polozenie, String nazwa, Integer czasPrzyjazdu, Tor tor) {
+    public Pociag(double dlugosc, double masa, double maxPredkosc, Polozenie polozenie, String nazwa, Integer czasPrzyjazdu, Tor tor, Przejazd przejazd) {
         super(dlugosc, masa, maxPredkosc, polozenie);
         this.nazwa = nazwa;
         this.czasPrzyjazdu = czasPrzyjazdu;
         this.tor = tor;
+        this.przejazd = przejazd;
+        setCel(tor.getKoniec());
+        start();
     }
 
     public String getNazwa() {
@@ -42,9 +45,12 @@ public class Pociag extends Pojazd {
 
         if (pociagNadCzujnikiem1) {
             tor.getCzujnikPrzed().aktywuj(nazwa);
+            System.out.println("nad1!");
 
         } else if (pociagNadCzujnikiem2 && tylZaPrzejazdem)
             tor.getCzujnikZa().aktywuj(nazwa);
+
+//        System.out.println("sprawdzczujniki");
     }
 
     public void sprawdzSSP() {
@@ -63,7 +69,7 @@ public class Pociag extends Pojazd {
         super.run();
         double deltaT = 200/1000;
         while(true) {
-
+            System.out.println(getPolozenie().getX());
             sprawdzCzujniki();
             sprawdzSSP();
 

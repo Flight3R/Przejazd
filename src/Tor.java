@@ -3,8 +3,8 @@ public class Tor extends Droga {
     private Czujnik czujnikPrzed;
     private Czujnik czujnikZa;
 
-    public Tor(Polozenie polozenie, Swiatlo swiatlo, String zwrot, double dlugosc, Czujnik czujnikPrzed, Czujnik czujnikZa) {
-        super(polozenie, swiatlo, zwrot, dlugosc);
+    public Tor(Polozenie polozenie, String nazwa, Swiatlo swiatlo, String zwrot, double dlugosc, Czujnik czujnikPrzed, Czujnik czujnikZa) {
+        super(polozenie, nazwa, swiatlo, zwrot, dlugosc);
         this.czujnikPrzed = czujnikPrzed;
         this.czujnikZa = czujnikZa;
     }

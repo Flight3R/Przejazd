@@ -7,6 +7,8 @@ public class Auto extends Pojazd {
         super(dlugosc, masa, maxPredkosc, polozenie);
         this.pas = pas;
         this.autoPrzed = autoPrzed;
+        setCel(pas.getKoniec());
+        start();
     }
 
     public boolean sprawdzSwiatla() {
