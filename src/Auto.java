@@ -3,11 +3,11 @@ public class Auto extends Pojazd {
     private Droga pas;
     private Auto autoPrzed;
 
-    public Auto(double dlugosc, double masa, double maxPredkosc, Polozenie polozenie, Przejazd przejazd, Droga pas, Auto autoPrzed) {
+    public Auto(double dlugosc, Integer masa, double maxPredkosc, Polozenie polozenie, Przejazd przejazd, Droga pas, Auto autoPrzed) {
         super(dlugosc, masa, maxPredkosc, polozenie);
         this.pas = pas;
         this.autoPrzed = autoPrzed;
-        setCel(pas.getKoniec());
+        copyCel(pas.getKoniec());
         start();
     }
 
@@ -58,7 +58,7 @@ public class Auto extends Pojazd {
             boolean autoPrzed = sprawdzAutoPrzed();     // Aby zawsze sie wykonalo i nadpisało jak cos
 
             if ( !swiatla && !autoPrzed && getCel() != pas.getKoniec())
-               setCel(pas.getKoniec());
+               copyCel(pas.getKoniec());
 
             if (getCel().getY() != getPolozenie().getY()) {
                 if (Math.abs(getCel().getY() - getPolozenie().getY()) < getDrogaHamowania())
