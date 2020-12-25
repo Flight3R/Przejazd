@@ -8,9 +8,11 @@ public class Swiatlo extends ElementInfrastruktury {
     public boolean isZapalone() { return zapalone; }
 
     public void zapal(){
+        System.out.println(nazwa + " zapalony!");
         zapalone = true;
     }
     public void zgas(){
+        System.out.println(nazwa + " zgaszony!");
         zapalone = false;
     }
 }

@@ -25,26 +25,50 @@ public class Pociag extends Pojazd {
     public Integer getCzasPrzyjazdu() { return czasPrzyjazdu; }
 
     public void sprawdzCzujniki() {
-        boolean pociagNadCzujnikiem1;
-        boolean pociagNadCzujnikiem2;
+        boolean pociagNadCzujnikiemSSP1;
+        boolean pociagNadCzujnikiemSSP2;
+        boolean pociagNadCzujnikiemSBL1;
+        boolean pociagNadCzujnikiemSBL2;
+        boolean pociagNadCzujnikiemSBL3;
+        boolean pociagNadCzujnikiemSBL4;
         boolean tylZaPrzejazdem;
 
         if (tor.getZwrot().equals("prawo")) {
-            pociagNadCzujnikiem1 = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnikPrzed().getPolozenie().getX() && tor.getCzujnikPrzed().getPolozenie().getX() < getPolozenie().getX() ;
-            pociagNadCzujnikiem2 = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnikZa().getPolozenie().getX() && tor.getCzujnikZa().getPolozenie().getX() < getPolozenie().getX();
+            pociagNadCzujnikiemSSP1 = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnikSSP1().getPolozenie().getX() && tor.getCzujnikSSP1().getPolozenie().getX() < getPolozenie().getX() ;
+            pociagNadCzujnikiemSSP2 = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnikSSP2().getPolozenie().getX() && tor.getCzujnikSSP2().getPolozenie().getX() < getPolozenie().getX();
+            pociagNadCzujnikiemSBL1 = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnikSBL1().getPolozenie().getX() && tor.getCzujnikSBL1().getPolozenie().getX() < getPolozenie().getX();
+            pociagNadCzujnikiemSBL2 = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnikSBL2().getPolozenie().getX() && tor.getCzujnikSBL2().getPolozenie().getX() < getPolozenie().getX();
+            pociagNadCzujnikiemSBL3 = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnikSBL3().getPolozenie().getX() && tor.getCzujnikSBL3().getPolozenie().getX() < getPolozenie().getX();
+            pociagNadCzujnikiemSBL4 = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnikSBL4().getPolozenie().getX() && tor.getCzujnikSBL4().getPolozenie().getX() < getPolozenie().getX();
             tylZaPrzejazdem = przejazd.getPolozenie().getX() < (getPolozenie().getX() - getDlugosc());
 
         } else { // zwrot == "lewo"
-            pociagNadCzujnikiem1 = getPolozenie().getX() < tor.getCzujnikPrzed().getPolozenie().getX() && tor.getCzujnikPrzed().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
-            pociagNadCzujnikiem2 = getPolozenie().getX() < tor.getCzujnikZa().getPolozenie().getX() && tor.getCzujnikZa().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
+            pociagNadCzujnikiemSSP1 = getPolozenie().getX() < tor.getCzujnikSSP1().getPolozenie().getX() && tor.getCzujnikSSP1().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
+            pociagNadCzujnikiemSSP2 = getPolozenie().getX() < tor.getCzujnikSSP2().getPolozenie().getX() && tor.getCzujnikSSP2().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
+            pociagNadCzujnikiemSBL1 = getPolozenie().getX() < tor.getCzujnikSBL1().getPolozenie().getX() && tor.getCzujnikSBL1().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
+            pociagNadCzujnikiemSBL2 = getPolozenie().getX() < tor.getCzujnikSBL2().getPolozenie().getX() && tor.getCzujnikSBL2().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
+            pociagNadCzujnikiemSBL3 = getPolozenie().getX() < tor.getCzujnikSBL3().getPolozenie().getX() && tor.getCzujnikSBL3().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
+            pociagNadCzujnikiemSBL4 = getPolozenie().getX() < tor.getCzujnikSBL4().getPolozenie().getX() && tor.getCzujnikSBL4().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
             tylZaPrzejazdem = (getPolozenie().getX() + getDlugosc()) < przejazd.getPolozenie().getX();
         }
 
-        if (pociagNadCzujnikiem1) {
-            tor.getCzujnikPrzed().aktywuj(nazwa);
+        if (pociagNadCzujnikiemSSP1)
+            tor.getCzujnikSSP1().aktywuj(nazwa);
 
-        } else if (pociagNadCzujnikiem2 && tylZaPrzejazdem) {
-            tor.getCzujnikZa().aktywuj(nazwa);
+        if (pociagNadCzujnikiemSBL1)
+            tor.getCzujnikSBL1().aktywuj(nazwa);
+
+        if (pociagNadCzujnikiemSBL2)
+            tor.getCzujnikSBL2().aktywuj(nazwa);
+
+        if (pociagNadCzujnikiemSBL3)
+            tor.getCzujnikSBL3().aktywuj(nazwa);
+
+        if (pociagNadCzujnikiemSBL4)
+            tor.getCzujnikSBL4().aktywuj(nazwa);
+
+        if (pociagNadCzujnikiemSSP2 && tylZaPrzejazdem) {
+            tor.getCzujnikSSP2().aktywuj(nazwa);
 //            System.out.println(this + "\tZA PRZEJAZDEM !!!");
         }
     }
@@ -66,10 +90,29 @@ public class Pociag extends Pojazd {
             }
         }
     }
+    public void sprawdzSBL() {
+        if (tor.getZwrot().equals("prawo")) {
+            if (getPolozenie().getX() < tor.getSemaforSBL2().getPolozenie().getX()) {
+                if (tor.getSemaforSBL2().isZapalone())
+                    copyCel(tor.getSemaforSBL2().getPolozenie());
+                else
+                    copyCel(tor.getKoniec());
+            } else if (getPolozenie().getX() < tor.getSemaforSBL3().getPolozenie().getX() && tor.getSemaforSBL3().isZapalone())
+                copyCel(tor.getSemaforSBL3().getPolozenie());
+        } else { // zwrot == "lewo"
+            if (tor.getSemaforSBL2().getPolozenie().getX() < getPolozenie().getX()) {
+                if (tor.getSemaforSBL2().isZapalone())
+                    copyCel(tor.getSemaforSBL2().getPolozenie());
+                else
+                    copyCel(tor.getKoniec());
+            } else if (tor.getSemaforSBL3().getPolozenie().getX() < getPolozenie().getX() && tor.getSemaforSBL3().isZapalone())
+                copyCel(tor.getSemaforSBL3().getPolozenie());
+        }
+    }
 
     @Override
     public void run() {
-        tor.getSblPrzed().aktywuj(nazwa);
+        tor.getCzujnikSBL1().aktywuj(nazwa);
         System.out.println(this + "\tZGŁASZAM SIĘ!");
         double deltaT = 200.0/1000;
         while(true) {
@@ -105,7 +148,7 @@ public class Pociag extends Pojazd {
             try {
                 sleep((long) (deltaT*1000));
             } catch (InterruptedException e) {
-                tor.getSblZa().aktywuj(nazwa);
+                tor.getCzujnikSBL3().aktywuj(nazwa);
                 System.out.println(this + "\tDO WIDZENIA!");
                 stop();
             }
