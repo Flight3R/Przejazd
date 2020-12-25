@@ -117,66 +117,36 @@ public class Przejazd extends ElementInfrastruktury {
         } else if (torGorny.getSemaforSBL1().isZapalone())
             torGorny.getSemaforSBL1().zgas();
 
-        if (!torGorny.getSemaforSBL1().isZapalone()) {
-            if (zajetoscOdc1ToruGornego)
-                torGorny.getSemaforSBL1().zapal();
-            else
-                torGorny.getSemaforSBL1().zgas();
-        } else if (!zajetoscOdc1ToruGornego) {
-            if (torGorny.getSemaforSBL1().isZapalone())
-                torGorny.getSemaforSBL1().zgas();
-        }
-
-        if (!torGorny.getSemaforSBL2().isZapalone()) {
-            if (zajetoscOdc2ToruGornego)
+        if (zajetoscOdc2ToruGornego) {
+            if (!torGorny.getSemaforSBL2().isZapalone())
                 torGorny.getSemaforSBL2().zapal();
-            else
-                torGorny.getSemaforSBL2().zgas();
-        } else if (!zajetoscOdc2ToruGornego) {
-            if (torGorny.getSemaforSBL2().isZapalone())
-                torGorny.getSemaforSBL2().zgas();
-        }
+        } else if (torGorny.getSemaforSBL2().isZapalone())
+            torGorny.getSemaforSBL2().zgas();
 
-        if (!torGorny.getSemaforSBL3().isZapalone()) {
-            if (zajetoscOdc3ToruGornego)
+        if (zajetoscOdc3ToruGornego) {
+            if (!torGorny.getSemaforSBL3().isZapalone())
                 torGorny.getSemaforSBL3().zapal();
-            else
-                torGorny.getSemaforSBL3().zgas();
-        } else if (!zajetoscOdc3ToruGornego) {
-            if (torGorny.getSemaforSBL3().isZapalone())
-                torGorny.getSemaforSBL3().zgas();
-        }
+        } else if (torGorny.getSemaforSBL3().isZapalone())
+            torGorny.getSemaforSBL3().zgas();
 //tor dolny
 
-        if (!torDolny.getSemaforSBL1().isZapalone()) {
-            if (zajetoscOdc1ToruDolnego)
+        if (zajetoscOdc1ToruDolnego) {
+            if (!torDolny.getSemaforSBL1().isZapalone())
                 torDolny.getSemaforSBL1().zapal();
-            else
-                torDolny.getSemaforSBL1().zgas();
-        } else if (!zajetoscOdc1ToruDolnego) {
-            if (torDolny.getSemaforSBL1().isZapalone())
-                torDolny.getSemaforSBL1().zgas();
-        }
+        } else if (torDolny.getSemaforSBL1().isZapalone())
+            torDolny.getSemaforSBL1().zgas();
 
-        if (!torDolny.getSemaforSBL2().isZapalone()) {
-            if (zajetoscOdc2ToruDolnego)
+        if (zajetoscOdc2ToruDolnego) {
+            if (!torDolny.getSemaforSBL2().isZapalone())
                 torDolny.getSemaforSBL2().zapal();
-            else
-                torDolny.getSemaforSBL2().zgas();
-        } else if (!zajetoscOdc2ToruDolnego) {
-            if (torDolny.getSemaforSBL2().isZapalone())
-                torDolny.getSemaforSBL2().zgas();
-        }
+        } else if (torDolny.getSemaforSBL2().isZapalone())
+            torDolny.getSemaforSBL2().zgas();
 
-        if (!torDolny.getSemaforSBL3().isZapalone()) {
-            if (zajetoscOdc3ToruDolnego)
+        if (zajetoscOdc3ToruDolnego) {
+            if (!torDolny.getSemaforSBL3().isZapalone())
                 torDolny.getSemaforSBL3().zapal();
-            else
-                torDolny.getSemaforSBL3().zgas();
-        } else if (!zajetoscOdc3ToruDolnego) {
-            if (torDolny.getSemaforSBL3().isZapalone())
-                torDolny.getSemaforSBL3().zgas();
-        }
+        } else if (torDolny.getSemaforSBL3().isZapalone())
+            torDolny.getSemaforSBL3().zgas();
     }
 
     @Override

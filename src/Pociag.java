@@ -55,6 +55,9 @@ public class Pociag extends Pojazd {
         if (pociagNadCzujnikiemSSP1)
             tor.getCzujnikSSP1().aktywuj(nazwa);
 
+        if (pociagNadCzujnikiemSSP2 && tylZaPrzejazdem) {
+            tor.getCzujnikSSP2().aktywuj(nazwa);
+
         if (pociagNadCzujnikiemSBL1)
             tor.getCzujnikSBL1().aktywuj(nazwa);
 
@@ -66,10 +69,6 @@ public class Pociag extends Pojazd {
 
         if (pociagNadCzujnikiemSBL4)
             tor.getCzujnikSBL4().aktywuj(nazwa);
-
-        if (pociagNadCzujnikiemSSP2 && tylZaPrzejazdem) {
-            tor.getCzujnikSSP2().aktywuj(nazwa);
-//            System.out.println(this + "\tZA PRZEJAZDEM !!!");
         }
     }
 
