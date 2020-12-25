@@ -12,7 +12,9 @@ public class Main {
         Swiatlo sspTestoweD = new Swiatlo(new Polozenie(-1500, -2), "SSP_tor_dolny");
         Czujnik czujnikTestowy1D = new Czujnik(new Polozenie(-1800, -2), "czujnik_przed_tor_dolny");
         Czujnik czujnikTestowy2D = new Czujnik(new Polozenie(10, -2), "czujnik_za_tor_dolny");
-        Tor torTestowyD = new Tor(new Polozenie(0, -2), "tor_dolny", sspTestoweD, "prawo", 5000, czujnikTestowy1D, czujnikTestowy2D);
+        Czujnik czujnikTestowySBL1D = new Czujnik(new Polozenie(-2500, -2), "czujnik_sbl_przed_tor_dolny");
+        Czujnik czujnikTestowySBL2D = new Czujnik(new Polozenie(2500, -2), "czujnik_sbl_za_tor_dolny");
+        Tor torTestowyD = new Tor(new Polozenie(0, -2), "tor_dolny", sspTestoweD, "prawo", 5000, czujnikTestowy1D, czujnikTestowy2D,czujnikTestowySBL1D,czujnikTestowySBL2D);
 
         Swiatlo sygnalizacjaTestowaL = new Swiatlo(new Polozenie(-1, 4), "sygnalizacja_pas_lewy");
         Rogatka rogatkaTestowaL = new Rogatka(new Polozenie(-1, 3), "rogatka_pas_lewy", 5);
@@ -20,10 +22,13 @@ public class Main {
         Swiatlo sspTestoweG = new Swiatlo(new Polozenie(1500, 2), "SSP_tor_gorny");
         Czujnik czujnikTestowy1G = new Czujnik(new Polozenie(1800, 2), "czujnik_przed_tor_gorny");
         Czujnik czujnikTestowy2G = new Czujnik(new Polozenie(-10, 2), "czujnik_za_tor_gorny");
-        Tor torTestowyG = new Tor(new Polozenie(0, 2), "tor_dolny", sspTestoweG, "lewo", 5000, czujnikTestowy1G, czujnikTestowy2G);
+        Czujnik czujnikTestowySBL1G = new Czujnik(new Polozenie(2500, 2), "czujnik_sbl_przed_tor_gorny");
+        Czujnik czujnikTestowySBL2G = new Czujnik(new Polozenie(-2500, 2), "czujnik_sbl_za_tor_gorny");
+        Tor torTestowyG = new Tor(new Polozenie(0, 2), "tor_dolny", sspTestoweG, "lewo", 5000, czujnikTestowy1G, czujnikTestowy2G, czujnikTestowySBL1G, czujnikTestowySBL2G);
 
-        Rozklad rozkladTestowy = new Rozklad();
-        Przejazd przejazdTestowy = new Przejazd(new Polozenie(0,0), "przejazd",pasTestowyL, pasTestowyP,torTestowyG, torTestowyD, rozkladTestowy,0);
+        Rozklad rozkladTestowyGorny = new Rozklad();
+        Rozklad rozkladTestowyDolny = new Rozklad();
+        Przejazd przejazdTestowy = new Przejazd(new Polozenie(0,0), "przejazd",pasTestowyL, pasTestowyP,torTestowyG, torTestowyD, rozkladTestowyGorny, rozkladTestowyDolny,0);
 
         Pociag pociagTestowy1 = new Pociag(120,650000,26,"444",200, torTestowyD, przejazdTestowy);
         Pociag pociagTestowy2 = new Pociag(200,80000,25,"555",200, torTestowyG, przejazdTestowy);
@@ -33,28 +38,16 @@ public class Main {
         Pociag pociagTestowy6 = new Pociag(600,200000,16.67,"333",150, torTestowyG, przejazdTestowy);
         Pociag pociagTestowy7 = new Pociag(10,15000,44.44,"111",60, torTestowyD, przejazdTestowy);
 
-        rozkladTestowy.dodaj(pociagTestowy1);
-        rozkladTestowy.dodaj(pociagTestowy2);
-        rozkladTestowy.dodaj(pociagTestowy3);
-        rozkladTestowy.dodaj(pociagTestowy4);
-        rozkladTestowy.dodaj(pociagTestowy5);
-        rozkladTestowy.dodaj(pociagTestowy6);
-        rozkladTestowy.dodaj(pociagTestowy7);
-
-//        rozkladTestowy.getTabelaPociagow().remove(0);
-//        System.out.println(rozkladTestowy.getTabelaPociagow().get(0));
+        rozkladTestowyDolny.dodaj(pociagTestowy1);
+        rozkladTestowyGorny.dodaj(pociagTestowy2);
+        rozkladTestowyDolny.dodaj(pociagTestowy3);
+        rozkladTestowyDolny.dodaj(pociagTestowy4);
+        rozkladTestowyGorny.dodaj(pociagTestowy5);
+        rozkladTestowyGorny.dodaj(pociagTestowy6);
+        rozkladTestowyDolny.dodaj(pociagTestowy7);
 
         przejazdTestowy.start();
 
-        /*ArrayList<String> list = new ArrayList<>();
-
-        list.add("alfa");
-        list.add("beta");
-        list.add("gamma");
-
-        list.remove(0);
-
-        System.out.println(list.get(0));*/
 
     }
 }

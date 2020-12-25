@@ -69,6 +69,7 @@ public class Pociag extends Pojazd {
 
     @Override
     public void run() {
+        tor.getSblPrzed().aktywuj(nazwa);
         System.out.println(this + "\tZGŁASZAM SIĘ!");
         double deltaT = 200.0/1000;
         while(true) {
@@ -104,6 +105,7 @@ public class Pociag extends Pojazd {
             try {
                 sleep((long) (deltaT*1000));
             } catch (InterruptedException e) {
+                tor.getSblZa().aktywuj(nazwa);
                 System.out.println(this + "\tDO WIDZENIA!");
                 stop();
             }

@@ -5,17 +5,19 @@ public class Przejazd extends ElementInfrastruktury {
     private final Tor torGorny;
     private final Tor torDolny;
 
-    private Rozklad rozklad;
+    private Rozklad rozkladGorny;
+    private Rozklad rozkladDolny;
     private Rozklad lista = new Rozklad();
     private double czas;
 
-    public Przejazd(Polozenie polozenie, String nazwa, PasRuchu pasLewy, PasRuchu pasPrawy, Tor torGorny, Tor torDolny, Rozklad rozklad, double czas) {
+    public Przejazd(Polozenie polozenie, String nazwa, PasRuchu pasLewy, PasRuchu pasPrawy, Tor torGorny, Tor torDolny, Rozklad rozkladGorny, Rozklad rozkladDolny, double czas) {
         super(polozenie, nazwa);
         this.pasLewy = pasLewy;
         this.pasPrawy = pasPrawy;
         this.torGorny = torGorny;
         this.torDolny = torDolny;
-        this.rozklad = rozklad;
+        this.rozkladGorny = rozkladGorny;
+        this.rozkladDolny = rozkladDolny;
         this.czas = czas;
 //        start();
     }
@@ -25,8 +27,8 @@ public class Przejazd extends ElementInfrastruktury {
         return "Przejazd: " + nazwa + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY();
     }
 
-    public Rozklad getRozklad() {
-        return rozklad;
+    public Rozklad getRozkladGorny() {
+        return rozkladGorny;
     }
 
     public boolean isRogatkiOtwarte() {
@@ -87,20 +89,26 @@ public class Przejazd extends ElementInfrastruktury {
     }
 
     public void obslugaRozkladu() {
-        if (rozklad.ilePociagow() != 0) {
-            Pociag najblizszyPrzed = rozklad.najblizszyPociag();
+        boolean zajetoscToruGornego = (torGorny.getSblPrzed().getAktywacje() + torGorny.getSblZa().getAktywacje()) % 2 != 0;
+        boolean zajetoscToruDolnego = (torDolny.getSblPrzed().getAktywacje() + torDolny.getSblZa().getAktywacje()) % 2 != 0;
+
+        if (!zajetoscToruGornego && rozkladGorny.ilePociagow() != 0) {
+            Pociag najblizszyPrzed = rozkladGorny.najblizszyPociag();
             double czasDojazdu = 2500/najblizszyPrzed.getMaxPredkosc();
             if (najblizszyPrzed.getCzasPrzyjazdu()-czasDojazdu < czas) {
                 najblizszyPrzed.start();
                 lista.dodaj(najblizszyPrzed);
-                rozklad.usunPierwszy();
+                rozkladGorny.usunPierwszy();
             }
         }
-        if (lista.ilePociagow() != 0) {
-            Pociag najblizszyZa = lista.najblizszyPociag();
-            if (Math.abs(najblizszyZa.getPolozenie().getX()) > 2500) {
-                lista.usunPierwszy();
-                najblizszyZa.interrupt();
+        
+        if (!zajetoscToruDolnego && rozkladDolny.ilePociagow() != 0) {
+            Pociag najblizszyPrzed = rozkladDolny.najblizszyPociag();
+            double czasDojazdu = 2500/najblizszyPrzed.getMaxPredkosc();
+            if (najblizszyPrzed.getCzasPrzyjazdu()-czasDojazdu < czas) {
+                najblizszyPrzed.start();
+                lista.dodaj(najblizszyPrzed);
+                rozkladDolny.usunPierwszy();
             }
         }
     }
