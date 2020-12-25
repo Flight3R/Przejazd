@@ -19,7 +19,7 @@ public class Przejazd extends ElementInfrastruktury {
         this.rozkladGorny = rozkladGorny;
         this.rozkladDolny = rozkladDolny;
         this.czas = czas;
-//        start();
+        start();
     }
 
     @Override
@@ -27,8 +27,28 @@ public class Przejazd extends ElementInfrastruktury {
         return "Przejazd: " + nazwa + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY();
     }
 
+    public Tor getTorGorny() {
+        return torGorny;
+    }
+
+    public Tor getTorDolny() {
+        return torDolny;
+    }
+
+    public Rozklad getRozkladDolny() {
+        return rozkladDolny;
+    }
+
     public Rozklad getRozkladGorny() {
         return rozkladGorny;
+    }
+
+    public Rozklad getLista() {
+        return lista;
+    }
+
+    public double getCzas() {
+        return czas;
     }
 
     public boolean isRogatkiOtwarte() {
@@ -89,28 +109,7 @@ public class Przejazd extends ElementInfrastruktury {
     }
 
     public void obslugaRozkladu() {
-        boolean zajetoscToruGornego = (torGorny.getSblPrzed().getAktywacje() + torGorny.getSblZa().getAktywacje()) % 2 != 0;
-        boolean zajetoscToruDolnego = (torDolny.getSblPrzed().getAktywacje() + torDolny.getSblZa().getAktywacje()) % 2 != 0;
 
-        if (!zajetoscToruGornego && rozkladGorny.ilePociagow() != 0) {
-            Pociag najblizszyPrzed = rozkladGorny.najblizszyPociag();
-            double czasDojazdu = 2500/najblizszyPrzed.getMaxPredkosc();
-            if (najblizszyPrzed.getCzasPrzyjazdu()-czasDojazdu < czas) {
-                najblizszyPrzed.start();
-                lista.dodaj(najblizszyPrzed);
-                rozkladGorny.usunPierwszy();
-            }
-        }
-        
-        if (!zajetoscToruDolnego && rozkladDolny.ilePociagow() != 0) {
-            Pociag najblizszyPrzed = rozkladDolny.najblizszyPociag();
-            double czasDojazdu = 2500/najblizszyPrzed.getMaxPredkosc();
-            if (najblizszyPrzed.getCzasPrzyjazdu()-czasDojazdu < czas) {
-                najblizszyPrzed.start();
-                lista.dodaj(najblizszyPrzed);
-                rozkladDolny.usunPierwszy();
-            }
-        }
     }
 
     @Override

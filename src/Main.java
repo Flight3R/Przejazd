@@ -46,8 +46,8 @@ public class Main {
         rozkladTestowyGorny.dodaj(pociagTestowy6);
         rozkladTestowyDolny.dodaj(pociagTestowy7);
 
-        przejazdTestowy.start();
+//        przejazdTestowy.start();
 
-
+        KontrolaRuchu kontrolaTestowa = new KontrolaRuchu(przejazdTestowy);
     }
 }
