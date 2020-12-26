@@ -140,7 +140,7 @@ public class Pociag extends Pojazd {
 
             if (getCel().getX() != getPolozenie().getX()) {
 
-                System.out.println(this);
+//                System.out.println(this);
 
                 if (Math.abs(getCel().getX() - getPolozenie().getX()) < getDrogaHamowania() * 1.2) {
                     if (Math.abs(getCel().getX() - przejazd.getPolozenie().getX()) < 50) {

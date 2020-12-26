@@ -7,7 +7,7 @@ public class Przejazd extends ElementInfrastruktury {
 
     private Rozklad rozkladGorny;
     private Rozklad rozkladDolny;
-    private Rozklad lista = new Rozklad();
+
     private double czas;
 
     public Przejazd(Polozenie polozenie, String nazwa, PasRuchu pasLewy, PasRuchu pasPrawy, Tor torGorny, Tor torDolny, Rozklad rozkladGorny, Rozklad rozkladDolny, double czas) {
@@ -24,7 +24,7 @@ public class Przejazd extends ElementInfrastruktury {
 
     @Override
     public String toString() {
-        return "Przejazd: " + nazwa + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY();
+        return "Przejazd: " + nazwa + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY() + "\tT= " + Math.round(czas*100.0)/100.0;
     }
 
     public PasRuchu getPasLewy() {
@@ -51,10 +51,6 @@ public class Przejazd extends ElementInfrastruktury {
         return rozkladDolny;
     }
 
-    public Rozklad getLista() {
-        return lista;
-    }
-
     public double getCzas() {
         return czas;
     }
@@ -68,24 +64,20 @@ public class Przejazd extends ElementInfrastruktury {
         boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnikSSP1().getAktywacje() + torDolny.getCzujnikSSP2().getAktywacje()) %2 != 0;
 
         if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
-            if (pasLewy.getRogatka().isOtwarta() || pasPrawy.getRogatka().isOtwarta() ) {
+            if (!pasLewy.getSwiatlo().isZapalone() || !pasPrawy.getSwiatlo().isZapalone() ) {
                 pasLewy.getSwiatlo().zapal();
                 pasPrawy.getSwiatlo().zapal();
-                System.out.println("zapalam lampy!");
-                try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
+//                try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
                 pasLewy.getRogatka().zamknij();
                 pasPrawy.getRogatka().zamknij();
-                System.out.println("zamykam rogatki!");
             }
         } else {
             if (!pasLewy.getRogatka().isOtwarta() || !pasPrawy.getRogatka().isOtwarta()) {
                 pasLewy.getRogatka().otworz();
                 pasPrawy.getRogatka().otworz();
-                System.out.println("otwieram rogatki!");
-                try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
+//                try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
                 pasLewy.getSwiatlo().zgas();
                 pasPrawy.getSwiatlo().zgas();
-                System.out.println("gasze lampy!");
 
             }
         }
@@ -94,26 +86,22 @@ public class Przejazd extends ElementInfrastruktury {
 
     // SSP - Samoczynna Sygnalizacja Przejazdowa (info dla maszynisty czy rogatki działają)
     public void sterowanieSSP() {
-//        >>>>>>>>>>>>>>>>>>> DO REFAKTORYZACJI !!! >>>>>>>>>>>>>>>>
         boolean zajetoscOdcinkaGornego = (torGorny.getCzujnikSSP1().getAktywacje() + torGorny.getCzujnikSSP2().getAktywacje()) % 2 != 0;
         boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnikSSP1().getAktywacje() + torDolny.getCzujnikSSP2().getAktywacje()) % 2 != 0;
 
         if (zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
-            if (pasPrawy.getRogatka().isOtwarta() || pasLewy.getRogatka().isOtwarta()) {
+            if (!pasPrawy.getSwiatlo().isZapalone() || !pasLewy.getSwiatlo().isZapalone()) {
                 if (!torGorny.getSwiatlo().isZapalone() || !torDolny.getSwiatlo().isZapalone()) {
                     torGorny.getSwiatlo().zapal();
                     torDolny.getSwiatlo().zapal();
-                    System.out.println("zapalam SSP!");
                 }
             } else if (torGorny.getSwiatlo().isZapalone() || torDolny.getSwiatlo().isZapalone()) {
                 torGorny.getSwiatlo().zgas();
                 torDolny.getSwiatlo().zgas();
-                System.out.println("gasze SSP!");
             }
         } else if (torGorny.getSwiatlo().isZapalone() || torDolny.getSwiatlo().isZapalone()) {
             torGorny.getSwiatlo().zgas();
             torDolny.getSwiatlo().zgas();
-            System.out.println("gasze SSP!");
         }
     }
 
@@ -171,7 +159,7 @@ public class Przejazd extends ElementInfrastruktury {
             sterowanieAutomatyczne();
             sterowanieSSP();
             sterowanieSBL();
-
+            System.out.println(this);
             czas = czas + deltaT;
             try { sleep((long) (deltaT*1000)); } catch (InterruptedException e) { e.printStackTrace(); }
         }

@@ -19,41 +19,23 @@ public abstract class Pojazd extends Thread {
         drogaHamowania = Math.pow(maxPredkosc, 2) / (2 * -opoznienie);
     }
 
-    public Polozenie getPolozenie() {
-        return polozenie;
-    }
+    public Polozenie getPolozenie() { return polozenie; }
 
-    public double getDlugosc() {
-        return dlugosc;
-    }
+    public double getDlugosc() { return dlugosc; }
 
-    public double getPredkosc() {
-        return predkosc;
-    }
+    public double getPredkosc() { return predkosc; }
 
-    public double getMaxPredkosc() {
-        return maxPredkosc;
-    }
+    public double getMaxPredkosc() { return maxPredkosc; }
 
-    public double getOpoznienie() {
-        return opoznienie;
-    }
+    public double getOpoznienie() { return opoznienie; }
 
-    public double getPrzyspieszenie() {
-        return przyspieszenie;
-    }
+    public double getPrzyspieszenie() { return przyspieszenie; }
 
-    public double getDrogaHamowania() {
-        return drogaHamowania;
-    }
+    public double getDrogaHamowania() { return drogaHamowania; }
 
-    public Polozenie getCel() {
-        return cel;
-    }
+    public Polozenie getCel() { return cel; }
 
-    public void setPredkosc(double predkosc) {
-        this.predkosc = predkosc;
-    }
+    public void setPredkosc(double predkosc) { this.predkosc = predkosc; }
 
     public void copyCel(Polozenie cel) {
         this.cel.setX(cel.getX());

@@ -1,5 +1,6 @@
 public class KontrolaRuchu extends Thread {
-    private Przejazd przejazd;
+    private final Przejazd przejazd;
+    private Rozklad lista = new Rozklad();
 
     public KontrolaRuchu(Przejazd przejazd) {
         this.przejazd = przejazd;
@@ -14,7 +15,8 @@ public class KontrolaRuchu extends Thread {
                 double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
                 if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < przejazd.getCzas()) {
                     najblizszyPrzed.start();
-                    przejazd.getLista().dodaj(najblizszyPrzed);
+                    najblizszyPrzed.setOpoznienie((int) (czasDojazdu+najblizszyPrzed.getCzasPrzyjazdu()-przejazd.getCzas()));
+                    lista.dodaj(najblizszyPrzed);
                     przejazd.getRozkladGorny().usunPierwszy();
                 }
             }
@@ -24,15 +26,15 @@ public class KontrolaRuchu extends Thread {
                 double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
                 if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < przejazd.getCzas()) {
                     najblizszyPrzed.start();
-                    przejazd.getLista().dodaj(najblizszyPrzed);
+                    lista.dodaj(najblizszyPrzed);
                     przejazd.getRozkladDolny().usunPierwszy();
                 }
             }
 
-            if (przejazd.getLista().ilePociagow() != 0) {
-                Pociag najblizszyZa = przejazd.getLista().najblizszyPociag();
+            if (lista.ilePociagow() != 0) {
+                Pociag najblizszyZa = lista.najblizszyPociag();
                 if (Math.abs(najblizszyZa.getPolozenie().getX()) > 2500) {
-                    przejazd.getLista().usunPierwszy();
+                    lista.usunPierwszy();
                     najblizszyZa.interrupt();
                 }
             }
