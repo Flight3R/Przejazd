@@ -1,6 +1,6 @@
 public class Rogatka extends ElementInfrastruktury {
 
-    private Integer czasZamykania;
+    private final Integer czasZamykania;
     private boolean otwarta = true;
     private boolean polecenieZamkniecia = false;
 
@@ -16,7 +16,7 @@ public class Rogatka extends ElementInfrastruktury {
 
     public boolean isOtwarta() { return otwarta; }
 
-    public void otworz(){
+    public void otworz() {
         System.out.println("Rogatka: " + nazwa + " otwarta");
         otwarta = true;
     }

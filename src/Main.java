@@ -1,11 +1,6 @@
-import java.util.ArrayList;
-
-import static java.lang.Thread.activeCount;
-import static java.lang.Thread.sleep;
-
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         Swiatlo sygnalizacjaTestowaP = new Swiatlo(new Polozenie(1, -4), "sygnalizacja_pas_prawy");
         Rogatka rogatkaTestowaP = new Rogatka(new Polozenie(1, -3), "rogatka_pas_prawy", 5);
@@ -19,9 +14,9 @@ public class Main {
         Swiatlo semaforTestowySBL2D = new Swiatlo(new Polozenie(-1901,-2), "semafor_SBL2_tor_dolny");
 
         Czujnik czujnikTestowySSP1D = new Czujnik(new Polozenie(-1800,-2), "czujnik_SSP1_tor_dolny");
-        Swiatlo semaforTestowySSPD = new Swiatlo(new Polozenie(-1500, -2), "semafor_SSP_tor_dolny");
+        Swiatlo semaforTestowySSPD  = new Swiatlo(new Polozenie(-1500, -2), "semafor_SSP_tor_dolny");
 
-        Czujnik czujnikTestowySSP2D = new Czujnik(new Polozenie(10,   -2), "czujnik_SSP2_tor_dolny");
+        Czujnik czujnikTestowySSP2D = new Czujnik(new Polozenie(100,  -2), "czujnik_SSP2_tor_dolny");
 
         Swiatlo semaforTestowySBL3D = new Swiatlo(new Polozenie(1000, -2), "semafor_SBL3_tor_dolny");
         Czujnik czujnikTestowySBL3D = new Czujnik(new Polozenie(1001, -2), "czujnik_SBL3_tor_dolny");
@@ -43,9 +38,9 @@ public class Main {
         Swiatlo semaforTestowySBL2G = new Swiatlo(new Polozenie(1901, 2), "semafor_SBL2_tor_gorny");
 
         Czujnik czujnikTestowySSP1G = new Czujnik(new Polozenie(1800, 2), "czujnik_SSP1_tor_gorny");
-        Swiatlo semaforTestowySSPG = new Swiatlo(new Polozenie(1500,  2), "semafor_SSP_tor_gorny");
+        Swiatlo semaforTestowySSPG  = new Swiatlo(new Polozenie(1500,  2), "semafor_SSP_tor_gorny");
 
-        Czujnik czujnikTestowySSP2G = new Czujnik(new Polozenie(-10,  2), "czujnik_SSP2_tor_gorny");
+        Czujnik czujnikTestowySSP2G = new Czujnik(new Polozenie(-100, 2), "czujnik_SSP2_tor_gorny");
 
         Swiatlo semaforTestowySBL3G = new Swiatlo(new Polozenie(-1000,2), "semafor_SBL3_tor_gorny");
         Czujnik czujnikTestowySBL3G = new Czujnik(new Polozenie(-1001,2), "czujnik_SBL3_tor_gorny");
@@ -76,8 +71,8 @@ public class Main {
 //        rozkladTestowyGorny.dodaj(pociagTestowy6);
         rozkladTestowyDolny.dodaj(pociagTestowy7);
 
-//        przejazdTestowy.start();
+        przejazdTestowy.start();
 
-        KontrolaRuchu kontrolaTestowa = new KontrolaRuchu(przejazdTestowy);
+//        KontrolaRuchu kontrolaTestowa = new KontrolaRuchu(przejazdTestowy);
     }
 }

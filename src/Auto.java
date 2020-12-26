@@ -1,7 +1,7 @@
 public class Auto extends Pojazd {
 
-    private Droga pas;
-    private Auto autoPrzed;
+    private final Droga pas;
+    private final Auto autoPrzed;
 
     public Auto(double dlugosc, Integer masa, double maxPredkosc, Polozenie polozenie, Przejazd przejazd, Droga pas, Auto autoPrzed) {
         super(dlugosc, masa, maxPredkosc, polozenie);

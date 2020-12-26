@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Rozklad {
-    private ArrayList<Pociag> tabelaPociagow = new ArrayList<>();
+    private final ArrayList<Pociag> tabelaPociagow = new ArrayList<>();
 
     public ArrayList<Pociag> getTabelaPociagow() {
         return tabelaPociagow;

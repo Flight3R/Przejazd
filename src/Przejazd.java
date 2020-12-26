@@ -5,8 +5,9 @@ public class Przejazd extends ElementInfrastruktury {
     private final Tor torGorny;
     private final Tor torDolny;
 
-    private Rozklad rozkladGorny;
-    private Rozklad rozkladDolny;
+    private final Rozklad rozkladGorny;
+    private final Rozklad rozkladDolny;
+    private final Rozklad lista = new Rozklad();
 
     private double czas;
 
@@ -19,7 +20,6 @@ public class Przejazd extends ElementInfrastruktury {
         this.rozkladGorny = rozkladGorny;
         this.rozkladDolny = rozkladDolny;
         this.czas = czas;
-        start();
     }
 
     @Override
@@ -27,33 +27,19 @@ public class Przejazd extends ElementInfrastruktury {
         return "Przejazd: " + nazwa + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY() + "\tT= " + Math.round(czas*100.0)/100.0;
     }
 
-    public PasRuchu getPasLewy() {
-        return pasLewy;
-    }
+    public PasRuchu getPasLewy() { return pasLewy; }
 
-    public PasRuchu getPasPrawy() {
-        return pasPrawy;
-    }
+    public PasRuchu getPasPrawy() { return pasPrawy; }
 
-    public Tor getTorGorny() {
-        return torGorny;
-    }
+    public Tor getTorGorny() { return torGorny; }
 
-    public Tor getTorDolny() {
-        return torDolny;
-    }
+    public Tor getTorDolny() { return torDolny; }
 
-    public Rozklad getRozkladGorny() {
-        return rozkladGorny;
-    }
+    public Rozklad getRozkladGorny() { return rozkladGorny; }
 
-    public Rozklad getRozkladDolny() {
-        return rozkladDolny;
-    }
+    public Rozklad getRozkladDolny() { return rozkladDolny; }
 
-    public double getCzas() {
-        return czas;
-    }
+    public double getCzas() { return czas; }
 
     public boolean isRogatkiOtwarte() {
         return pasLewy.getRogatka().isOtwarta() || pasPrawy.getRogatka().isOtwarta();
@@ -67,7 +53,6 @@ public class Przejazd extends ElementInfrastruktury {
             if (!pasLewy.getSwiatlo().isStop() || !pasPrawy.getSwiatlo().isStop() ) {
                 pasLewy.getSwiatlo().wyswietlSTOP();
                 pasPrawy.getSwiatlo().wyswietlSTOP();
-//                try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
                 pasLewy.getRogatka().zamknij();
                 pasPrawy.getRogatka().zamknij();
             }
@@ -75,13 +60,11 @@ public class Przejazd extends ElementInfrastruktury {
             if (!pasLewy.getRogatka().isOtwarta() || !pasPrawy.getRogatka().isOtwarta()) {
                 pasLewy.getRogatka().otworz();
                 pasPrawy.getRogatka().otworz();
-//                try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
                 pasLewy.getSwiatlo().wyswietlJEDZ();
                 pasPrawy.getSwiatlo().wyswietlJEDZ();
 
             }
         }
-//        System.out.println("sterowanie auto!");
     }
 
     // SSP - Samoczynna Sygnalizacja Przejazdowa (info dla maszynisty czy rogatki działają)
@@ -130,8 +113,8 @@ public class Przejazd extends ElementInfrastruktury {
                 torGorny.getSemaforSBL3().wyswietlSTOP();
         } else if (torGorny.getSemaforSBL3().isStop())
             torGorny.getSemaforSBL3().wyswietlJEDZ();
-//tor dolny
 
+        //tor dolny
         if (zajetoscOdc1ToruDolnego) {
             if (!torDolny.getSemaforSBL1().isStop())
                 torDolny.getSemaforSBL1().wyswietlSTOP();
@@ -151,15 +134,49 @@ public class Przejazd extends ElementInfrastruktury {
             torDolny.getSemaforSBL3().wyswietlJEDZ();
     }
 
+    public void sterowanieRuchem() {
+        if (!torGorny.getSemaforSBL1().isStop() && rozkladGorny.ilePociagow() != 0) {
+            Pociag najblizszyPrzed = rozkladGorny.najblizszyPociag();
+            double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
+            if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < czas) {
+                najblizszyPrzed.start();
+                najblizszyPrzed.setOpoznienie((int) (czasDojazdu+najblizszyPrzed.getCzasPrzyjazdu() - czas));
+                lista.dodaj(najblizszyPrzed);
+                rozkladGorny.usunPierwszy();
+            }
+        }
+
+        if (!torDolny.getSemaforSBL1().isStop() && rozkladDolny.ilePociagow() != 0) {
+            Pociag najblizszyPrzed = rozkladDolny.najblizszyPociag();
+            double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
+            if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < czas) {
+                najblizszyPrzed.start();
+                lista.dodaj(najblizszyPrzed);
+                rozkladDolny.usunPierwszy();
+            }
+        }
+
+        if (lista.ilePociagow() != 0) {
+            Pociag najblizszyZa = lista.najblizszyPociag();
+            if (Math.abs(najblizszyZa.getPolozenie().getX()) > 2500) {
+                lista.usunPierwszy();
+                najblizszyZa.interrupt();
+            }
+        }
+    }
+
     @Override
     public void run() {
         System.out.println(this + "\tROZPOCZYNAM SŁUŻBĘ!");
         double deltaT = 200.0/1000;
         while (true) {
+
+            sterowanieSBL();
+            sterowanieRuchem();
             sterowanieAutomatyczne();
             sterowanieSSP();
-            sterowanieSBL();
-            System.out.println(this);
+
+//            System.out.println(this);
             czas = czas + deltaT;
             try { sleep((long) (deltaT*1000)); } catch (InterruptedException e) { e.printStackTrace(); }
         }

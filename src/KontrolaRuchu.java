@@ -1,6 +1,6 @@
 public class KontrolaRuchu extends Thread {
     private final Przejazd przejazd;
-    private Rozklad lista = new Rozklad();
+    private final Rozklad lista = new Rozklad();
 
     public KontrolaRuchu(Przejazd przejazd) {
         this.przejazd = przejazd;
@@ -15,7 +15,7 @@ public class KontrolaRuchu extends Thread {
                 double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
                 if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < przejazd.getCzas()) {
                     najblizszyPrzed.start();
-                    najblizszyPrzed.setOpoznienie((int) (czasDojazdu+najblizszyPrzed.getCzasPrzyjazdu()-przejazd.getCzas()));
+                    najblizszyPrzed.setOpoznienie((int) (czasDojazdu+najblizszyPrzed.getCzasPrzyjazdu() - przejazd.getCzas()));
                     lista.dodaj(najblizszyPrzed);
                     przejazd.getRozkladGorny().usunPierwszy();
                 }

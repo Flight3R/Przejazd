@@ -19,7 +19,7 @@ public class Swiatlo extends ElementInfrastruktury {
     }
 
     private void wyswietlSTOPprivate() throws InterruptedException {
-        sleep(5000);
+        sleep(10000);
         System.out.println("Światło: " + nazwa + " świeci JEDŹ!");
         stop = false;
     }

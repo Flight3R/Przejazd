@@ -1,5 +1,5 @@
 public class PasRuchu extends Droga {
-    private Rogatka rogatka;
+    private final Rogatka rogatka;
 
     public PasRuchu(Polozenie polozenie, String nazwa, Swiatlo swiatlo, String zwrot, double dlugosc, Rogatka rogatka) {
         super(polozenie, nazwa, swiatlo, zwrot, dlugosc);

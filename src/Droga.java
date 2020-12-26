@@ -1,7 +1,7 @@
 public abstract class Droga extends ElementInfrastruktury {
-    private Swiatlo swiatlo;
-    private String zwrot;
-    private double dlugosc;
+    private final Swiatlo swiatlo;
+    private final String zwrot;
+    private final double dlugosc;
     private Polozenie koniec = null;
 
     public Droga(Polozenie polozenie, String nazwa, Swiatlo swiatlo, String zwrot, double dlugosc) {
