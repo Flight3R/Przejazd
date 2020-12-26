@@ -10,7 +10,7 @@ public class KontrolaRuchu extends Thread {
     @Override
     public void run() {
         while (true) {
-            if (!przejazd.getTorGorny().getSemaforSBL1().isZapalone() && przejazd.getRozkladGorny().ilePociagow() != 0) {
+            if (!przejazd.getTorGorny().getSemaforSBL1().isStop() && przejazd.getRozkladGorny().ilePociagow() != 0) {
                 Pociag najblizszyPrzed = przejazd.getRozkladGorny().najblizszyPociag();
                 double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
                 if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < przejazd.getCzas()) {
@@ -21,7 +21,7 @@ public class KontrolaRuchu extends Thread {
                 }
             }
 
-            if (!przejazd.getTorDolny().getSemaforSBL1().isZapalone() && przejazd.getRozkladDolny().ilePociagow() != 0) {
+            if (!przejazd.getTorDolny().getSemaforSBL1().isStop() && przejazd.getRozkladDolny().ilePociagow() != 0) {
                 Pociag najblizszyPrzed = przejazd.getRozkladDolny().najblizszyPociag();
                 double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
                 if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < przejazd.getCzas()) {

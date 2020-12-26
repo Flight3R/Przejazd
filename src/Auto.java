@@ -26,7 +26,7 @@ public class Auto extends Pojazd {
             swiatlo = pas.getSwiatlo();
         }
 
-        if (przedPrzejazdem && swiatlo.isZapalone() && mozliwoscWyhamowania) {
+        if (przedPrzejazdem && swiatlo.isStop() && mozliwoscWyhamowania) {
             getCel().setY(swiatlo.getPolozenie().getX());
             return true;
         }

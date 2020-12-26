@@ -79,7 +79,7 @@ public class Pociag extends Pojazd {
     public void sprawdzSSP() {
         if (tor.getZwrot().equals("prawo")) {
             if (getPolozenie().getX() <= tor.getSwiatlo().getPolozenie().getX()) {
-                if (tor.getSwiatlo().isZapalone())
+                if (tor.getSwiatlo().isStop())
                     getCel().setX(przejazd.getPolozenie().getX());
                 else
                     copyCel(tor.getKoniec());
@@ -87,7 +87,7 @@ public class Pociag extends Pojazd {
 
         } else { // zwrot == "lewo"
             if (tor.getSwiatlo().getPolozenie().getX() <= getPolozenie().getX()) {
-                if (tor.getSwiatlo().isZapalone())
+                if (tor.getSwiatlo().isStop())
                     getCel().setX(przejazd.getPolozenie().getX());
                 else
                     copyCel(tor.getKoniec());
@@ -97,13 +97,13 @@ public class Pociag extends Pojazd {
     public void sprawdzSBL() {
         if (tor.getZwrot().equals("prawo")) {
             if (getPolozenie().getX() <= tor.getSemaforSBL2().getPolozenie().getX()) {
-                if (tor.getSemaforSBL2().isZapalone())
+                if (tor.getSemaforSBL2().isStop())
                     copyCel(tor.getSemaforSBL2().getPolozenie());
                 else
                     copyCel(tor.getKoniec());
 
             } else if (getPolozenie().getX() <= tor.getSemaforSBL3().getPolozenie().getX()) {
-                if (tor.getSemaforSBL3().isZapalone())
+                if (tor.getSemaforSBL3().isStop())
                     copyCel(tor.getSemaforSBL3().getPolozenie());
                 else
                     copyCel(tor.getKoniec());
@@ -111,13 +111,13 @@ public class Pociag extends Pojazd {
 
         } else { // zwrot == "lewo"
             if (tor.getSemaforSBL2().getPolozenie().getX() <= getPolozenie().getX()) {
-                if (tor.getSemaforSBL2().isZapalone())
+                if (tor.getSemaforSBL2().isStop())
                     copyCel(tor.getSemaforSBL2().getPolozenie());
                 else
                     copyCel(tor.getKoniec());
 
             } else if (tor.getSemaforSBL3().getPolozenie().getX() <= getPolozenie().getX()) {
-                if (tor.getSemaforSBL3().isZapalone())
+                if (tor.getSemaforSBL3().isStop())
                     copyCel(tor.getSemaforSBL3().getPolozenie());
                 else
                     copyCel(tor.getKoniec());

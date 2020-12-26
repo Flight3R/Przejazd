@@ -1,5 +1,5 @@
 public class Swiatlo extends ElementInfrastruktury {
-    private boolean zapalone = false;
+    private boolean stop = false;
     private boolean polecenieZgaszenia = false;
 
     public Swiatlo(Polozenie polozenie, String nazwa) {
@@ -7,21 +7,21 @@ public class Swiatlo extends ElementInfrastruktury {
         start();
     }
 
-    public boolean isZapalone() { return zapalone; }
+    public boolean isStop() { return stop; }
 
-    public void zapal() {
-        System.out.println("Światło: " + nazwa + " zapalone!");
-        zapalone = true;
+    public void wyswietlSTOP() {
+        System.out.println("Światło: " + nazwa + " świeci STOP!");
+        stop = true;
     }
 
-    public void zgas() {
+    public void wyswietlJEDZ() {
         polecenieZgaszenia = true;
     }
 
-    private void zgasPrivate() throws InterruptedException {
+    private void wyswietlSTOPprivate() throws InterruptedException {
         sleep(5000);
-        System.out.println("Światło: " + nazwa + " zgaszone!");
-        zapalone = false;
+        System.out.println("Światło: " + nazwa + " świeci JEDŹ!");
+        stop = false;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class Swiatlo extends ElementInfrastruktury {
         while (true) {
             if (polecenieZgaszenia) {
                 try {
-                    zgasPrivate();
+                    wyswietlSTOPprivate();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
