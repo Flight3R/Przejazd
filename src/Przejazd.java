@@ -4,11 +4,9 @@ public class Przejazd extends ElementInfrastruktury {
     private final PasRuchu pasPrawy;
     private final Tor torGorny;
     private final Tor torDolny;
-
     private final Rozklad rozkladGorny;
     private final Rozklad rozkladDolny;
-    private final Rozklad lista = new Rozklad();
-
+    private final Rozklad pociagiObecne = new Rozklad();
     private double czas;
 
     public Przejazd(Polozenie polozenie, String nazwa, PasRuchu pasLewy, PasRuchu pasPrawy, Tor torGorny, Tor torDolny, Rozklad rozkladGorny, Rozklad rozkladDolny, double czas) {
@@ -141,7 +139,7 @@ public class Przejazd extends ElementInfrastruktury {
             if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < czas) {
                 najblizszyPrzed.start();
                 najblizszyPrzed.setOpoznienie((int) (czasDojazdu+najblizszyPrzed.getCzasPrzyjazdu() - czas));
-                lista.dodaj(najblizszyPrzed);
+                pociagiObecne.dodaj(najblizszyPrzed);
                 rozkladGorny.usunPierwszy();
             }
         }
@@ -151,15 +149,15 @@ public class Przejazd extends ElementInfrastruktury {
             double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
             if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < czas) {
                 najblizszyPrzed.start();
-                lista.dodaj(najblizszyPrzed);
+                pociagiObecne.dodaj(najblizszyPrzed);
                 rozkladDolny.usunPierwszy();
             }
         }
 
-        if (lista.ilePociagow() != 0) {
-            Pociag najblizszyZa = lista.najblizszyPociag();
+        if (pociagiObecne.ilePociagow() != 0) {
+            Pociag najblizszyZa = pociagiObecne.najblizszyPociag();
             if (Math.abs(najblizszyZa.getPolozenie().getX()) > 2500) {
-                lista.usunPierwszy();
+                pociagiObecne.usunPierwszy();
                 najblizszyZa.interrupt();
             }
         }
@@ -167,7 +165,7 @@ public class Przejazd extends ElementInfrastruktury {
 
     @Override
     public void run() {
-        System.out.println(this + "\tROZPOCZYNAM SŁUŻBĘ!");
+        System.out.println(this + "\tROZPOCZYNAM DYŻUR!");
         double deltaT = 200.0/1000;
         while (true) {
 

@@ -18,7 +18,7 @@ public class Swiatlo extends ElementInfrastruktury {
         polecenieZgaszenia = true;
     }
 
-    private void wyswietlSTOPprivate() throws InterruptedException {
+    private void wyswietlJEDZprivate() throws InterruptedException {
         sleep(10000);
         System.out.println("Światło: " + nazwa + " świeci JEDŹ!");
         stop = false;
@@ -29,7 +29,7 @@ public class Swiatlo extends ElementInfrastruktury {
         while (true) {
             if (polecenieZgaszenia) {
                 try {
-                    wyswietlSTOPprivate();
+                    wyswietlJEDZprivate();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
