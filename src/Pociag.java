@@ -2,27 +2,31 @@ public class Pociag extends Pojazd {
 
     private final String nazwa;
     private final Integer czasPrzyjazdu;
+    private double opoznienie = 0;
     private final Tor tor;
     private final Przejazd przejazd;
     private boolean utrzymujPredkosc = false;
 
-    public Pociag(double dlugosc, Integer masa, double maxPredkosc, String nazwa, Integer czasPrzyjazdu, Tor tor, Przejazd przejazd) {
+    public Pociag(double dlugosc, Integer masa, double maxPredkosc, String nazwa, Integer czasPrzyjazdu,Tor tor, Przejazd przejazd) {
         super(dlugosc, masa, maxPredkosc, new Polozenie(-tor.getKoniec().getX()/2,tor.getKoniec().getY()));
         this.nazwa = nazwa;
         this.czasPrzyjazdu = czasPrzyjazdu;
         this.tor = tor;
         this.przejazd = przejazd;
         copyCel(tor.getKoniec());
-//        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ODKOMENTOWAC >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//        start();
     }
 
     @Override
     public String toString() {
-        return "Pociag: " + nazwa + "\tV= " + getPredkosc() + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY();
+        return "Pociag: " + nazwa + "\tV= " + getPredkosc() + "\tX= " + getPolozenie().getX() +
+                "\tY= " + getPolozenie().getY() + "\tETA= " + czasPrzyjazdu + "\tOP= " + opoznienie;
     }
 
     public Integer getCzasPrzyjazdu() { return czasPrzyjazdu; }
+
+    public double getOpoznienie() { return opoznienie; }
+
+    public void setOpoznienie(Integer opoznienie) { this.opoznienie = opoznienie; }
 
     public void sprawdzCzujniki() {
         boolean pociagNadCzujnikiemSSP1;

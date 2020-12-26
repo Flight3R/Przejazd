@@ -20,10 +20,13 @@ public abstract class Droga extends ElementInfrastruktury {
             this.koniec = new Polozenie(polozenie.getX() + dlugosc, polozenie.getY());
 
     }
-    public Polozenie getPolozenie() { return polozenie; }
+
     public Swiatlo getSwiatlo() { return swiatlo; }
+
     public String getZwrot() { return zwrot; }
+
     public double getDlugosc() { return dlugosc; }
+
     public Polozenie getKoniec() { return koniec; }
 
 }

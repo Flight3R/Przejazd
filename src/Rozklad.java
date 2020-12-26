@@ -10,7 +10,6 @@ public class Rozklad {
     public Integer ilePociagow() {
         return tabelaPociagow.size();
     }
-
     public Pociag najblizszyPociag(){
         return tabelaPociagow.get(0);
     }

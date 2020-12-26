@@ -8,6 +8,8 @@ public class Czujnik extends ElementInfrastruktury{
         super(polozenie, nazwa);
     }
 
+    public Integer getAktywacje() { return aktywacje; }
+
     public void aktywuj(String nazwa){
         if (!listaAktywacji.contains(nazwa)) {
             aktywacje = aktywacje + 1;
@@ -15,6 +17,4 @@ public class Czujnik extends ElementInfrastruktury{
             System.out.println(this.nazwa + " włączony przez pociąg: " + nazwa);
         }
     }
-
-    public Integer getAktywacje() { return aktywacje; }
 }

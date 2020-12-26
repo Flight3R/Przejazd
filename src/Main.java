@@ -36,21 +36,21 @@ public class Main {
         Rogatka rogatkaTestowaL = new Rogatka(new Polozenie(-1, 3), "rogatka_pas_lewy", 5);
         PasRuchu pasTestowyL = new PasRuchu(new Polozenie(-1, 0), "pas_lewy", sygnalizacjaTestowaL, "dol", 1000, rogatkaTestowaL);
 
-        Czujnik czujnikTestowySBL1G = new Czujnik(new Polozenie(2499,2), "czujnik_SBL1_tor_gorny");
-        Swiatlo semaforTestowySBL1G = new Swiatlo(new Polozenie(2500,2), "semafor_SBL1_tor_gorny");
+        Czujnik czujnikTestowySBL1G = new Czujnik(new Polozenie(2499, 2), "czujnik_SBL1_tor_gorny");
+        Swiatlo semaforTestowySBL1G = new Swiatlo(new Polozenie(2500, 2), "semafor_SBL1_tor_gorny");
 
-        Czujnik czujnikTestowySBL2G = new Czujnik(new Polozenie(1900,2), "czujnik_SBL2_tor_gorny");
-        Swiatlo semaforTestowySBL2G = new Swiatlo(new Polozenie(1901,2), "semafor_SBL2_tor_gorny");
+        Czujnik czujnikTestowySBL2G = new Czujnik(new Polozenie(1900, 2), "czujnik_SBL2_tor_gorny");
+        Swiatlo semaforTestowySBL2G = new Swiatlo(new Polozenie(1901, 2), "semafor_SBL2_tor_gorny");
 
-        Czujnik czujnikTestowySSP1G = new Czujnik(new Polozenie(1800,2), "czujnik_SSP1_tor_gorny");
-        Swiatlo semaforTestowySSPG = new Swiatlo(new Polozenie(1500, 2), "semafor_SSP_tor_gorny");
+        Czujnik czujnikTestowySSP1G = new Czujnik(new Polozenie(1800, 2), "czujnik_SSP1_tor_gorny");
+        Swiatlo semaforTestowySSPG = new Swiatlo(new Polozenie(1500,  2), "semafor_SSP_tor_gorny");
 
-        Czujnik czujnikTestowySSP2G = new Czujnik(new Polozenie(-10,   2), "czujnik_SSP2_tor_gorny");
+        Czujnik czujnikTestowySSP2G = new Czujnik(new Polozenie(-10,  2), "czujnik_SSP2_tor_gorny");
 
-        Swiatlo semaforTestowySBL3G = new Swiatlo(new Polozenie(-1000, 2), "semafor_SBL3_tor_gorny");
-        Czujnik czujnikTestowySBL3G = new Czujnik(new Polozenie(-1001, 2), "czujnik_SBL3_tor_gorny");
+        Swiatlo semaforTestowySBL3G = new Swiatlo(new Polozenie(-1000,2), "semafor_SBL3_tor_gorny");
+        Czujnik czujnikTestowySBL3G = new Czujnik(new Polozenie(-1001,2), "czujnik_SBL3_tor_gorny");
 
-        Czujnik czujnikTestowySBL4G = new Czujnik(new Polozenie(-2490, 2), "czujnik_SBL4_tor_gorny");
+        Czujnik czujnikTestowySBL4G = new Czujnik(new Polozenie(-2490,2), "czujnik_SBL4_tor_gorny");
 
         Tor torTestowyG = new Tor(new Polozenie(0, 2),"tor_gorny", semaforTestowySSPG, "lewo", 5000,
                czujnikTestowySSP1G, czujnikTestowySSP2G, czujnikTestowySBL1G, czujnikTestowySBL2G, czujnikTestowySBL3G,

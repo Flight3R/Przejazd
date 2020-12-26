@@ -27,24 +27,38 @@ public class Przejazd extends ElementInfrastruktury {
         return "Przejazd: " + nazwa + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY();
     }
 
+    public PasRuchu getPasLewy() {
+        return pasLewy;
+    }
+
+    public PasRuchu getPasPrawy() {
+        return pasPrawy;
+    }
+
     public Tor getTorGorny() {
         return torGorny;
     }
+
     public Tor getTorDolny() {
         return torDolny;
     }
-    public Rozklad getRozkladDolny() {
-        return rozkladDolny;
-    }
+
     public Rozklad getRozkladGorny() {
         return rozkladGorny;
     }
+
+    public Rozklad getRozkladDolny() {
+        return rozkladDolny;
+    }
+
     public Rozklad getLista() {
         return lista;
     }
+
     public double getCzas() {
         return czas;
     }
+
     public boolean isRogatkiOtwarte() {
         return pasLewy.getRogatka().isOtwarta() || pasPrawy.getRogatka().isOtwarta();
     }

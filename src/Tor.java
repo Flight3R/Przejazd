@@ -25,39 +25,21 @@ public class Tor extends Droga {
         this.semaforSBL3 = semaforSBL3;
     }
 
-    public Czujnik getCzujnikSSP1() {
-        return czujnikSSP1;
-    }
+    public Czujnik getCzujnikSSP1() { return czujnikSSP1; }
 
-    public Czujnik getCzujnikSSP2() {
-        return czujnikSSP2;
-    }
+    public Czujnik getCzujnikSSP2() { return czujnikSSP2; }
 
-    public Czujnik getCzujnikSBL1() {
-        return czujnikSBL1;
-    }
+    public Czujnik getCzujnikSBL1() { return czujnikSBL1; }
 
-    public Czujnik getCzujnikSBL2() {
-        return czujnikSBL2;
-    }
+    public Czujnik getCzujnikSBL2() { return czujnikSBL2; }
 
-    public Czujnik getCzujnikSBL3() {
-        return czujnikSBL3;
-    }
+    public Czujnik getCzujnikSBL3() { return czujnikSBL3; }
 
-    public Czujnik getCzujnikSBL4() {
-        return czujnikSBL4;
-    }
+    public Czujnik getCzujnikSBL4() { return czujnikSBL4; }
 
-    public Swiatlo getSemaforSBL1() {
-        return semaforSBL1;
-    }
+    public Swiatlo getSemaforSBL1() { return semaforSBL1; }
 
-    public Swiatlo getSemaforSBL2() {
-        return semaforSBL2;
-    }
+    public Swiatlo getSemaforSBL2() { return semaforSBL2; }
 
-    public Swiatlo getSemaforSBL3() {
-        return semaforSBL3;
-    }
+    public Swiatlo getSemaforSBL3() { return semaforSBL3; }
 }
