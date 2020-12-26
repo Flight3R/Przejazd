@@ -23,8 +23,8 @@ public class Main {
 
         Czujnik czujnikTestowySSP2D = new Czujnik(new Polozenie(10,   -2), "czujnik_SSP2_tor_dolny");
 
-        Swiatlo semaforTestowySBL3D = new Swiatlo(new Polozenie(1500, -2), "semafor_SBL3_tor_dolny");
-        Czujnik czujnikTestowySBL3D = new Czujnik(new Polozenie(1501, -2), "czujnik_SBL3_tor_dolny");
+        Swiatlo semaforTestowySBL3D = new Swiatlo(new Polozenie(1000, -2), "semafor_SBL3_tor_dolny");
+        Czujnik czujnikTestowySBL3D = new Czujnik(new Polozenie(1001, -2), "czujnik_SBL3_tor_dolny");
 
         Czujnik czujnikTestowySBL4D = new Czujnik(new Polozenie(2490, -2), "czujnik_SBL4_tor_dolny");
 
@@ -47,8 +47,8 @@ public class Main {
 
         Czujnik czujnikTestowySSP2G = new Czujnik(new Polozenie(-10,   2), "czujnik_SSP2_tor_gorny");
 
-        Swiatlo semaforTestowySBL3G = new Swiatlo(new Polozenie(-1500, 2), "semafor_SBL3_tor_gorny");
-        Czujnik czujnikTestowySBL3G = new Czujnik(new Polozenie(-1501, 2), "czujnik_SBL3_tor_gorny");
+        Swiatlo semaforTestowySBL3G = new Swiatlo(new Polozenie(-1000, 2), "semafor_SBL3_tor_gorny");
+        Czujnik czujnikTestowySBL3G = new Czujnik(new Polozenie(-1001, 2), "czujnik_SBL3_tor_gorny");
 
         Czujnik czujnikTestowySBL4G = new Czujnik(new Polozenie(-2490, 2), "czujnik_SBL4_tor_gorny");
 

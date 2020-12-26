@@ -29,6 +29,10 @@ public abstract class Pojazd extends Thread {
     public double getPredkosc() { return predkosc; }
     public double getDrogaHamowania() { return drogaHamowania; }
 
+    public void setPredkosc(double predkosc) {
+        this.predkosc = predkosc;
+    }
+
     public void hamuj(double deltaT) {
         // F = a*m => a=F/m przyspieszenie odwrotnie proporcjonalne do masy F=36kN
         predkosc = predkosc + opoznienie * deltaT;

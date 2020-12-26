@@ -128,18 +128,27 @@ public class Pociag extends Pojazd {
         System.out.println(this + "\tZGŁASZAM SIĘ!");
         double deltaT = 200.0/1000;
         while(true) {
-            System.out.println(this);
+
 
             sprawdzCzujniki();
             sprawdzSSP();
+            sprawdzSBL();
 
             if (getCel().getX() != getPolozenie().getX()) {
-                if (Math.abs(getCel().getX() - getPolozenie().getX()) < getDrogaHamowania()*1.2) {
-                    if (getPredkosc() <= 5.56 && !przejazd.isRogatkiOtwarte()) { // 5.56m/s ~= 20km/h
-                        utrzymujPredkosc = true;
-                        copyCel(tor.getKoniec());
-                    } else if (!utrzymujPredkosc)
+
+                System.out.println(this);
+
+                if (Math.abs(getCel().getX() - getPolozenie().getX()) < getDrogaHamowania() * 1.2) {
+                    if (Math.abs(getCel().getX() - przejazd.getPolozenie().getX()) < 50) {
+                        if (getPredkosc() <= 5.56 && !przejazd.isRogatkiOtwarte()) { // 5.56m/s ~= 20km/h
+                            utrzymujPredkosc = true;
+                            copyCel(tor.getKoniec());
+                        }
+                    }
+
+                    if (!utrzymujPredkosc)
                         hamuj(deltaT);
+
                 } else if (getPredkosc() < getMaxPredkosc() && !utrzymujPredkosc)
                     przyspiesz(deltaT);
 
@@ -147,6 +156,7 @@ public class Pociag extends Pojazd {
                     boolean przodZaPrzejazdem;
                     if (tor.getZwrot().equals("prawo"))
                         przodZaPrzejazdem = getPolozenie().getX() < przejazd.getPolozenie().getX();
+
                     else // zwrot == "lewo"
                         przodZaPrzejazdem = przejazd.getPolozenie().getX() < getPolozenie().getX();
 
@@ -155,8 +165,11 @@ public class Pociag extends Pojazd {
                 }
 
                 getPolozenie().przenies(getPredkosc(), deltaT, tor.getZwrot(), getCel());
-            }
 
+            } else if (getPredkosc() != 0){
+                setPredkosc(0);
+            }
+            
             try {
                 sleep((long) (deltaT*1000));
             } catch (InterruptedException e) {
