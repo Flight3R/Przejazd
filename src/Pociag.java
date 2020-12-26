@@ -55,33 +55,34 @@ public class Pociag extends Pojazd {
         if (pociagNadCzujnikiemSSP1)
             tor.getCzujnikSSP1().aktywuj(nazwa);
 
-        if (pociagNadCzujnikiemSSP2 && tylZaPrzejazdem) {
+        else if (pociagNadCzujnikiemSSP2 && tylZaPrzejazdem)
             tor.getCzujnikSSP2().aktywuj(nazwa);
 
-        if (pociagNadCzujnikiemSBL1)
+        else if (pociagNadCzujnikiemSBL1)
             tor.getCzujnikSBL1().aktywuj(nazwa);
 
-        if (pociagNadCzujnikiemSBL2)
+        else if (pociagNadCzujnikiemSBL2)
             tor.getCzujnikSBL2().aktywuj(nazwa);
 
-        if (pociagNadCzujnikiemSBL3)
+        else if (pociagNadCzujnikiemSBL3)
             tor.getCzujnikSBL3().aktywuj(nazwa);
 
-        if (pociagNadCzujnikiemSBL4)
+        else if (pociagNadCzujnikiemSBL4)
             tor.getCzujnikSBL4().aktywuj(nazwa);
-        }
+
     }
 
     public void sprawdzSSP() {
         if (tor.getZwrot().equals("prawo")) {
-            if (getPolozenie().getX() < tor.getSwiatlo().getPolozenie().getX()) {
+            if (getPolozenie().getX() <= tor.getSwiatlo().getPolozenie().getX()) {
                 if (tor.getSwiatlo().isZapalone())
                     getCel().setX(przejazd.getPolozenie().getX());
                 else
                     copyCel(tor.getKoniec());
             }
+
         } else { // zwrot == "lewo"
-            if (tor.getSwiatlo().getPolozenie().getX() < getPolozenie().getX()) {
+            if (tor.getSwiatlo().getPolozenie().getX() <= getPolozenie().getX()) {
                 if (tor.getSwiatlo().isZapalone())
                     getCel().setX(przejazd.getPolozenie().getX());
                 else
@@ -91,21 +92,33 @@ public class Pociag extends Pojazd {
     }
     public void sprawdzSBL() {
         if (tor.getZwrot().equals("prawo")) {
-            if (getPolozenie().getX() < tor.getSemaforSBL2().getPolozenie().getX()) {
+            if (getPolozenie().getX() <= tor.getSemaforSBL2().getPolozenie().getX()) {
                 if (tor.getSemaforSBL2().isZapalone())
                     copyCel(tor.getSemaforSBL2().getPolozenie());
                 else
                     copyCel(tor.getKoniec());
-            } else if (getPolozenie().getX() < tor.getSemaforSBL3().getPolozenie().getX() && tor.getSemaforSBL3().isZapalone())
-                copyCel(tor.getSemaforSBL3().getPolozenie());
+
+            } else if (getPolozenie().getX() <= tor.getSemaforSBL3().getPolozenie().getX()) {
+                if (tor.getSemaforSBL3().isZapalone())
+                    copyCel(tor.getSemaforSBL3().getPolozenie());
+                else
+                    copyCel(tor.getKoniec());
+            }
+
         } else { // zwrot == "lewo"
-            if (tor.getSemaforSBL2().getPolozenie().getX() < getPolozenie().getX()) {
+            if (tor.getSemaforSBL2().getPolozenie().getX() <= getPolozenie().getX()) {
                 if (tor.getSemaforSBL2().isZapalone())
                     copyCel(tor.getSemaforSBL2().getPolozenie());
                 else
                     copyCel(tor.getKoniec());
-            } else if (tor.getSemaforSBL3().getPolozenie().getX() < getPolozenie().getX() && tor.getSemaforSBL3().isZapalone())
-                copyCel(tor.getSemaforSBL3().getPolozenie());
+
+            } else if (tor.getSemaforSBL3().getPolozenie().getX() <= getPolozenie().getX()) {
+                if (tor.getSemaforSBL3().isZapalone())
+                    copyCel(tor.getSemaforSBL3().getPolozenie());
+                else
+                    copyCel(tor.getKoniec());
+            }
+
         }
     }
 
@@ -115,7 +128,7 @@ public class Pociag extends Pojazd {
         System.out.println(this + "\tZGŁASZAM SIĘ!");
         double deltaT = 200.0/1000;
         while(true) {
-//            System.out.println(this);
+            System.out.println(this);
 
             sprawdzCzujniki();
             sprawdzSSP();
