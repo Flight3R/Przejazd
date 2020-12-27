@@ -1,12 +1,11 @@
 public abstract class Droga extends ElementInfrastruktury {
-    private final Swiatlo swiatlo;
+
     private final String zwrot;
     private final double dlugosc;
     private Polozenie koniec = null;
 
-    public Droga(Polozenie polozenie, String nazwa, Swiatlo swiatlo, String zwrot, double dlugosc) {
+    public Droga(Polozenie polozenie, String nazwa, String zwrot, double dlugosc) {
         super(polozenie, nazwa);
-        this.swiatlo = swiatlo;
         this.zwrot = zwrot;
         this.dlugosc = dlugosc;
 
@@ -20,8 +19,6 @@ public abstract class Droga extends ElementInfrastruktury {
             this.koniec = new Polozenie(polozenie.getX() + dlugosc, polozenie.getY());
 
     }
-
-    public Swiatlo getSwiatlo() { return swiatlo; }
 
     public String getZwrot() { return zwrot; }
 

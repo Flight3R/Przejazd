@@ -6,14 +6,15 @@ public class Tor extends Droga {
     private final Czujnik czujnikSBL2;
     private final Czujnik czujnikSBL3;
     private final Czujnik czujnikSBL4;
-    private final Swiatlo semaforSBL1;
-    private final Swiatlo semaforSBL2;
-    private final Swiatlo semaforSBL3;
+    private final Semafor semaforSBL1;
+    private final Semafor semaforSBL2;
+    private final Semafor semaforSBL3;
+    private final Semafor semaforSSP;
 
-    public Tor(Polozenie polozenie, String nazwa, Swiatlo swiatlo, String zwrot, double dlugosc, Czujnik czujnikSSP1, Czujnik czujnikSSP2,
-               Czujnik czujnikSBL1, Czujnik czujnikSBL2, Czujnik czujnikSBL3, Czujnik czujnikSBL4, Swiatlo semaforSBL1, Swiatlo semaforSBL2,
-               Swiatlo semaforSBL3) {
-        super(polozenie, nazwa, swiatlo, zwrot, dlugosc);
+    public Tor(Polozenie polozenie, String nazwa, String zwrot, double dlugosc, Czujnik czujnikSSP1, Czujnik czujnikSSP2,
+               Czujnik czujnikSBL1, Czujnik czujnikSBL2, Czujnik czujnikSBL3, Czujnik czujnikSBL4, Semafor semaforSBL1, Semafor semaforSBL2,
+               Semafor semaforSBL3, Semafor semaforSSP) {
+        super(polozenie, nazwa, zwrot, dlugosc);
         this.czujnikSSP1 = czujnikSSP1;
         this.czujnikSSP2 = czujnikSSP2;
         this.czujnikSBL1 = czujnikSBL1;
@@ -23,6 +24,7 @@ public class Tor extends Droga {
         this.semaforSBL1 = semaforSBL1;
         this.semaforSBL2 = semaforSBL2;
         this.semaforSBL3 = semaforSBL3;
+        this.semaforSSP = semaforSSP;
     }
 
     public Czujnik getCzujnikSSP1() { return czujnikSSP1; }
@@ -42,4 +44,6 @@ public class Tor extends Droga {
     public Swiatlo getSemaforSBL2() { return semaforSBL2; }
 
     public Swiatlo getSemaforSBL3() { return semaforSBL3; }
+
+    public Semafor getSemaforSSP() { return semaforSSP; }
 }

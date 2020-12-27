@@ -9,6 +9,8 @@ public class Swiatlo extends ElementInfrastruktury {
 
     public boolean isStop() { return stop; }
 
+    public void setStop(boolean stop) { this.stop = stop; }
+
     public void wyswietlSTOP() {
         System.out.println("Światło: " + nazwa + " świeci STOP!");
         stop = true;

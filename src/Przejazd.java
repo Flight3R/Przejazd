@@ -48,9 +48,9 @@ public class Przejazd extends ElementInfrastruktury {
         boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnikSSP1().getAktywacje() + torDolny.getCzujnikSSP2().getAktywacje()) %2 != 0;
 
         if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
-            if (!pasLewy.getSwiatlo().isStop() || !pasPrawy.getSwiatlo().isStop() ) {
-                pasLewy.getSwiatlo().wyswietlSTOP();
-                pasPrawy.getSwiatlo().wyswietlSTOP();
+            if (!pasLewy.getSygnalizacja().isStop() || !pasPrawy.getSygnalizacja().isStop() ) {
+                pasLewy.getSygnalizacja().wyswietlSTOP();
+                pasPrawy.getSygnalizacja().wyswietlSTOP();
                 pasLewy.getRogatka().zamknij();
                 pasPrawy.getRogatka().zamknij();
             }
@@ -58,8 +58,8 @@ public class Przejazd extends ElementInfrastruktury {
             if (!pasLewy.getRogatka().isOtwarta() || !pasPrawy.getRogatka().isOtwarta()) {
                 pasLewy.getRogatka().otworz();
                 pasPrawy.getRogatka().otworz();
-                pasLewy.getSwiatlo().wyswietlJEDZ();
-                pasPrawy.getSwiatlo().wyswietlJEDZ();
+                pasLewy.getSygnalizacja().wyswietlJEDZ();
+                pasPrawy.getSygnalizacja().wyswietlJEDZ();
 
             }
         }
@@ -71,18 +71,18 @@ public class Przejazd extends ElementInfrastruktury {
         boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnikSSP1().getAktywacje() + torDolny.getCzujnikSSP2().getAktywacje()) % 2 != 0;
 
         if (zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
-            if (!pasPrawy.getSwiatlo().isStop() || !pasLewy.getSwiatlo().isStop()) {
-                if (!torGorny.getSwiatlo().isStop() || !torDolny.getSwiatlo().isStop()) {
-                    torGorny.getSwiatlo().wyswietlSTOP();
-                    torDolny.getSwiatlo().wyswietlSTOP();
+            if (!pasPrawy.getSygnalizacja().isStop() || !pasLewy.getSygnalizacja().isStop()) {
+                if (!torGorny.getSemaforSSP().isStop() || !torDolny.getSemaforSSP().isStop()) {
+                    torGorny.getSemaforSSP().wyswietlSTOP();
+                    torDolny.getSemaforSSP().wyswietlSTOP();
                 }
-            } else if (torGorny.getSwiatlo().isStop() || torDolny.getSwiatlo().isStop()) {
-                torGorny.getSwiatlo().wyswietlJEDZ();
-                torDolny.getSwiatlo().wyswietlJEDZ();
+            } else if (torGorny.getSemaforSSP().isStop() || torDolny.getSemaforSSP().isStop()) {
+                torGorny.getSemaforSSP().wyswietlJEDZ();
+                torDolny.getSemaforSSP().wyswietlJEDZ();
             }
-        } else if (torGorny.getSwiatlo().isStop() || torDolny.getSwiatlo().isStop()) {
-            torGorny.getSwiatlo().wyswietlJEDZ();
-            torDolny.getSwiatlo().wyswietlJEDZ();
+        } else if (torGorny.getSemaforSSP().isStop() || torDolny.getSemaforSSP().isStop()) {
+            torGorny.getSemaforSSP().wyswietlJEDZ();
+            torDolny.getSemaforSSP().wyswietlJEDZ();
         }
     }
 

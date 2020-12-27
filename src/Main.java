@@ -8,48 +8,48 @@ public class Main {
                 1000, rogatkaTestowaP);
 
         Czujnik czujnikTestowySBL1D = new Czujnik(new Polozenie(-2500,-2), "czujnik_SBL1_tor_dolny");
-        Swiatlo semaforTestowySBL1D = new Swiatlo(new Polozenie(-2499,-2), "semafor_SBL1_tor_dolny");
+        Semafor semaforTestowySBL1D = new Semafor(new Polozenie(-2499,-2), "semafor_SBL1_tor_dolny");
 
         Czujnik czujnikTestowySBL2D = new Czujnik(new Polozenie(-1900,-2), "czujnik_SBL2_tor_dolny");
-        Swiatlo semaforTestowySBL2D = new Swiatlo(new Polozenie(-1901,-2), "semafor_SBL2_tor_dolny");
+        Semafor semaforTestowySBL2D = new Semafor(new Polozenie(-1901,-2), "semafor_SBL2_tor_dolny");
 
         Czujnik czujnikTestowySSP1D = new Czujnik(new Polozenie(-1800,-2), "czujnik_SSP1_tor_dolny");
-        Swiatlo semaforTestowySSPD  = new Swiatlo(new Polozenie(-1500, -2), "semafor_SSP_tor_dolny");
+        Semafor semaforTestowySSPD  = new Semafor(new Polozenie(-1500, -2), "semafor_SSP_tor_dolny");
 
         Czujnik czujnikTestowySSP2D = new Czujnik(new Polozenie(100,  -2), "czujnik_SSP2_tor_dolny");
 
-        Swiatlo semaforTestowySBL3D = new Swiatlo(new Polozenie(1000, -2), "semafor_SBL3_tor_dolny");
+        Semafor semaforTestowySBL3D = new Semafor(new Polozenie(1000, -2), "semafor_SBL3_tor_dolny");
         Czujnik czujnikTestowySBL3D = new Czujnik(new Polozenie(1001, -2), "czujnik_SBL3_tor_dolny");
 
         Czujnik czujnikTestowySBL4D = new Czujnik(new Polozenie(2490, -2), "czujnik_SBL4_tor_dolny");
 
-        Tor torTestowyD = new Tor(new Polozenie(0, -2),"tor_dolny", semaforTestowySSPD, "prawo", 5000,
+        Tor torTestowyD = new Tor(new Polozenie(0, -2),"tor_dolny", "prawo", 5000,
                czujnikTestowySSP1D, czujnikTestowySSP2D, czujnikTestowySBL1D, czujnikTestowySBL2D, czujnikTestowySBL3D,
-               czujnikTestowySBL4D, semaforTestowySBL1D, semaforTestowySBL2D, semaforTestowySBL3D);
+               czujnikTestowySBL4D, semaforTestowySBL1D, semaforTestowySBL2D, semaforTestowySBL3D, semaforTestowySSPD);
 
         Swiatlo sygnalizacjaTestowaL = new Swiatlo(new Polozenie(-1, 4), "sygnalizacja_pas_lewy");
         Rogatka rogatkaTestowaL = new Rogatka(new Polozenie(-1, 3), "rogatka_pas_lewy", 5);
         PasRuchu pasTestowyL = new PasRuchu(new Polozenie(-1, 0), "pas_lewy", sygnalizacjaTestowaL, "dol", 1000, rogatkaTestowaL);
 
         Czujnik czujnikTestowySBL1G = new Czujnik(new Polozenie(2499, 2), "czujnik_SBL1_tor_gorny");
-        Swiatlo semaforTestowySBL1G = new Swiatlo(new Polozenie(2500, 2), "semafor_SBL1_tor_gorny");
+        Semafor semaforTestowySBL1G = new Semafor(new Polozenie(2500, 2), "semafor_SBL1_tor_gorny");
 
         Czujnik czujnikTestowySBL2G = new Czujnik(new Polozenie(1900, 2), "czujnik_SBL2_tor_gorny");
-        Swiatlo semaforTestowySBL2G = new Swiatlo(new Polozenie(1901, 2), "semafor_SBL2_tor_gorny");
+        Semafor semaforTestowySBL2G = new Semafor(new Polozenie(1901, 2), "semafor_SBL2_tor_gorny");
 
         Czujnik czujnikTestowySSP1G = new Czujnik(new Polozenie(1800, 2), "czujnik_SSP1_tor_gorny");
-        Swiatlo semaforTestowySSPG  = new Swiatlo(new Polozenie(1500,  2), "semafor_SSP_tor_gorny");
+        Semafor semaforTestowySSPG  = new Semafor(new Polozenie(1500,  2), "semafor_SSP_tor_gorny");
 
         Czujnik czujnikTestowySSP2G = new Czujnik(new Polozenie(-100, 2), "czujnik_SSP2_tor_gorny");
 
-        Swiatlo semaforTestowySBL3G = new Swiatlo(new Polozenie(-1000,2), "semafor_SBL3_tor_gorny");
+        Semafor semaforTestowySBL3G = new Semafor(new Polozenie(-1000,2), "semafor_SBL3_tor_gorny");
         Czujnik czujnikTestowySBL3G = new Czujnik(new Polozenie(-1001,2), "czujnik_SBL3_tor_gorny");
 
         Czujnik czujnikTestowySBL4G = new Czujnik(new Polozenie(-2490,2), "czujnik_SBL4_tor_gorny");
 
-        Tor torTestowyG = new Tor(new Polozenie(0, 2),"tor_gorny", semaforTestowySSPG, "lewo", 5000,
+        Tor torTestowyG = new Tor(new Polozenie(0, 2),"tor_gorny","lewo", 5000,
                czujnikTestowySSP1G, czujnikTestowySSP2G, czujnikTestowySBL1G, czujnikTestowySBL2G, czujnikTestowySBL3G,
-               czujnikTestowySBL4G, semaforTestowySBL1G, semaforTestowySBL2G, semaforTestowySBL3G);
+               czujnikTestowySBL4G, semaforTestowySBL1G, semaforTestowySBL2G, semaforTestowySBL3G,  semaforTestowySSPG);
 
         Rozklad rozkladTestowyGorny = new Rozklad();
         Rozklad rozkladTestowyDolny = new Rozklad();
