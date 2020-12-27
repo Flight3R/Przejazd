@@ -7,7 +7,7 @@ public class KontrolaRuchu extends Thread {
         start();
     }
 
-    @Override
+    /*@Override
     public void run() {
         while (true) {
             if (!przejazd.getTorGorny().getSemaforSBL1().isStop() && przejazd.getRozkladGorny().ilePociagow() != 0) {
@@ -45,5 +45,5 @@ public class KontrolaRuchu extends Thread {
                 e.printStackTrace();
             };
         }
-    }
+    }*/
 }

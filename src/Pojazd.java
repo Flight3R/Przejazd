@@ -27,7 +27,7 @@ public abstract class Pojazd extends Thread {
 
     public double getMaxPredkosc() { return maxPredkosc; }
 
-    public double getOpoznienie() { return opoznienie; }
+    public double getSpoznienie() { return opoznienie; }
 
     public double getPrzyspieszenie() { return przyspieszenie; }
 

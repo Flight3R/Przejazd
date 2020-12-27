@@ -44,8 +44,8 @@ public class Przejazd extends ElementInfrastruktury {
     }
 
     public void sterowanieAutomatyczne() {
-        boolean zajetoscOdcinkaGornego = (torGorny.getCzujnikSSP1().getAktywacje() + torGorny.getCzujnikSSP2().getAktywacje()) %2 != 0;
-        boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnikSSP1().getAktywacje() + torDolny.getCzujnikSSP2().getAktywacje()) %2 != 0;
+        boolean zajetoscOdcinkaGornego = (torGorny.getCzujnikiNajazdoweSBL().get(1).getAktywacje() + torGorny.getCzujnikiZjazdoweSBL().get(1).getAktywacje()) % 2 != 0;
+        boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnikiNajazdoweSBL().get(1).getAktywacje() + torDolny.getCzujnikiZjazdoweSBL().get(1).getAktywacje()) % 2 != 0;
 
         if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
             if (!pasLewy.getSygnalizacja().isStop() || !pasPrawy.getSygnalizacja().isStop() ) {
@@ -67,8 +67,8 @@ public class Przejazd extends ElementInfrastruktury {
 
     // SSP - Samoczynna Sygnalizacja Przejazdowa (info dla maszynisty czy rogatki działają)
     public void sterowanieSSP() {
-        boolean zajetoscOdcinkaGornego = (torGorny.getCzujnikSSP1().getAktywacje() + torGorny.getCzujnikSSP2().getAktywacje()) % 2 != 0;
-        boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnikSSP1().getAktywacje() + torDolny.getCzujnikSSP2().getAktywacje()) % 2 != 0;
+        boolean zajetoscOdcinkaGornego = torGorny.getCzujnikiNajazdoweSBL().get(1).getAktywacje() == torGorny.getCzujnikiZjazdoweSBL().get(1).getAktywacje();
+        boolean zajetoscOdcinkaDolnego = torDolny.getCzujnikiNajazdoweSBL().get(1).getAktywacje() == torDolny.getCzujnikiZjazdoweSBL().get(1).getAktywacje();
 
         if (zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
             if (!pasPrawy.getSygnalizacja().isStop() || !pasLewy.getSygnalizacja().isStop()) {
@@ -86,65 +86,19 @@ public class Przejazd extends ElementInfrastruktury {
         }
     }
 
-    public void sterowanieSBL() {
-        boolean zajetoscOdc1ToruGornego = (torGorny.getCzujnikSBL1().getAktywacje() + torGorny.getCzujnikSBL2().getAktywacje()) %2 != 0;
-        boolean zajetoscOdc2ToruGornego = (torGorny.getCzujnikSBL2().getAktywacje() + torGorny.getCzujnikSBL3().getAktywacje()) %2 != 0;
-        boolean zajetoscOdc3ToruGornego = (torGorny.getCzujnikSBL3().getAktywacje() + torGorny.getCzujnikSBL4().getAktywacje()) %2 != 0;
-        boolean zajetoscOdc1ToruDolnego = (torDolny.getCzujnikSBL1().getAktywacje() + torDolny.getCzujnikSBL2().getAktywacje()) %2 != 0;
-        boolean zajetoscOdc2ToruDolnego = (torDolny.getCzujnikSBL2().getAktywacje() + torDolny.getCzujnikSBL3().getAktywacje()) %2 != 0;
-        boolean zajetoscOdc3ToruDolnego = (torDolny.getCzujnikSBL3().getAktywacje() + torDolny.getCzujnikSBL4().getAktywacje()) %2 != 0;
-
-        if (zajetoscOdc1ToruGornego) {
-            if (!torGorny.getSemaforSBL1().isStop())
-                torGorny.getSemaforSBL1().wyswietlSTOP();
-        } else if (torGorny.getSemaforSBL1().isStop())
-            torGorny.getSemaforSBL1().wyswietlJEDZ();
-
-        if (zajetoscOdc2ToruGornego) {
-            if (!torGorny.getSemaforSBL2().isStop())
-                torGorny.getSemaforSBL2().wyswietlSTOP();
-        } else if (torGorny.getSemaforSBL2().isStop())
-            torGorny.getSemaforSBL2().wyswietlJEDZ();
-
-        if (zajetoscOdc3ToruGornego) {
-            if (!torGorny.getSemaforSBL3().isStop())
-                torGorny.getSemaforSBL3().wyswietlSTOP();
-        } else if (torGorny.getSemaforSBL3().isStop())
-            torGorny.getSemaforSBL3().wyswietlJEDZ();
-
-        //tor dolny
-        if (zajetoscOdc1ToruDolnego) {
-            if (!torDolny.getSemaforSBL1().isStop())
-                torDolny.getSemaforSBL1().wyswietlSTOP();
-        } else if (torDolny.getSemaforSBL1().isStop())
-            torDolny.getSemaforSBL1().wyswietlJEDZ();
-
-        if (zajetoscOdc2ToruDolnego) {
-            if (!torDolny.getSemaforSBL2().isStop())
-                torDolny.getSemaforSBL2().wyswietlSTOP();
-        } else if (torDolny.getSemaforSBL2().isStop())
-            torDolny.getSemaforSBL2().wyswietlJEDZ();
-
-        if (zajetoscOdc3ToruDolnego) {
-            if (!torDolny.getSemaforSBL3().isStop())
-                torDolny.getSemaforSBL3().wyswietlSTOP();
-        } else if (torDolny.getSemaforSBL3().isStop())
-            torDolny.getSemaforSBL3().wyswietlJEDZ();
-    }
-
     public void sterowanieRuchem() {
-        if (!torGorny.getSemaforSBL1().isStop() && rozkladGorny.ilePociagow() != 0) {
+        if (!torGorny.getSemaforySBL().get(0).isStop() && rozkladGorny.ilePociagow() != 0) {
             Pociag najblizszyPrzed = rozkladGorny.najblizszyPociag();
             double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
             if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < czas) {
                 najblizszyPrzed.start();
-                najblizszyPrzed.setOpoznienie((int) (czasDojazdu+najblizszyPrzed.getCzasPrzyjazdu() - czas));
+                najblizszyPrzed.setSpoznienie((czasDojazdu+najblizszyPrzed.getCzasPrzyjazdu() - czas));
                 pociagiObecne.dodaj(najblizszyPrzed);
                 rozkladGorny.usunPierwszy();
             }
         }
 
-        if (!torDolny.getSemaforSBL1().isStop() && rozkladDolny.ilePociagow() != 0) {
+        if (!torDolny.getSemaforySBL().get(0).isStop() && rozkladDolny.ilePociagow() != 0) {
             Pociag najblizszyPrzed = rozkladDolny.najblizszyPociag();
             double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
             if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < czas) {
@@ -156,9 +110,32 @@ public class Przejazd extends ElementInfrastruktury {
 
         if (pociagiObecne.ilePociagow() != 0) {
             Pociag najblizszyZa = pociagiObecne.najblizszyPociag();
-            if (Math.abs(najblizszyZa.getPolozenie().getX()) > 2500) {
+            if (Math.abs(najblizszyZa.getPolozenie().getX()) > 3200) {
                 pociagiObecne.usunPierwszy();
                 najblizszyZa.interrupt();
+            }
+        }
+    }
+
+    public void sterowanieSemaforami() {
+        for (int i=0; i<torGorny.getIloscSemaforow(); i++) {
+            if (torGorny.getCzujnikiNajazdoweSBL().get(i).isAktywowany()) {
+                torGorny.getCzujnikiNajazdoweSBL().get(i).setAktywowany(false);
+                torGorny.getSemaforySBL().get(i).wyswietlSTOP();
+            }
+            if (torGorny.getCzujnikiZjazdoweSBL().get(i).isAktywowany()) {
+                torGorny.getCzujnikiZjazdoweSBL().get(i).setAktywowany(false);
+                torGorny.getSemaforySBL().get(i).wyswietlJEDZ();
+            }
+        }
+        for (int i=0; i<torDolny.getIloscSemaforow(); i++) {
+            if (torDolny.getCzujnikiNajazdoweSBL().get(i).isAktywowany()) {
+                torDolny.getCzujnikiNajazdoweSBL().get(i).setAktywowany(false);
+                torDolny.getSemaforySBL().get(i).wyswietlSTOP();
+            }
+            if (torDolny.getCzujnikiZjazdoweSBL().get(i).isAktywowany()) {
+                torDolny.getCzujnikiZjazdoweSBL().get(i).setAktywowany(false);
+                torDolny.getSemaforySBL().get(i).wyswietlJEDZ();
             }
         }
     }
@@ -169,9 +146,9 @@ public class Przejazd extends ElementInfrastruktury {
         double deltaT = 200.0/1000;
         while (true) {
 
-            sterowanieSBL();
             sterowanieRuchem();
-            sterowanieAutomatyczne();
+            sterowanieSemaforami();
+//            sterowanieAutomatyczne();
             sterowanieSSP();
 
 //            System.out.println(this);

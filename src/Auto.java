@@ -17,13 +17,13 @@ public class Auto extends Pojazd {
         Swiatlo swiatlo;
 
         if (pas.getZwrot() == "gora") {
-            przedPrzejazdem = getPolozenie().getY() < pas.getSwiatlo().getPolozenie().getY();
-            mozliwoscWyhamowania = getDrogaHamowania() <= (pas.getSwiatlo().getPolozenie().getY() - getPolozenie().getY());
-            swiatlo = pas.getSwiatlo();
+            przedPrzejazdem = getPolozenie().getY() < pas.getSygnalizacja().getPolozenie().getY();
+            mozliwoscWyhamowania = getDrogaHamowania() <= (pas.getSygnalizacja().getPolozenie().getY() - getPolozenie().getY());
+            swiatlo = pas.getSygnalizacja();
         } else { // zwrot == "dol"
-            przedPrzejazdem = pas.getSwiatlo().getPolozenie().getY() < getPolozenie().getY();
-            mozliwoscWyhamowania = getDrogaHamowania() <= (getPolozenie().getY() - pas.getSwiatlo().getPolozenie().getY());
-            swiatlo = pas.getSwiatlo();
+            przedPrzejazdem = pas.getSygnalizacja().getPolozenie().getY() < getPolozenie().getY();
+            mozliwoscWyhamowania = getDrogaHamowania() <= (getPolozenie().getY() - pas.getSygnalizacja().getPolozenie().getY());
+            swiatlo = pas.getSygnalizacja();
         }
 
         if (przedPrzejazdem && swiatlo.isStop() && mozliwoscWyhamowania) {
@@ -72,6 +72,5 @@ public class Auto extends Pojazd {
             try { sleep(200); } catch (InterruptedException interruptedException) { interruptedException.printStackTrace(); }
         }
     }
-
 }
 
