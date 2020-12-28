@@ -49,8 +49,8 @@ public class Przejazd extends ElementInfrastruktury {
 
         if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
             if (!pasLewy.getSygnalizacja().isStop() || !pasPrawy.getSygnalizacja().isStop() ) {
-                pasLewy.getSygnalizacja().wyswietlSTOP();
-                pasPrawy.getSygnalizacja().wyswietlSTOP();
+                pasLewy.getSygnalizacja().podajSTOP();
+                pasPrawy.getSygnalizacja().podajSTOP();
                 pasLewy.getRogatka().zamknij();
                 pasPrawy.getRogatka().zamknij();
             }
@@ -58,8 +58,8 @@ public class Przejazd extends ElementInfrastruktury {
             if (!pasLewy.getRogatka().isOtwarta() || !pasPrawy.getRogatka().isOtwarta()) {
                 pasLewy.getRogatka().otworz();
                 pasPrawy.getRogatka().otworz();
-                pasLewy.getSygnalizacja().wyswietlJEDZ();
-                pasPrawy.getSygnalizacja().wyswietlJEDZ();
+                pasLewy.getSygnalizacja().podajJEDZ();
+                pasPrawy.getSygnalizacja().podajJEDZ();
 
             }
         }
@@ -72,17 +72,17 @@ public class Przejazd extends ElementInfrastruktury {
 
         if (zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
             if (!pasPrawy.getSygnalizacja().isStop() || !pasLewy.getSygnalizacja().isStop()) {
-                if (!torGorny.getSemaforSSP().isStop() || !torDolny.getSemaforSSP().isStop()) {
-                    torGorny.getSemaforSSP().wyswietlSTOP();
-                    torDolny.getSemaforSSP().wyswietlSTOP();
+                if (!torGorny.getTarczaSSP().isStop() || !torDolny.getTarczaSSP().isStop()) {
+                    torGorny.getTarczaSSP().podajSTOP();
+                    torDolny.getTarczaSSP().podajSTOP();
                 }
-            } else if (torGorny.getSemaforSSP().isStop() || torDolny.getSemaforSSP().isStop()) {
-                torGorny.getSemaforSSP().wyswietlJEDZ();
-                torDolny.getSemaforSSP().wyswietlJEDZ();
+            } else if (torGorny.getTarczaSSP().isStop() || torDolny.getTarczaSSP().isStop()) {
+                torGorny.getTarczaSSP().podajJEDZ();
+                torDolny.getTarczaSSP().podajJEDZ();
             }
-        } else if (torGorny.getSemaforSSP().isStop() || torDolny.getSemaforSSP().isStop()) {
-            torGorny.getSemaforSSP().wyswietlJEDZ();
-            torDolny.getSemaforSSP().wyswietlJEDZ();
+        } else if (torGorny.getTarczaSSP().isStop() || torDolny.getTarczaSSP().isStop()) {
+            torGorny.getTarczaSSP().podajJEDZ();
+            torDolny.getTarczaSSP().podajJEDZ();
         }
     }
 
@@ -118,24 +118,24 @@ public class Przejazd extends ElementInfrastruktury {
     }
 
     public void sterowanieSemaforami() {
-        for (int i=0; i<torGorny.getIloscSemaforow(); i++) {
+        for (int i = 0; i<torGorny.getIloscSemaforowSBL(); i++) {
             if (torGorny.getCzujnikiNajazdoweSBL().get(i).isAktywowany()) {
                 torGorny.getCzujnikiNajazdoweSBL().get(i).setAktywowany(false);
-                torGorny.getSemaforySBL().get(i).wyswietlSTOP();
+                torGorny.getSemaforySBL().get(i).podajSTOP();
             }
             if (torGorny.getCzujnikiZjazdoweSBL().get(i).isAktywowany()) {
                 torGorny.getCzujnikiZjazdoweSBL().get(i).setAktywowany(false);
-                torGorny.getSemaforySBL().get(i).wyswietlJEDZ();
+                torGorny.getSemaforySBL().get(i).podajJEDZ();
             }
         }
-        for (int i=0; i<torDolny.getIloscSemaforow(); i++) {
+        for (int i = 0; i<torDolny.getIloscSemaforowSBL(); i++) {
             if (torDolny.getCzujnikiNajazdoweSBL().get(i).isAktywowany()) {
                 torDolny.getCzujnikiNajazdoweSBL().get(i).setAktywowany(false);
-                torDolny.getSemaforySBL().get(i).wyswietlSTOP();
+                torDolny.getSemaforySBL().get(i).podajSTOP();
             }
             if (torDolny.getCzujnikiZjazdoweSBL().get(i).isAktywowany()) {
                 torDolny.getCzujnikiZjazdoweSBL().get(i).setAktywowany(false);
-                torDolny.getSemaforySBL().get(i).wyswietlJEDZ();
+                torDolny.getSemaforySBL().get(i).podajJEDZ();
             }
         }
     }
@@ -148,7 +148,7 @@ public class Przejazd extends ElementInfrastruktury {
 
 
             sterowanieSemaforami();
-            sterowanieAutomatyczne();
+//            sterowanieAutomatyczne();
             sterowanieSSP();
             sterowanieRuchem();
 

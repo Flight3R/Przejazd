@@ -1,6 +1,5 @@
 public class Swiatlo extends ElementInfrastruktury {
     private boolean stop = false;
-    private boolean polecenieZgaszenia = false;
 
     public Swiatlo(Polozenie polozenie, String nazwa) {
         super(polozenie, nazwa);
@@ -11,34 +10,13 @@ public class Swiatlo extends ElementInfrastruktury {
 
     public void setStop(boolean stop) { this.stop = stop; }
 
-    public void wyswietlSTOP() {
+    public void podajSTOP() {
         System.out.println("Światło: " + nazwa + " świeci STOP!");
         stop = true;
     }
 
-    public void wyswietlJEDZ() {
-        polecenieZgaszenia = true;
-    }
-
-    private void wyswietlJEDZprivate() throws InterruptedException {
-        sleep(10000);
+    public void podajJEDZ() {
         System.out.println("Światło: " + nazwa + " świeci JEDŹ!");
-        stop = false;
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            if (polecenieZgaszenia) {
-                try {
-                    wyswietlJEDZprivate();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                polecenieZgaszenia = false;
-            }
-
-            try { sleep(200); } catch (InterruptedException e) { e.printStackTrace(); }
-        }
+        setStop(false);
     }
 }
