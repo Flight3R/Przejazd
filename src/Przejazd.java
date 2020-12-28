@@ -44,8 +44,8 @@ public class Przejazd extends ElementInfrastruktury {
     }
 
     public void sterowanieAutomatyczne() {
-        boolean zajetoscOdcinkaGornego = (torGorny.getCzujnikiNajazdoweSBL().get(1).getAktywacje() + torGorny.getCzujnikiZjazdoweSBL().get(1).getAktywacje()) % 2 != 0;
-        boolean zajetoscOdcinkaDolnego = (torDolny.getCzujnikiNajazdoweSBL().get(1).getAktywacje() + torDolny.getCzujnikiZjazdoweSBL().get(1).getAktywacje()) % 2 != 0;
+        boolean zajetoscOdcinkaGornego = torGorny.getCzujnikSSPn().getAktywacje() != torGorny.getCzujnikSSPz().getAktywacje();
+        boolean zajetoscOdcinkaDolnego = torDolny.getCzujnikSSPn().getAktywacje() != torDolny.getCzujnikSSPz().getAktywacje();
 
         if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
             if (!pasLewy.getSygnalizacja().isStop() || !pasPrawy.getSygnalizacja().isStop() ) {
@@ -146,14 +146,16 @@ public class Przejazd extends ElementInfrastruktury {
         double deltaT = 200.0/1000;
         while (true) {
 
-            sterowanieRuchem();
+
             sterowanieSemaforami();
-//            sterowanieAutomatyczne();
+            sterowanieAutomatyczne();
             sterowanieSSP();
+            sterowanieRuchem();
 
 //            System.out.println(this);
             czas = czas + deltaT;
             try { sleep((long) (deltaT*1000)); } catch (InterruptedException e) { e.printStackTrace(); }
+
         }
     }
 }

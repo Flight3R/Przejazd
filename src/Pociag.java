@@ -19,8 +19,8 @@ public class Pociag extends Pojazd {
 
     @Override
     public String toString() {
-        return "Pociag: " + nazwa + "\tV= " + getPredkosc() + "\tX= " + getPolozenie().getX() +
-                "\tY= " + getPolozenie().getY() + "\tETA= " + czasPrzyjazdu + "\tOP= " + spoznienie;
+        return "Pociag: " + nazwa + "\tV= " + Math.round(getPredkosc()*100.0)/100.0 + "\tX= " + Math.round(getPolozenie().getX()*100.0)/100.0 +
+                "\tY= " + getPolozenie().getY() + "\tETA= " + czasPrzyjazdu + "\tOP= " + spoznienie + "\tCEL=" + getCel().getX();
     }
 
     public Integer getCzasPrzyjazdu() { return czasPrzyjazdu; }
@@ -61,19 +61,23 @@ public class Pociag extends Pojazd {
             for (int i = 0; i < tor.getIloscSemaforow(); i++) {
                 if (getPolozenie().getX() <= tor.getSemaforySBL().get(i).getPolozenie().getX()) {
                     if (tor.getSemaforySBL().get(i).isStop()) {
-                        copyCel(tor.getSemaforySBL().get(i).getPolozenie());
-                        break;
-                    } else if (getCel().getX() != przejazd.getPolozenie().getX())
+                        if (getCel().getX() == tor.getKoniec().getX()) {
+                            copyCel(tor.getSemaforySBL().get(i).getPolozenie());
+                            break;
+                        }
+                    } else if (getCel().getX() == tor.getSemaforySBL().get(i).getPolozenie().getX())
                         copyCel(tor.getKoniec());
                 }
             }
         } else {
             for (int i = 0; i < tor.getIloscSemaforow(); i++) {
                 if (tor.getSemaforySBL().get(i).getPolozenie().getX() <= getPolozenie().getX()) {
-                    if (tor.getSemaforySBL().get(i).isStop()) {
-                        copyCel(tor.getSemaforySBL().get(i).getPolozenie());
-                        break;
-                    } else if (getCel().getX() != przejazd.getPolozenie().getX())
+                    if (tor.getSemaforySBL().get(i).isStop() && getCel().getX() == tor.getKoniec().getX()) {
+                        if (getCel().getX() == tor.getKoniec().getX()) {
+                            copyCel(tor.getSemaforySBL().get(i).getPolozenie());
+                            break;
+                        }
+                    } else if (getCel().getX() == tor.getSemaforySBL().get(i).getPolozenie().getX())
                         copyCel(tor.getKoniec());
                 }
             }
@@ -83,34 +87,28 @@ public class Pociag extends Pojazd {
     public void sprawdzSSP() {
         if (tor.getZwrot().equals("prawo")) {
             if ((getPolozenie().getX() - getDlugosc()) < tor.getCzujnikSSPn().getPolozenie().getX() && tor.getCzujnikSSPn().getPolozenie().getX() < getPolozenie().getX())
-                tor.getCzujnikSSPn().aktywuj(nazwa);
-            if ((getPolozenie().getX() - getDlugosc()*2) < tor.getCzujnikSSPz().getPolozenie().getX() && tor.getCzujnikSSPz().getPolozenie().getX() < (getPolozenie().getX() - getDlugosc()))
-                tor.getCzujnikSSPz().aktywuj(nazwa);
+                tor.getCzujnikSSPn().aktywuj(nazwa);    // nadSSP
 
-            if (getPolozenie().getX() < tor.getSemaforSSP().getPolozenie().getX()) {
-                if (tor.getSemaforSSP().isStop())
-                    uwazajNaPrzejezdzie = true;
-                else
-                    uwazajNaPrzejezdzie = false;
-            }
+            else if ((getPolozenie().getX() - getDlugosc()*2) < tor.getCzujnikSSPz().getPolozenie().getX() && tor.getCzujnikSSPz().getPolozenie().getX() < (getPolozenie().getX() - getDlugosc()))
+                tor.getCzujnikSSPz().aktywuj(nazwa);    //zaSSP
+
+            if (getPolozenie().getX() < tor.getSemaforSSP().getPolozenie().getX())
+                uwazajNaPrzejezdzie = tor.getSemaforSSP().isStop();
 
         } else { // zwrot == "lewo"
             if (getPolozenie().getX() < tor.getCzujnikSSPn().getPolozenie().getX() && tor.getCzujnikSSPn().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()))
-                tor.getCzujnikSSPn().aktywuj(nazwa);
-            if ((getPolozenie().getX() + getDlugosc()) < tor.getCzujnikSSPz().getPolozenie().getX() && tor.getCzujnikSSPz().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()*2))
-                tor.getCzujnikSSPz().aktywuj(nazwa);
-            if (tor.getSemaforSSP().getPolozenie().getX() < getPolozenie().getX()) {
-                if (tor.getSemaforSSP().isStop())
-                    uwazajNaPrzejezdzie = true;
-                else
-                    uwazajNaPrzejezdzie = false;
-            }
+                tor.getCzujnikSSPn().aktywuj(nazwa);    // nadSSP
+
+            else if ((getPolozenie().getX() + getDlugosc()) < tor.getCzujnikSSPz().getPolozenie().getX() && tor.getCzujnikSSPz().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()*2))
+                tor.getCzujnikSSPz().aktywuj(nazwa);    //zaSSP
+
+            if (tor.getSemaforSSP().getPolozenie().getX() < getPolozenie().getX())
+                uwazajNaPrzejezdzie = tor.getSemaforSSP().isStop();
         }
     }
 
     @Override
     public void run() {
-//        tor.getCzujnikSBL1().aktywuj(nazwa);
         System.out.println(this + "\tZGŁASZAM SIĘ!");
         double deltaT = 200.0/1000;
         while(true) {
@@ -123,33 +121,20 @@ public class Pociag extends Pojazd {
 
                 System.out.println(this);
 
-                if (uwazajNaPrzejezdzie && getCel().getX() == tor.getKoniec().getX()) {
+                if (uwazajNaPrzejezdzie && getCel().getX() != przejazd.getPolozenie().getX() && Math.abs(getPolozenie().getX() - przejazd.getPolozenie().getX()) < getDrogaHamowania()*1.2) {
                     copyCel(przejazd.getPolozenie());
                 }
-
-                if (getCel().getX() == przejazd.getPolozenie().getX() && (getCel().getX() - getPolozenie().getX()) < getDrogaHamowania()) { //(Math.abs(getCel().getX() - przejazd.getPolozenie().getX()) < 50) {
+                if (getCel().getX() == przejazd.getPolozenie().getX()) {
                     if (getPredkosc() <= 5.56 && !przejazd.isRogatkiOtwarte()) { // 5.56m/s ~= 20km/h
-//                        utrzymujPredkosc = true;
                         copyCel(tor.getKoniec());
                         uwazajNaPrzejezdzie = false;
                     }
                 }
-                if (Math.abs(getCel().getX() - getPolozenie().getX()) < getDrogaHamowania()) {
-//                    if (!utrzymujPredkosc)
-                        hamuj(deltaT);
-                } else // if (getPredkosc() < getMaxPredkosc() && !utrzymujPredkosc)
+
+                if (Math.abs(getCel().getX() - getPolozenie().getX()) < getDrogaHamowania()*1.2) {
+                    hamuj(deltaT);
+                } else
                     przyspiesz(deltaT);
-/*
-                if (utrzymujPredkosc) {
-                    boolean przodZaPrzejazdem;
-                    if (tor.getZwrot().equals("prawo"))
-                        przodZaPrzejazdem = getPolozenie().getX() < przejazd.getPolozenie().getX();
-                    else // zwrot == "lewo"
-                        przodZaPrzejazdem = przejazd.getPolozenie().getX() < getPolozenie().getX();
-                    if (przodZaPrzejazdem)
-                        utrzymujPredkosc = false;
-                }
-*/
 
                 getPolozenie().przenies(getPredkosc(), deltaT, tor.getZwrot(), getCel());
 
@@ -160,7 +145,6 @@ public class Pociag extends Pojazd {
             try {
                 sleep((long) (deltaT*1000));
             } catch (InterruptedException e) {
-//                tor.getCzujnikSBL3().aktywuj(nazwa);
                 System.out.println(this + "\tDO WIDZENIA!");
                 stop();
             }
