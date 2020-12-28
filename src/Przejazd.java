@@ -43,9 +43,32 @@ public class Przejazd extends ElementInfrastruktury {
         return pasLewy.getRogatka().isOtwarta() || pasPrawy.getRogatka().isOtwarta();
     }
 
+    public void sterowanieSBL() {
+        for (int i = 0; i<torGorny.getIloscSemaforowSBL(); i++) {
+            if (torGorny.getCzujnikiNajazdoweSBL().get(i).isAktywowany()) {
+                torGorny.getCzujnikiNajazdoweSBL().get(i).setAktywowany(false);
+                torGorny.getSemaforySBL().get(i).podajSTOP();
+            }
+            if (torGorny.getCzujnikiZjazdoweSBL().get(i).isAktywowany()) {
+                torGorny.getCzujnikiZjazdoweSBL().get(i).setAktywowany(false);
+                torGorny.getSemaforySBL().get(i).podajJEDZ();
+            }
+        }
+        for (int i = 0; i<torDolny.getIloscSemaforowSBL(); i++) {
+            if (torDolny.getCzujnikiNajazdoweSBL().get(i).isAktywowany()) {
+                torDolny.getCzujnikiNajazdoweSBL().get(i).setAktywowany(false);
+                torDolny.getSemaforySBL().get(i).podajSTOP();
+            }
+            if (torDolny.getCzujnikiZjazdoweSBL().get(i).isAktywowany()) {
+                torDolny.getCzujnikiZjazdoweSBL().get(i).setAktywowany(false);
+                torDolny.getSemaforySBL().get(i).podajJEDZ();
+            }
+        }
+    }
+
     public void sterowanieAutomatyczne() {
-        boolean zajetoscOdcinkaGornego = torGorny.getCzujnikSSPn().getAktywacje() != torGorny.getCzujnikSSPz().getAktywacje();
-        boolean zajetoscOdcinkaDolnego = torDolny.getCzujnikSSPn().getAktywacje() != torDolny.getCzujnikSSPz().getAktywacje();
+        boolean zajetoscOdcinkaGornego = torGorny.getCzujnikNajazdowySSP().getAktywacje() != torGorny.getCzujnikZjazdowySSP().getAktywacje();
+        boolean zajetoscOdcinkaDolnego = torDolny.getCzujnikNajazdowySSP().getAktywacje() != torDolny.getCzujnikZjazdowySSP().getAktywacje();
 
         if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
             if (!pasLewy.getSygnalizacja().isStop() || !pasPrawy.getSygnalizacja().isStop() ) {
@@ -65,10 +88,9 @@ public class Przejazd extends ElementInfrastruktury {
         }
     }
 
-    // SSP - Samoczynna Sygnalizacja Przejazdowa (info dla maszynisty czy rogatki działają)
     public void sterowanieSSP() {
-        boolean zajetoscOdcinkaGornego = torGorny.getCzujnikSSPn().getAktywacje() != torGorny.getCzujnikSSPz().getAktywacje();
-        boolean zajetoscOdcinkaDolnego = torDolny.getCzujnikSSPn().getAktywacje() != torDolny.getCzujnikSSPz().getAktywacje();
+        boolean zajetoscOdcinkaGornego = torGorny.getCzujnikNajazdowySSP().getAktywacje() != torGorny.getCzujnikZjazdowySSP().getAktywacje();
+        boolean zajetoscOdcinkaDolnego = torDolny.getCzujnikNajazdowySSP().getAktywacje() != torDolny.getCzujnikZjazdowySSP().getAktywacje();
 
         if (zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
             if (!pasPrawy.getSygnalizacja().isStop() || !pasLewy.getSygnalizacja().isStop()) {
@@ -117,29 +139,6 @@ public class Przejazd extends ElementInfrastruktury {
         }
     }
 
-    public void sterowanieSemaforami() {
-        for (int i = 0; i<torGorny.getIloscSemaforowSBL(); i++) {
-            if (torGorny.getCzujnikiNajazdoweSBL().get(i).isAktywowany()) {
-                torGorny.getCzujnikiNajazdoweSBL().get(i).setAktywowany(false);
-                torGorny.getSemaforySBL().get(i).podajSTOP();
-            }
-            if (torGorny.getCzujnikiZjazdoweSBL().get(i).isAktywowany()) {
-                torGorny.getCzujnikiZjazdoweSBL().get(i).setAktywowany(false);
-                torGorny.getSemaforySBL().get(i).podajJEDZ();
-            }
-        }
-        for (int i = 0; i<torDolny.getIloscSemaforowSBL(); i++) {
-            if (torDolny.getCzujnikiNajazdoweSBL().get(i).isAktywowany()) {
-                torDolny.getCzujnikiNajazdoweSBL().get(i).setAktywowany(false);
-                torDolny.getSemaforySBL().get(i).podajSTOP();
-            }
-            if (torDolny.getCzujnikiZjazdoweSBL().get(i).isAktywowany()) {
-                torDolny.getCzujnikiZjazdoweSBL().get(i).setAktywowany(false);
-                torDolny.getSemaforySBL().get(i).podajJEDZ();
-            }
-        }
-    }
-
     @Override
     public void run() {
         System.out.println(this + "\tROZPOCZYNAM DYŻUR!");
@@ -147,8 +146,8 @@ public class Przejazd extends ElementInfrastruktury {
         while (true) {
 
 
-            sterowanieSemaforami();
-//            sterowanieAutomatyczne();
+            sterowanieSBL();
+            sterowanieAutomatyczne();
             sterowanieSSP();
             sterowanieRuchem();
 

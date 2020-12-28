@@ -1,8 +1,8 @@
 public class PasRuchu extends Droga {
     private final Rogatka rogatka;
-    private final Swiatlo sygnalizacja;
+    private final Sygnalizator sygnalizacja;
 
-    public PasRuchu(Polozenie polozenie, String nazwa, Swiatlo sygnalizacja, String zwrot, double dlugosc, Rogatka rogatka) {
+    public PasRuchu(Polozenie polozenie, String nazwa, Sygnalizator sygnalizacja, String zwrot, double dlugosc, Rogatka rogatka) {
         super(polozenie, nazwa, zwrot, dlugosc);
         this.rogatka = rogatka;
         this.sygnalizacja = sygnalizacja;
@@ -10,5 +10,5 @@ public class PasRuchu extends Droga {
 
     public Rogatka getRogatka() { return rogatka; }
 
-    public Swiatlo getSygnalizacja() { return sygnalizacja; }
+    public Sygnalizator getSygnalizacja() { return sygnalizacja; }
 }

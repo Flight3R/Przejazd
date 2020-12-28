@@ -79,11 +79,11 @@ public class Pociag extends Pojazd {
 
     public boolean sprawdzSSP() {
         if (tor.getZwrot().equals("prawo")) {
-            if ((getPolozenie().getX() - getDlugosc()) < tor.getCzujnikSSPn().getPolozenie().getX() && tor.getCzujnikSSPn().getPolozenie().getX() < getPolozenie().getX())
-                tor.getCzujnikSSPn().aktywuj(nazwa);    // nadSSP
+            if ((getPolozenie().getX() - getDlugosc()) < tor.getCzujnikNajazdowySSP().getPolozenie().getX() && tor.getCzujnikNajazdowySSP().getPolozenie().getX() < getPolozenie().getX())
+                tor.getCzujnikNajazdowySSP().aktywuj(nazwa);    // nadSSP
 
-            else if ((getPolozenie().getX() - getDlugosc()*2) < tor.getCzujnikSSPz().getPolozenie().getX() && tor.getCzujnikSSPz().getPolozenie().getX() < (getPolozenie().getX() - getDlugosc()))
-                tor.getCzujnikSSPz().aktywuj(nazwa);    // zaSSP
+            else if ((getPolozenie().getX() - getDlugosc()*2) < tor.getCzujnikZjazdowySSP().getPolozenie().getX() && tor.getCzujnikZjazdowySSP().getPolozenie().getX() < (getPolozenie().getX() - getDlugosc()))
+                tor.getCzujnikZjazdowySSP().aktywuj(nazwa);    // zaSSP
 
             if (getPolozenie().getX() < tor.getTarczaSSP().getPolozenie().getX() && przejazd.getPolozenie().getX() < getCel().getX()) {
                 if (tor.getTarczaSSP().isStop()) {
@@ -93,11 +93,11 @@ public class Pociag extends Pojazd {
             }
 
         } else { // zwrot == "lewo"
-            if (getPolozenie().getX() < tor.getCzujnikSSPn().getPolozenie().getX() && tor.getCzujnikSSPn().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()))
-                tor.getCzujnikSSPn().aktywuj(nazwa);    // nadSSP
+            if (getPolozenie().getX() < tor.getCzujnikNajazdowySSP().getPolozenie().getX() && tor.getCzujnikNajazdowySSP().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()))
+                tor.getCzujnikNajazdowySSP().aktywuj(nazwa);    // nadSSP
 
-            else if ((getPolozenie().getX() + getDlugosc()) < tor.getCzujnikSSPz().getPolozenie().getX() && tor.getCzujnikSSPz().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()*2))
-                tor.getCzujnikSSPz().aktywuj(nazwa);    // zaSSP
+            else if ((getPolozenie().getX() + getDlugosc()) < tor.getCzujnikZjazdowySSP().getPolozenie().getX() && tor.getCzujnikZjazdowySSP().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()*2))
+                tor.getCzujnikZjazdowySSP().aktywuj(nazwa);    // zaSSP
 
             if (tor.getTarczaSSP().getPolozenie().getX() < getPolozenie().getX() && getCel().getX() < przejazd.getPolozenie().getX()) {
                 if (tor.getTarczaSSP().isStop()) {

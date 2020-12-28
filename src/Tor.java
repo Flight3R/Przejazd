@@ -3,20 +3,20 @@ import java.util.ArrayList;
 public class Tor extends Droga {
 
     private final Swiatlo tarczaSSP;
-    private final Czujnik czujnikSSPn;
-    private final Czujnik czujnikSSPz;
+    private final Czujnik czujnikNajazdowySSP;
+    private final Czujnik czujnikZjazdowySSP;
 
     private final ArrayList<Czujnik> czujnikiNajazdoweSBL;
     private final ArrayList<Czujnik> czujnikiZjazdoweSBL;
     private final ArrayList<Swiatlo> semaforySBL;
 
-    public Tor(Polozenie polozenie, String nazwa, String zwrot, double dlugosc, Swiatlo tarczaSSP, Czujnik czujnikSSPn,
-               Czujnik czujnikSSPz, ArrayList<Czujnik> czujnikiNajazdoweSBL, ArrayList<Czujnik> czujnikiZjazdoweSBL,
+    public Tor(Polozenie polozenie, String nazwa, String zwrot, double dlugosc, Swiatlo tarczaSSP, Czujnik czujnikNajazdowySSP,
+               Czujnik czujnikZjazdowySSP, ArrayList<Czujnik> czujnikiNajazdoweSBL, ArrayList<Czujnik> czujnikiZjazdoweSBL,
                ArrayList<Swiatlo> semaforySBL) {
         super(polozenie, nazwa, zwrot, dlugosc);
         this.tarczaSSP = tarczaSSP;
-        this.czujnikSSPn = czujnikSSPn;
-        this.czujnikSSPz = czujnikSSPz;
+        this.czujnikNajazdowySSP = czujnikNajazdowySSP;
+        this.czujnikZjazdowySSP = czujnikZjazdowySSP;
         this.czujnikiNajazdoweSBL = czujnikiNajazdoweSBL;
         this.czujnikiZjazdoweSBL = czujnikiZjazdoweSBL;
         this.semaforySBL = semaforySBL;
@@ -24,9 +24,9 @@ public class Tor extends Droga {
 
     public Swiatlo getTarczaSSP() { return tarczaSSP; }
 
-    public Czujnik getCzujnikSSPn() { return czujnikSSPn; }
+    public Czujnik getCzujnikNajazdowySSP() { return czujnikNajazdowySSP; }
 
-    public Czujnik getCzujnikSSPz() { return czujnikSSPz; }
+    public Czujnik getCzujnikZjazdowySSP() { return czujnikZjazdowySSP; }
 
     public ArrayList<Czujnik> getCzujnikiNajazdoweSBL() { return czujnikiNajazdoweSBL; }
 

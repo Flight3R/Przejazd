@@ -88,10 +88,8 @@ public class Main {
 
         przejazd.start();
 
-
-        rogatkaL.zamknij();
-        rogatkaP.zamknij();
-
-//        KontrolaRuchu kontrolaTestowa = new KontrolaRuchu(przejazdTestowy);
+//        rogatkaL.zamknij();
+//        rogatkaP.zamknij();
+        
     }
 }

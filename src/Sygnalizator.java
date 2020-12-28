@@ -1,13 +1,13 @@
 public class Sygnalizator extends Swiatlo {
 
-    private boolean polecenieZgaszenia = false;
+    private boolean polecenieJedz = false;
 
     public Sygnalizator(Polozenie polozenie, String nazwa) {
         super(polozenie, nazwa);
     }
 
     public void podajJEDZ() {
-        polecenieZgaszenia = true;
+        polecenieJedz = true;
     }
 
     private void podajJEDZprivate() throws InterruptedException {
@@ -19,13 +19,13 @@ public class Sygnalizator extends Swiatlo {
     @Override
     public void run() {
         while (true) {
-            if (polecenieZgaszenia) {
+            if (polecenieJedz) {
                 try {
                     podajJEDZprivate();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                polecenieZgaszenia = false;
+                polecenieJedz = false;
             }
             try { sleep(200); } catch (InterruptedException e) { e.printStackTrace(); }
         }
