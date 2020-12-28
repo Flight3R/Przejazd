@@ -67,8 +67,8 @@ public class Przejazd extends ElementInfrastruktury {
 
     // SSP - Samoczynna Sygnalizacja Przejazdowa (info dla maszynisty czy rogatki działają)
     public void sterowanieSSP() {
-        boolean zajetoscOdcinkaGornego = torGorny.getCzujnikiNajazdoweSBL().get(1).getAktywacje() == torGorny.getCzujnikiZjazdoweSBL().get(1).getAktywacje();
-        boolean zajetoscOdcinkaDolnego = torDolny.getCzujnikiNajazdoweSBL().get(1).getAktywacje() == torDolny.getCzujnikiZjazdoweSBL().get(1).getAktywacje();
+        boolean zajetoscOdcinkaGornego = torGorny.getCzujnikSSP1().getAktywacje() != torGorny.getCzujnikSSP2().getAktywacje();
+        boolean zajetoscOdcinkaDolnego = torDolny.getCzujnikSSP1().getAktywacje() != torDolny.getCzujnikSSP2().getAktywacje();
 
         if (zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
             if (!pasPrawy.getSygnalizacja().isStop() || !pasLewy.getSygnalizacja().isStop()) {

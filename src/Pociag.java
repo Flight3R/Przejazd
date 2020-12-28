@@ -82,6 +82,11 @@ public class Pociag extends Pojazd {
 
     public void sprawdzSSP() {
         if (tor.getZwrot().equals("prawo")) {
+            if ((getPolozenie().getX() - getDlugosc()) < tor.getCzujnikSSP1().getPolozenie().getX() && tor.getCzujnikSSP1().getPolozenie().getX() < getPolozenie().getX())
+                tor.getCzujnikSSP1().aktywuj(nazwa);
+            if ((getPolozenie().getX() - getDlugosc()*2) < tor.getCzujnikSSP2().getPolozenie().getX() && tor.getCzujnikSSP2().getPolozenie().getX() < (getPolozenie().getX() - getDlugosc()))
+                tor.getCzujnikSSP2().aktywuj(nazwa);
+
             if (getPolozenie().getX() < tor.getSemaforSSP().getPolozenie().getX()) {
                 if (tor.getSemaforSSP().isStop())
                     uwazajNaPrzejezdzie = true;
@@ -90,6 +95,10 @@ public class Pociag extends Pojazd {
             }
 
         } else { // zwrot == "lewo"
+            if (getPolozenie().getX() < tor.getCzujnikSSP1().getPolozenie().getX() && tor.getCzujnikSSP1().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()))
+                tor.getCzujnikSSP1().aktywuj(nazwa);
+            if ((getPolozenie().getX() + getDlugosc()) < tor.getCzujnikSSP2().getPolozenie().getX() && tor.getCzujnikSSP2().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()*2))
+                tor.getCzujnikSSP2().aktywuj(nazwa);
             if (tor.getSemaforSSP().getPolozenie().getX() < getPolozenie().getX()) {
                 if (tor.getSemaforSSP().isStop())
                     uwazajNaPrzejezdzie = true;
