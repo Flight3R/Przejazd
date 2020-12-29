@@ -1,5 +1,5 @@
 public abstract class Pojazd extends Thread {
-
+    private String nazwa;
     private Polozenie polozenie; // POLOZENIE PRZODU POJAZDU
     private final double dlugosc;
     private double predkosc;
@@ -9,7 +9,8 @@ public abstract class Pojazd extends Thread {
     private double drogaHamowania;
     private Polozenie cel = new Polozenie(0,0);
 
-    public Pojazd(double dlugosc, Integer masa, double maxPredkosc, Polozenie polozenie) {
+    public Pojazd(String nazwa, double dlugosc, Integer masa, double maxPredkosc, Polozenie polozenie) {
+        this.nazwa = nazwa;
         this.dlugosc = dlugosc;
         this.maxPredkosc = maxPredkosc;
         this.polozenie = polozenie;
@@ -18,6 +19,8 @@ public abstract class Pojazd extends Thread {
         przyspieszenie = 20000.0 / masa;
         drogaHamowania = Math.pow(maxPredkosc, 2) / (2 * -opoznienie);
     }
+
+    public String getNazwa() { return nazwa; }
 
     public Polozenie getPolozenie() { return polozenie; }
 

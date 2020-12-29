@@ -18,6 +18,7 @@ public class Przejazd extends ElementInfrastruktury {
         this.rozkladGorny = rozkladGorny;
         this.rozkladDolny = rozkladDolny;
         this.czas = czas;
+        start();
     }
 
     @Override
@@ -36,6 +37,8 @@ public class Przejazd extends ElementInfrastruktury {
     public Rozklad getRozkladGorny() { return rozkladGorny; }
 
     public Rozklad getRozkladDolny() { return rozkladDolny; }
+
+    public Rozklad getPociagiObecne() { return pociagiObecne; }
 
     public double getCzas() { return czas; }
 
@@ -108,50 +111,19 @@ public class Przejazd extends ElementInfrastruktury {
         }
     }
 
-    public void sterowanieRuchem() {
-        if (!torGorny.getSemaforySBL().get(0).isStop() && rozkladGorny.ilePociagow() != 0) {
-            Pociag najblizszyPrzed = rozkladGorny.najblizszyPociag();
-            double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
-            if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < czas) {
-                najblizszyPrzed.start();
-                najblizszyPrzed.setSpoznienie((czasDojazdu+najblizszyPrzed.getCzasPrzyjazdu() - czas));
-                pociagiObecne.dodaj(najblizszyPrzed);
-                rozkladGorny.usunPierwszy();
-            }
-        }
-
-        if (!torDolny.getSemaforySBL().get(0).isStop() && rozkladDolny.ilePociagow() != 0) {
-            Pociag najblizszyPrzed = rozkladDolny.najblizszyPociag();
-            double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
-            if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < czas) {
-                najblizszyPrzed.start();
-                pociagiObecne.dodaj(najblizszyPrzed);
-                rozkladDolny.usunPierwszy();
-            }
-        }
-
-        if (pociagiObecne.ilePociagow() != 0) {
-            Pociag najblizszyZa = pociagiObecne.najblizszyPociag();
-            if (Math.abs(najblizszyZa.getPolozenie().getX()) > 3200) {
-                pociagiObecne.usunPierwszy();
-                najblizszyZa.interrupt();
-            }
-        }
-    }
-
     @Override
     public void run() {
         System.out.println(this + "\tROZPOCZYNAM DYŻUR!");
         double deltaT = 200.0/1000;
         while (true) {
 
-
             sterowanieSBL();
-            sterowanieAutomatyczne();
-            sterowanieSSP();
-            sterowanieRuchem();
 
-//            System.out.println(this);
+            if (1==1) // >>>>>>>>>>>>>>>>>> STAN PRZEŁĄCZNIKA NA PULPICIE
+                sterowanieAutomatyczne();
+            else
+                sterowanieSSP();
+
             czas = czas + deltaT;
             try { sleep((long) (deltaT*1000)); } catch (InterruptedException e) { e.printStackTrace(); }
 

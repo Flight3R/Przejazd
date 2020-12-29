@@ -28,7 +28,7 @@ public class Main {
         Czujnik czujnikSBL3Dn = new Czujnik(new Polozenie(1000, -2), "czujnik_SBL3n_tor_dolny");
         Czujnik czujnikSBL2Dz = new Czujnik(new Polozenie(1000, -2), "czujnik_SBL2z_tor_dolny");
 
-        Czujnik czujnikSBL3Dz = new Czujnik(new Polozenie(2500, -2), "czujnik_SBL3z_tor_dolny");
+        Czujnik czujnikSBL3Dz = new Czujnik(new Polozenie(2500, -2), "czujnik_SBL3z_tor_dolny"); // GENEROWANIE CZUJNIKOW I SEMAFORÓW - TOR DOLNY
 
         ArrayList<Czujnik> czujnikiSBLnD = new ArrayList<>(Arrays.asList(czujnikSBL1Dn, czujnikSBL2Dn, czujnikSBL3Dn));
         ArrayList<Czujnik> czujnikiSBLzD = new ArrayList<>(Arrays.asList(czujnikSBL1Dz, czujnikSBL2Dz, czujnikSBL3Dz));
@@ -58,7 +58,7 @@ public class Main {
         Czujnik czujnikSBL3Gn = new Czujnik(new Polozenie(-1000,2), "czujnik_SBL3n_tor_gorny");
         Czujnik czujnikSBL2Gz = new Czujnik(new Polozenie(-1000,2), "czujnik_SBL2z_tor_gorny");
 
-        Czujnik czujnikSBL3Gz = new Czujnik(new Polozenie(-2500,2), "czujnik_SBL3z_tor_gorny");
+        Czujnik czujnikSBL3Gz = new Czujnik(new Polozenie(-2500,2), "czujnik_SBL3z_tor_gorny"); // GENEROWANIE CZUJNIKOW I SEMAFORÓW - TOR GORNY
 
         ArrayList<Czujnik> czujnikiSBLnG = new ArrayList<>(Arrays.asList(czujnikSBL1Gn, czujnikSBL2Gn, czujnikSBL3Gn));
         ArrayList<Czujnik> czujnikiSBLzG = new ArrayList<>(Arrays.asList(czujnikSBL1Gz, czujnikSBL2Gz, czujnikSBL3Gz));
@@ -70,13 +70,13 @@ public class Main {
         Rozklad rozkladTestowyDolny = new Rozklad();
         Przejazd przejazd= new Przejazd(new Polozenie(0,0), "przejazd",pasL, pasP,torG, torD, rozkladTestowyGorny, rozkladTestowyDolny,0);
 
-        Pociag pociagTestowy1 = new Pociag(120,50000,27,"444D",60, torD, przejazd);
-//        Pociag pociagTestowy2 = new Pociag(200,80000,25,"555G",200, torTestowyG, przejazdTestowy);
-        Pociag pociagTestowy3 = new Pociag(50,20000,38.89,"111D",50, torD, przejazd);
-//        Pociag pociagTestowy4 = new Pociag(80,40000,27.67,"600D",250, torTestowyD, przejazdTestowy);
-//        Pociag pociagTestowy5 = new Pociag(300,100000,22.22,"777G", 250, torTestowyG, przejazdTestowy);
-//        Pociag pociagTestowy6 = new Pociag(600,200000,16.67,"333G",170, torTestowyG, przejazdTestowy);
-        Pociag pociagTestowy7 = new Pociag(15,15000,44.44,"222D",70, torD, przejazd);
+        Pociag pociagTestowy1 = new Pociag("444D",120,50000,27,60, torD, przejazd);
+//        Pociag pociagTestowy2 = new Pociag("555G",200,80000,25,200, torTestowyG, przejazdTestowy);
+        Pociag pociagTestowy3 = new Pociag("111D",50,20000,38.89,50, torD, przejazd);
+//        Pociag pociagTestowy4 = new Pociag("600D",80,40000,27.67,250, torTestowyD, przejazdTestowy);
+//        Pociag pociagTestowy5 = new Pociag("777G",300,100000,22.22, 250, torTestowyG, przejazdTestowy);
+//        Pociag pociagTestowy6 = new Pociag("333G",600,200000,16.67,170, torTestowyG, przejazdTestowy);
+        Pociag pociagTestowy7 = new Pociag("222D",15,15000,44.44,70, torD, przejazd);
 //
         rozkladTestowyDolny.dodaj(pociagTestowy1);
 //        rozkladTestowyGorny.dodaj(pociagTestowy2);
@@ -86,8 +86,7 @@ public class Main {
 //        rozkladTestowyGorny.dodaj(pociagTestowy6);
         rozkladTestowyDolny.dodaj(pociagTestowy7);
 
-        przejazd.start();
-
+        KontrolaRuchu kontrola = new KontrolaRuchu(przejazd);
 //        rogatkaL.zamknij();
 //        rogatkaP.zamknij();
         

@@ -1,14 +1,12 @@
 public class Pociag extends Pojazd {
 
-    private final String nazwa;
     private final Integer czasPrzyjazdu;
     private double spoznienie = 0;
     private final Tor tor;
     private final Przejazd przejazd;
 
-    public Pociag(double dlugosc, Integer masa, double maxPredkosc, String nazwa, Integer czasPrzyjazdu,Tor tor, Przejazd przejazd) {
-        super(dlugosc, masa, maxPredkosc, new Polozenie(-tor.getKoniec().getX()/2,tor.getKoniec().getY()));
-        this.nazwa = nazwa;
+    public Pociag(String nazwa, double dlugosc, Integer masa, double maxPredkosc, Integer czasPrzyjazdu, Tor tor, Przejazd przejazd) {
+        super(nazwa, dlugosc, masa, maxPredkosc, new Polozenie(-tor.getKoniec().getX()/2,tor.getKoniec().getY()));
         this.czasPrzyjazdu = czasPrzyjazdu;
         this.tor = tor;
         this.przejazd = przejazd;
@@ -17,7 +15,7 @@ public class Pociag extends Pojazd {
 
     @Override
     public String toString() {
-        return "Pociag: " + nazwa + "\tV= " + Math.round(getPredkosc()*100.0)/100.0 + "\tX= " + Math.round(getPolozenie().getX()*100.0)/100.0 +
+        return "Pociag: " + getNazwa() + "\tV= " + Math.round(getPredkosc()*100.0)/100.0 + "\tX= " + Math.round(getPolozenie().getX()*100.0)/100.0 +
                 "\tY= " + getPolozenie().getY() + "\tETA= " + czasPrzyjazdu + "\tOP= " + spoznienie + "\tCEL=" + getCel().getX();
     }
 
@@ -35,21 +33,21 @@ public class Pociag extends Pojazd {
             for (int i = 0; i<tor.getIloscSemaforowSBL(); i++) {
                 pociagNadCzujnikiem = (getPolozenie().getX() - getDlugosc()) < tor.getCzujnikiNajazdoweSBL().get(i).getPolozenie().getX() && tor.getCzujnikiNajazdoweSBL().get(i).getPolozenie().getX() < getPolozenie().getX();
                 if (pociagNadCzujnikiem)
-                    tor.getCzujnikiNajazdoweSBL().get(i).aktywuj(nazwa);
+                    tor.getCzujnikiNajazdoweSBL().get(i).aktywuj(getNazwa());
 
                 pociagZaCzujnikiem = (getPolozenie().getX() - getDlugosc() * 2) < tor.getCzujnikiZjazdoweSBL().get(i).getPolozenie().getX() && tor.getCzujnikiZjazdoweSBL().get(i).getPolozenie().getX() < (getPolozenie().getX() - getDlugosc());
                 if (pociagZaCzujnikiem)
-                    tor.getCzujnikiZjazdoweSBL().get(i).aktywuj(nazwa);
+                    tor.getCzujnikiZjazdoweSBL().get(i).aktywuj(getNazwa());
             }
         } else {
             for (int i = 0; i<tor.getIloscSemaforowSBL(); i++) {
                 pociagNadCzujnikiem = tor.getCzujnikiNajazdoweSBL().get(i).getPolozenie().getX() < getPolozenie().getX() && tor.getCzujnikiNajazdoweSBL().get(i).getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
                 if (pociagNadCzujnikiem)
-                    tor.getCzujnikiNajazdoweSBL().get(i).aktywuj(nazwa);
+                    tor.getCzujnikiNajazdoweSBL().get(i).aktywuj(getNazwa());
 
                 pociagZaCzujnikiem = tor.getCzujnikiZjazdoweSBL().get(i).getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()) && tor.getCzujnikiZjazdoweSBL().get(i).getPolozenie().getX() < (getPolozenie().getX() + getDlugosc() * 2);
                 if (pociagZaCzujnikiem)
-                    tor.getCzujnikiZjazdoweSBL().get(i).aktywuj(nazwa);
+                    tor.getCzujnikiZjazdoweSBL().get(i).aktywuj(getNazwa());
             }
         }
     }
@@ -80,10 +78,10 @@ public class Pociag extends Pojazd {
     public boolean sprawdzSSP() {
         if (tor.getZwrot().equals("prawo")) {
             if ((getPolozenie().getX() - getDlugosc()) < tor.getCzujnikNajazdowySSP().getPolozenie().getX() && tor.getCzujnikNajazdowySSP().getPolozenie().getX() < getPolozenie().getX())
-                tor.getCzujnikNajazdowySSP().aktywuj(nazwa);    // nadSSP
+                tor.getCzujnikNajazdowySSP().aktywuj(getNazwa());    // nadSSP
 
             else if ((getPolozenie().getX() - getDlugosc()*2) < tor.getCzujnikZjazdowySSP().getPolozenie().getX() && tor.getCzujnikZjazdowySSP().getPolozenie().getX() < (getPolozenie().getX() - getDlugosc()))
-                tor.getCzujnikZjazdowySSP().aktywuj(nazwa);    // zaSSP
+                tor.getCzujnikZjazdowySSP().aktywuj(getNazwa());    // zaSSP
 
             if (getPolozenie().getX() < tor.getTarczaSSP().getPolozenie().getX() && przejazd.getPolozenie().getX() < getCel().getX()) {
                 if (tor.getTarczaSSP().isStop()) {
@@ -94,10 +92,10 @@ public class Pociag extends Pojazd {
 
         } else { // zwrot == "lewo"
             if (getPolozenie().getX() < tor.getCzujnikNajazdowySSP().getPolozenie().getX() && tor.getCzujnikNajazdowySSP().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()))
-                tor.getCzujnikNajazdowySSP().aktywuj(nazwa);    // nadSSP
+                tor.getCzujnikNajazdowySSP().aktywuj(getNazwa());    // nadSSP
 
             else if ((getPolozenie().getX() + getDlugosc()) < tor.getCzujnikZjazdowySSP().getPolozenie().getX() && tor.getCzujnikZjazdowySSP().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()*2))
-                tor.getCzujnikZjazdowySSP().aktywuj(nazwa);    // zaSSP
+                tor.getCzujnikZjazdowySSP().aktywuj(getNazwa());    // zaSSP
 
             if (tor.getTarczaSSP().getPolozenie().getX() < getPolozenie().getX() && getCel().getX() < przejazd.getPolozenie().getX()) {
                 if (tor.getTarczaSSP().isStop()) {

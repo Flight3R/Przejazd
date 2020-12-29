@@ -3,12 +3,18 @@ public class Auto extends Pojazd {
     private final PasRuchu pas;
     private final Auto autoPrzed;
 
-    public Auto(double dlugosc, Integer masa, double maxPredkosc, Polozenie polozenie, Przejazd przejazd, PasRuchu pas, Auto autoPrzed) {
-        super(dlugosc, masa, maxPredkosc, polozenie);
+    public Auto(String nazwa, double dlugosc, Integer masa, double maxPredkosc, Polozenie polozenie, PasRuchu pas, Auto autoPrzed) {
+        super(nazwa, dlugosc, masa, maxPredkosc, polozenie);
         this.pas = pas;
         this.autoPrzed = autoPrzed;
         copyCel(pas.getKoniec());
-        start();
+//        start();
+    }
+
+    @Override
+    public String toString() {
+        return "Auto: " + getNazwa() + "\tV= " + Math.round(getPredkosc()*100.0)/100.0 + "\tX= " + Math.round(getPolozenie().getX()*100.0)/100.0 +
+                "\tY= " + getPolozenie().getY() + "\tCEL= " + getCel().getY();
     }
 
     public boolean sprawdzSwiatla() {
@@ -51,16 +57,23 @@ public class Auto extends Pojazd {
 
     @Override
     public void run() {
-        super.run();
         double deltaT = 200.0/1000;
         while(true) {
             boolean swiatla = sprawdzSwiatla();         // Aby zawsze sie wykonalo
-            boolean autoPrzed = sprawdzAutoPrzed();     // Aby zawsze sie wykonalo i nadpisało jak cos
+
+            boolean autoPrzed;
+            if (this.autoPrzed != null)
+                autoPrzed = sprawdzAutoPrzed();     // Aby zawsze sie wykonalo i nadpisało jak cos
+            else
+                autoPrzed = false;
 
             if ( !swiatla && !autoPrzed && getCel() != pas.getKoniec())
                copyCel(pas.getKoniec());
 
             if (getCel().getY() != getPolozenie().getY()) {
+
+                System.out.println(this);
+
                 if (Math.abs(getCel().getY() - getPolozenie().getY()) < getDrogaHamowania())
                     hamuj(deltaT);
                 else
@@ -69,7 +82,7 @@ public class Auto extends Pojazd {
                 getPolozenie().przenies(getPredkosc(), deltaT, pas.getZwrot(), getCel());
             }
 
-            try { sleep(200); } catch (InterruptedException interruptedException) { interruptedException.printStackTrace(); }
+            try { sleep(200); } catch (InterruptedException interruptedException) { stop(); }
         }
     }
 }
