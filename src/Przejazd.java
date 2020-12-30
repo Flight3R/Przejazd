@@ -119,7 +119,7 @@ public class Przejazd extends ElementInfrastruktury {
 
             sterowanieSBL();
 
-            if (1==1) // >>>>>>>>>>>>>>>>>> STAN PRZEŁĄCZNIKA NA PULPICIE
+            if (1==0) // >>>>>>>>>>>>>>>>>> STAN PRZEŁĄCZNIKA NA PULPICIE
                 sterowanieAutomatyczne();
             else
                 sterowanieSSP();

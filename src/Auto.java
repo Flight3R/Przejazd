@@ -4,7 +4,7 @@ public class Auto extends Pojazd {
     private final Auto autoPrzed;
 
     public Auto(String nazwa, double dlugosc, Integer masa, double maxPredkosc, Polozenie polozenie, PasRuchu pas, Auto autoPrzed) {
-        super(nazwa, dlugosc, masa, maxPredkosc, polozenie);
+        super("Auto", nazwa, dlugosc, masa, maxPredkosc, polozenie);
         this.pas = pas;
         this.autoPrzed = autoPrzed;
         copyCel(pas.getKoniec());
@@ -18,23 +18,25 @@ public class Auto extends Pojazd {
     }
 
     public boolean sprawdzSwiatla() {
-        boolean przedPrzejazdem;
+        boolean przedSygnalizatorem;
         boolean mozliwoscWyhamowania;
-        Swiatlo swiatlo;
+//        Sygnalizator sygnalizator;
 
         if (pas.getZwrot() == "gora") {
-            przedPrzejazdem = getPolozenie().getY() < pas.getSygnalizacja().getPolozenie().getY();
+            przedSygnalizatorem = getPolozenie().getY() <= pas.getSygnalizacja().getPolozenie().getY();
             mozliwoscWyhamowania = getDrogaHamowania() <= (pas.getSygnalizacja().getPolozenie().getY() - getPolozenie().getY());
-            swiatlo = pas.getSygnalizacja();
+//            sygnalizator = pas.getSygnalizacja();
         } else { // zwrot == "dol"
-            przedPrzejazdem = pas.getSygnalizacja().getPolozenie().getY() < getPolozenie().getY();
+            przedSygnalizatorem = pas.getSygnalizacja().getPolozenie().getY() <= getPolozenie().getY();
             mozliwoscWyhamowania = getDrogaHamowania() <= (getPolozenie().getY() - pas.getSygnalizacja().getPolozenie().getY());
-            swiatlo = pas.getSygnalizacja();
+//            sygnalizator = pas.getSygnalizacja();
         }
 
-        if (przedPrzejazdem && swiatlo.isStop() && mozliwoscWyhamowania) {
-            getCel().setY(swiatlo.getPolozenie().getX());
-            return true;
+        if (przedSygnalizatorem && pas.getSygnalizacja().isStop()) {
+            if (getCel().getY() == pas.getSygnalizacja().getPolozenie().getY() || mozliwoscWyhamowania) {
+                copyCel(pas.getSygnalizacja().getPolozenie());
+                return true;
+            }
         }
         return false;
     }
@@ -42,12 +44,12 @@ public class Auto extends Pojazd {
     public boolean sprawdzAutoPrzed() {
 
         if (pas.getZwrot() == "gora") {
-            if (Math.abs(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc() - getPolozenie().getX()) < getDrogaHamowania()) {
+            if (Math.abs(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc() - getPolozenie().getX()) <= getDrogaHamowania()) {
                 getCel().setY(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc());
                 return true;
             }
         } else { // zwrot == "dol"
-            if (Math.abs(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc() - getPolozenie().getY()) < getDrogaHamowania()) {
+            if (Math.abs(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc() - getPolozenie().getY()) <= getDrogaHamowania()) {
                 getCel().setY(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc());
                 return true;
             }
@@ -72,14 +74,16 @@ public class Auto extends Pojazd {
 
             if (getCel().getY() != getPolozenie().getY()) {
 
-                System.out.println(this);
+                System.out.println(this + "   " + getDrogaHamowania());
 
-                if (Math.abs(getCel().getY() - getPolozenie().getY()) < getDrogaHamowania())
+                if (Math.abs(getCel().getY() - getPolozenie().getY()) < getDrogaHamowania()*2)
                     hamuj(deltaT);
                 else
                     przyspiesz(deltaT);
 
                 getPolozenie().przenies(getPredkosc(), deltaT, pas.getZwrot(), getCel());
+            } else if (getPredkosc() != 0){
+                setPredkosc(0);
             }
 
             try { sleep(200); } catch (InterruptedException interruptedException) { stop(); }

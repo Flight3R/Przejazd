@@ -1,22 +1,10 @@
-public class Swiatlo extends ElementInfrastruktury {
-    private boolean stop = false;
+public interface Swiatlo {
+    boolean stop = false;
 
-    public Swiatlo(Polozenie polozenie, String nazwa) {
-        super(polozenie, nazwa);
-        start();
-    }
+    void podajSTOP();
 
-    public boolean isStop() { return stop; }
+    void podajJEDZ();
 
-    public void setStop(boolean stop) { this.stop = stop; }
+    boolean isStop();
 
-    public void podajSTOP() {
-        System.out.println("Światło: " + nazwa + " świeci STOP!");
-        stop = true;
-    }
-
-    public void podajJEDZ() {
-        System.out.println("Światło: " + nazwa + " świeci JEDŹ!");
-        setStop(false);
-    }
 }

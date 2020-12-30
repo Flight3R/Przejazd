@@ -1,19 +1,29 @@
-public class Sygnalizator extends Swiatlo {
+public class Sygnalizator extends ElementInfrastruktury implements Swiatlo {
 
+    boolean stop = false;
     private boolean polecenieJedz = false;
 
     public Sygnalizator(Polozenie polozenie, String nazwa) {
         super(polozenie, nazwa);
+        start();
+    }
+
+    public void podajSTOP() {
+        stop = true;
+        System.out.println("Sygnalizator: " + nazwa + " świeci STOP!");
     }
 
     public void podajJEDZ() {
         polecenieJedz = true;
     }
 
+    public boolean isStop() { return stop; }
+
     private void podajJEDZprivate() throws InterruptedException {
-        sleep(10000);
-        System.out.println("Światło: " + nazwa + " świeci JEDŹ!");
-        setStop(false);
+        sleep(5000);
+        stop = false;
+        System.out.println("Sygnalizator: " + nazwa + " świeci JEDŹ!");
+
     }
 
     @Override

@@ -5,7 +5,7 @@ public class KontrolaRuchu extends Thread {
     private Przejazd przejazd;
     private ArrayList<Auto> autaPrawy = new ArrayList<>();
     private ArrayList<Auto> autaLewy = new ArrayList<>();
-    private int maxIloscNaPas = 5;
+    private int maxIloscNaPas = 3;
     private int numerPorzadkowy = 0;
 
     public KontrolaRuchu(Przejazd przejazd) {
@@ -102,7 +102,6 @@ public class KontrolaRuchu extends Thread {
         Random losowyCzas = new Random();
         double czasKolejnegoAuta = przejazd.getCzas();
 
-//        super.run();
         while (true) {
 
             if (czasKolejnegoAuta <= przejazd.getCzas()) {

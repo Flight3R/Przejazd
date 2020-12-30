@@ -6,7 +6,7 @@ public class Pociag extends Pojazd {
     private final Przejazd przejazd;
 
     public Pociag(String nazwa, double dlugosc, Integer masa, double maxPredkosc, Integer czasPrzyjazdu, Tor tor, Przejazd przejazd) {
-        super(nazwa, dlugosc, masa, maxPredkosc, new Polozenie(-tor.getKoniec().getX()/2,tor.getKoniec().getY()));
+        super("Pociag" ,nazwa, dlugosc, masa, maxPredkosc, new Polozenie(-tor.getKoniec().getX()/2,tor.getKoniec().getY()));
         this.czasPrzyjazdu = czasPrzyjazdu;
         this.tor = tor;
         this.przejazd = przejazd;
@@ -119,11 +119,10 @@ public class Pociag extends Pojazd {
             boolean ssp = sprawdzSSP();
 
             if (getCel().getX() == przejazd.getPolozenie().getX()) {
-                if (getPredkosc() <= 5.56 && !przejazd.isRogatkiOtwarte())  // 5.56m/s ~= 20km/h
+                if (Math.abs(getPolozenie().getX() - przejazd.getPolozenie().getX()) < 20 && !przejazd.isRogatkiOtwarte())
                     copyCel(tor.getKoniec());
             } else if (!sbl && !ssp)
                 copyCel(tor.getKoniec());
-
 
             if (getCel().getX() != getPolozenie().getX()) {
 

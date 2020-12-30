@@ -11,20 +11,20 @@ public class Main {
         Rogatka rogatkaP = new Rogatka(new Polozenie(1, -3), "rogatka_pas_prawy", 5);
         PasRuchu pasP = new PasRuchu(new Polozenie(1, 0), "pas_prawy", sygnalizacjaP, "gora", 1000, rogatkaP);
 
-        Swiatlo semaforSBL1D  = new Swiatlo(new Polozenie(-2501,-2), "semafor_SBL1_tor_dolny");
+        Semafor semaforSBL1D  = new Semafor(new Polozenie(-2501,-2), "semafor_SBL1_tor_dolny");
         Czujnik czujnikSBL1Dn = new Czujnik(new Polozenie(-2501,-2), "czujnik_SBL1n_tor_dolny");
 
-        Swiatlo semaforSBL2D  = new Swiatlo(new Polozenie(-1300,-2), "semafor_SBL2_tor_dolny");
+        Semafor semaforSBL2D  = new Semafor(new Polozenie(-1300,-2), "semafor_SBL2_tor_dolny");
         Czujnik czujnikSBL2Dn = new Czujnik(new Polozenie(-1300,-2), "czujnik_SBL2n_tor_dolny");
         Czujnik czujnikSBL1Dz = new Czujnik(new Polozenie(-1300,-2), "czujnik_SBL1z_tor_dolny");
 
         Czujnik czujnikSSPDn  = new Czujnik(new Polozenie(-1300,-2), "czujnik_SSPn_tor_dolny");
 
-        Swiatlo semaforSSPD   = new Swiatlo(new Polozenie(-1000,-2), "semafor_SSP_tor_dolny");
+        Semafor semaforSSPD   = new Semafor(new Polozenie(-1000,-2), "semafor_SSP_tor_dolny");
 
         Czujnik czujnikSSPDz  = new Czujnik(new Polozenie(10,   -2), "czujnik_SSPz_tor_dolny");
 
-        Swiatlo semaforSBL3D  = new Swiatlo(new Polozenie(1000, -2), "semafor_SBL3_tor_dolny");
+        Semafor semaforSBL3D  = new Semafor(new Polozenie(1000, -2), "semafor_SBL3_tor_dolny");
         Czujnik czujnikSBL3Dn = new Czujnik(new Polozenie(1000, -2), "czujnik_SBL3n_tor_dolny");
         Czujnik czujnikSBL2Dz = new Czujnik(new Polozenie(1000, -2), "czujnik_SBL2z_tor_dolny");
 
@@ -32,7 +32,7 @@ public class Main {
 
         ArrayList<Czujnik> czujnikiSBLnD = new ArrayList<>(Arrays.asList(czujnikSBL1Dn, czujnikSBL2Dn, czujnikSBL3Dn));
         ArrayList<Czujnik> czujnikiSBLzD = new ArrayList<>(Arrays.asList(czujnikSBL1Dz, czujnikSBL2Dz, czujnikSBL3Dz));
-        ArrayList<Swiatlo> semaforySBLD = new ArrayList<>(Arrays.asList(semaforSBL1D, semaforSBL2D, semaforSBL3D));
+        ArrayList<Semafor> semaforySBLD = new ArrayList<>(Arrays.asList(semaforSBL1D, semaforSBL2D, semaforSBL3D));
 
         Tor torD = new Tor(new Polozenie(0, -2),"tor_dolny", "prawo", 5000, semaforSSPD, czujnikSSPDn, czujnikSSPDz, czujnikiSBLnD, czujnikiSBLzD, semaforySBLD);
 
@@ -41,20 +41,20 @@ public class Main {
         PasRuchu pasL = new PasRuchu(new Polozenie(-1, 0), "pas_lewy", sygnalizacjaL, "dol", 1000, rogatkaL);
 
 
-        Swiatlo semaforSBL1G  = new Swiatlo(new Polozenie(2501, 2), "semafor_SBL1_tor_gorny");
+        Semafor semaforSBL1G  = new Semafor(new Polozenie(2501, 2), "semafor_SBL1_tor_gorny");
         Czujnik czujnikSBL1Gn = new Czujnik(new Polozenie(2501, 2), "czujnik_SBL1n_tor_gorny");
 
-        Swiatlo semaforSBL2G  = new Swiatlo(new Polozenie(1300, 2), "semafor_SBL2_tor_gorny");
+        Semafor semaforSBL2G  = new Semafor(new Polozenie(1300, 2), "semafor_SBL2_tor_gorny");
         Czujnik czujnikSBL2Gn = new Czujnik(new Polozenie(1300, 2), "czujnik_SBL2n_tor_gorny");
         Czujnik czujnikSBL1Gz = new Czujnik(new Polozenie(1300, 2), "czujnik_SBL1z_tor_gorny");
 
         Czujnik czujnikSSPGn  = new Czujnik(new Polozenie(1300, 2), "czujnik_SSPn_tor_gorny");
 
-        Swiatlo semaforSSPG   = new Swiatlo(new Polozenie(1000, 2), "semafor_SSP_tor_gorny");
+        Semafor semaforSSPG   = new Semafor(new Polozenie(1000, 2), "semafor_SSP_tor_gorny");
 
         Czujnik czujnikSSPGz  = new Czujnik(new Polozenie(-10,  2), "czujnik_SSPz_tor_gorny");
 
-        Swiatlo semaforSBL3G  = new Swiatlo(new Polozenie(-1000,2), "semafor_SBL3_tor_gorny");
+        Semafor semaforSBL3G  = new Semafor(new Polozenie(-1000,2), "semafor_SBL3_tor_gorny");
         Czujnik czujnikSBL3Gn = new Czujnik(new Polozenie(-1000,2), "czujnik_SBL3n_tor_gorny");
         Czujnik czujnikSBL2Gz = new Czujnik(new Polozenie(-1000,2), "czujnik_SBL2z_tor_gorny");
 
@@ -62,7 +62,7 @@ public class Main {
 
         ArrayList<Czujnik> czujnikiSBLnG = new ArrayList<>(Arrays.asList(czujnikSBL1Gn, czujnikSBL2Gn, czujnikSBL3Gn));
         ArrayList<Czujnik> czujnikiSBLzG = new ArrayList<>(Arrays.asList(czujnikSBL1Gz, czujnikSBL2Gz, czujnikSBL3Gz));
-        ArrayList<Swiatlo> semaforySBLG = new ArrayList<>(Arrays.asList(semaforSBL1G, semaforSBL2G, semaforSBL3G));
+        ArrayList<Semafor> semaforySBLG = new ArrayList<>(Arrays.asList(semaforSBL1G, semaforSBL2G, semaforSBL3G));
 
         Tor torG = new Tor(new Polozenie(0, 2),"tor_gorny", "lewo", 5000, semaforSSPG, czujnikSSPGn, czujnikSSPGz, czujnikiSBLnG, czujnikiSBLzG, semaforySBLG);
 
@@ -87,8 +87,22 @@ public class Main {
         rozkladTestowyDolny.dodaj(pociagTestowy7);
 
         KontrolaRuchu kontrola = new KontrolaRuchu(przejazd);
+//        sygnalizacjaL.podajSTOP();
+//        sygnalizacjaP.podajSTOP();
 //        rogatkaL.zamknij();
 //        rogatkaP.zamknij();
-        
+/*
+        Auto nowe = new Auto(Integer.toString(0),3, 2000, 10, new Polozenie(-1,70), przejazd.getPasLewy(), null);
+        nowe.start();
+
+        Auto nowe2 = new Auto(Integer.toString(1),3, 2000, 16, new Polozenie(-1,80), przejazd.getPasLewy(), nowe);
+        nowe2.start();
+
+        sleep(20*1000);
+        rogatkaL.otworz();
+        rogatkaP.otworz();
+        sygnalizacjaL.podajJEDZ();
+        sygnalizacjaP.podajJEDZ();*/
+
     }
 }
