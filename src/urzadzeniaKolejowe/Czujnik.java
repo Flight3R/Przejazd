@@ -25,7 +25,7 @@ public class Czujnik extends ElementInfrastruktury {
             aktywacje = aktywacje + 1;
             listaAktywacji.add(nazwa);
             aktywowany = true;
-            System.out.println("urzadzeniaKolejowe.Czujnik: " + this.nazwa + " włączony przez pociąg: " + nazwa);
+            System.out.println("Czujnik: " + this.nazwa + " włączony przez pociąg: " + nazwa);
         }
     }
 }

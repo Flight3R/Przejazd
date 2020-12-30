@@ -22,7 +22,7 @@ public class Rogatka extends ElementInfrastruktury {
     public boolean isOtwarta() { return otwarta; }
 
     public void otworz() {
-        System.out.println("urzadzeniaUliczne.Rogatka: " + nazwa + " otwarta");
+        System.out.println("Rogatka: " + nazwa + " otwarta");
         otwarta = true;
     }
 
@@ -33,7 +33,7 @@ public class Rogatka extends ElementInfrastruktury {
 
     private void zamknijPrivate() throws InterruptedException {
         sleep(5000);
-        System.out.println("urzadzeniaUliczne.Rogatka: " + nazwa + " zamknieta");
+        System.out.println("Rogatka: " + nazwa + " zamknieta");
         otwarta = false;
     }
 

@@ -16,11 +16,11 @@ public class Semafor extends ElementInfrastruktury implements Swiatlo {
 
     public void podajSTOP() {
         stop = true;
-        System.out.println("urzadzeniaKolejowe.Semafor: " + nazwa + " podaje STOP!");
+        System.out.println("Semafor: " + nazwa + " podaje STOP!");
     }
 
     public void podajJEDZ() {
         stop = false;
-        System.out.println("urzadzeniaKolejowe.Semafor: " + nazwa + " podaje JEDŹ!");
+        System.out.println("Semafor: " + nazwa + " podaje JEDŹ!");
     }
 }

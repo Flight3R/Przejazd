@@ -99,7 +99,7 @@ public class Main {
 //        rozkladTestowyDolny.dodaj(pociagTestowy7);
 
         KontrolaRuchu kontrola = new KontrolaRuchu(przejazd);
-        
+
 //        sygnalizacjaL.podajSTOP();
 //        sygnalizacjaP.podajSTOP();
 //

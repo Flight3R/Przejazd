@@ -16,7 +16,7 @@ public class Sygnalizator extends ElementInfrastruktury implements Swiatlo {
 
     public void podajSTOP() {
         stop = true;
-        System.out.println("urzadzeniaUliczne.Sygnalizator: " + nazwa + " świeci STOP!");
+        System.out.println("Sygnalizator: " + nazwa + " świeci STOP!");
     }
 
     public void podajJEDZ() {
@@ -28,7 +28,7 @@ public class Sygnalizator extends ElementInfrastruktury implements Swiatlo {
     private void podajJEDZprivate() throws InterruptedException {
         sleep(5000);
         stop = false;
-        System.out.println("urzadzeniaUliczne.Sygnalizator: " + nazwa + " świeci JEDŹ!");
+        System.out.println("Sygnalizator: " + nazwa + " świeci JEDŹ!");
 
     }
 
