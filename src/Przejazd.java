@@ -70,8 +70,8 @@ public class Przejazd extends ElementInfrastruktury {
     }
 
     public void sterowanieAutomatyczne() {
-        boolean zajetoscOdcinkaGornego = torGorny.getCzujnikNajazdowySSP().getAktywacje() != torGorny.getCzujnikZjazdowySSP().getAktywacje();
-        boolean zajetoscOdcinkaDolnego = torDolny.getCzujnikNajazdowySSP().getAktywacje() != torDolny.getCzujnikZjazdowySSP().getAktywacje();
+        boolean zajetoscOdcinkaGornego = !torGorny.getCzujnikNajazdowySSP().getAktywacje().equals(torGorny.getCzujnikZjazdowySSP().getAktywacje());
+        boolean zajetoscOdcinkaDolnego = !torDolny.getCzujnikNajazdowySSP().getAktywacje().equals(torDolny.getCzujnikZjazdowySSP().getAktywacje());
 
         if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
             if (!pasLewy.getSygnalizacja().isStop() || !pasPrawy.getSygnalizacja().isStop() ) {
@@ -92,8 +92,8 @@ public class Przejazd extends ElementInfrastruktury {
     }
 
     public void sterowanieSSP() {
-        boolean zajetoscOdcinkaGornego = torGorny.getCzujnikNajazdowySSP().getAktywacje() != torGorny.getCzujnikZjazdowySSP().getAktywacje();
-        boolean zajetoscOdcinkaDolnego = torDolny.getCzujnikNajazdowySSP().getAktywacje() != torDolny.getCzujnikZjazdowySSP().getAktywacje();
+        boolean zajetoscOdcinkaGornego = !torGorny.getCzujnikNajazdowySSP().getAktywacje().equals(torGorny.getCzujnikZjazdowySSP().getAktywacje());
+        boolean zajetoscOdcinkaDolnego = !torDolny.getCzujnikNajazdowySSP().getAktywacje().equals(torDolny.getCzujnikZjazdowySSP().getAktywacje());
 
         if (zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
             if (!pasPrawy.getSygnalizacja().isStop() || !pasLewy.getSygnalizacja().isStop()) {
@@ -119,7 +119,7 @@ public class Przejazd extends ElementInfrastruktury {
 
             sterowanieSBL();
 
-            if (1==0) // >>>>>>>>>>>>>>>>>> STAN PRZEŁĄCZNIKA NA PULPICIE
+            if (1==1) // >>>>>>>>>>>>>>>>>> STAN PRZEŁĄCZNIKA NA PULPICIE
                 sterowanieAutomatyczne();
             else
                 sterowanieSSP();

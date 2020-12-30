@@ -7,9 +7,10 @@ public abstract class Pojazd extends Thread {
     private final double opoznienie;
     private final double przyspieszenie;
     private double drogaHamowania;
+    private double odstep;
     private Polozenie cel = new Polozenie(0,0);
 
-    public Pojazd(String typ, String nazwa, double dlugosc, Integer masa, double maxPredkosc, Polozenie polozenie) {
+    public Pojazd(String typ, String zwrot, String nazwa, double dlugosc, Integer masa, double maxPredkosc, Polozenie polozenie) {
         this.nazwa = nazwa;
         this.dlugosc = dlugosc;
         this.maxPredkosc = maxPredkosc;
@@ -19,9 +20,17 @@ public abstract class Pojazd extends Thread {
         if (typ.equals("Pociag")) {
             opoznienie = -36000.0 / masa;
             przyspieszenie = 20000.0 / masa;
+            if (zwrot.equals("prawo"))
+                odstep = 10;
+            else
+                odstep = -10;
         } else {
             opoznienie = -5000.0 / masa;
             przyspieszenie = 5000.0 / masa;
+            if (zwrot.equals("gora"))
+                odstep = 1;
+            else
+                odstep = -1;
         }
 
         drogaHamowania = Math.pow(maxPredkosc, 2) / (2 * -opoznienie);
@@ -43,14 +52,11 @@ public abstract class Pojazd extends Thread {
 
     public double getDrogaHamowania() { return drogaHamowania; }
 
+    public double getOdstep() { return odstep; }
+
     public Polozenie getCel() { return cel; }
 
     public void setPredkosc(double predkosc) { this.predkosc = predkosc; }
-
-    public void copyCel(Polozenie cel) {
-        this.cel.setX(cel.getX());
-        this.cel.setY(cel.getY());
-    }
 
     public void hamuj(double deltaT) {
         // F = a*m => a=F/m przyspieszenie odwrotnie proporcjonalne do masy F=36kN

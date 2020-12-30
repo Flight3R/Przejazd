@@ -2,10 +2,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class KontrolaRuchu extends Thread {
-    private Przejazd przejazd;
-    private ArrayList<Auto> autaPrawy = new ArrayList<>();
-    private ArrayList<Auto> autaLewy = new ArrayList<>();
-    private int maxIloscNaPas = 3;
+    private final Przejazd przejazd;
+    private final ArrayList<Auto> autaPrawy = new ArrayList<>();
+    private final ArrayList<Auto> autaLewy = new ArrayList<>();
     private int numerPorzadkowy = 0;
 
     public KontrolaRuchu(Przejazd przejazd) {
@@ -27,6 +26,7 @@ public class KontrolaRuchu extends Thread {
             poprzednieAuto = autaLewy.get(autaLewy.size() - 1);
         }
 
+        int maxIloscNaPas = 3;
         if (autaLewy.size() < maxIloscNaPas && miejsceNaAuto) {
             int masa = generator.nextInt(1500)+500;
             int Vmax = generator.nextInt(4)+12;
@@ -72,7 +72,7 @@ public class KontrolaRuchu extends Thread {
             double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
             if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < przejazd.getCzas()) {
                 najblizszyPrzed.start();
-                najblizszyPrzed.setSpoznienie((czasDojazdu+najblizszyPrzed.getCzasPrzyjazdu() - przejazd.getCzas()));
+                najblizszyPrzed.setSpoznienie(przejazd.getCzas() + czasDojazdu - najblizszyPrzed.getCzasPrzyjazdu());
                 przejazd.getPociagiObecne().dodaj(najblizszyPrzed);
                 przejazd.getRozkladGorny().usunPierwszy();
             }
@@ -83,6 +83,7 @@ public class KontrolaRuchu extends Thread {
             double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
             if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < przejazd.getCzas()) {
                 najblizszyPrzed.start();
+                najblizszyPrzed.setSpoznienie(przejazd.getCzas() + czasDojazdu - najblizszyPrzed.getCzasPrzyjazdu());
                 przejazd.getPociagiObecne().dodaj(najblizszyPrzed);
                 przejazd.getRozkladDolny().usunPierwszy();
             }
@@ -111,7 +112,7 @@ public class KontrolaRuchu extends Thread {
 
             obslugaPociagow();
 
-            try { sleep(400); } catch (InterruptedException e) { e.printStackTrace(); }
+            try { sleep(600); } catch (InterruptedException e) { e.printStackTrace(); }
         }
     }
 }

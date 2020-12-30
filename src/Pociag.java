@@ -6,7 +6,7 @@ public class Pociag extends Pojazd {
     private final Przejazd przejazd;
 
     public Pociag(String nazwa, double dlugosc, Integer masa, double maxPredkosc, Integer czasPrzyjazdu, Tor tor, Przejazd przejazd) {
-        super("Pociag" ,nazwa, dlugosc, masa, maxPredkosc, new Polozenie(-tor.getKoniec().getX()/2,tor.getKoniec().getY()));
+        super("Pociag" , tor.getZwrot(), nazwa, dlugosc, masa, maxPredkosc, new Polozenie(-tor.getKoniec().getX()/2,tor.getKoniec().getY()));
         this.czasPrzyjazdu = czasPrzyjazdu;
         this.tor = tor;
         this.przejazd = przejazd;
@@ -16,7 +16,7 @@ public class Pociag extends Pojazd {
     @Override
     public String toString() {
         return "Pociag: " + getNazwa() + "\tV= " + Math.round(getPredkosc()*100.0)/100.0 + "\tX= " + Math.round(getPolozenie().getX()*100.0)/100.0 +
-                "\tY= " + getPolozenie().getY() + "\tETA= " + czasPrzyjazdu + "\tOP= " + spoznienie + "\tCEL=" + getCel().getX();
+                "\tY= " + getPolozenie().getY() + "\tETA= " + czasPrzyjazdu + "\tSP= " + Math.round(spoznienie) + "\tCEL=" + getCel().getX();
     }
 
     public Integer getCzasPrzyjazdu() { return czasPrzyjazdu; }
@@ -24,6 +24,10 @@ public class Pociag extends Pojazd {
     public double getSpoznienie() { return spoznienie; }
 
     public void setSpoznienie(double spoznienie) { this.spoznienie = spoznienie; }
+
+    public void copyCel(Polozenie cel) {
+        getCel().setX(cel.getX() - getOdstep());
+    }
 
     public void sprawdzCzujniki() {
         boolean pociagNadCzujnikiem;
@@ -41,11 +45,11 @@ public class Pociag extends Pojazd {
             }
         } else {
             for (int i = 0; i<tor.getIloscSemaforowSBL(); i++) {
-                pociagNadCzujnikiem = tor.getCzujnikiNajazdoweSBL().get(i).getPolozenie().getX() < getPolozenie().getX() && tor.getCzujnikiNajazdoweSBL().get(i).getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
+                pociagNadCzujnikiem = getPolozenie().getX() < tor.getCzujnikiNajazdoweSBL().get(i).getPolozenie().getX() && tor.getCzujnikiNajazdoweSBL().get(i).getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
                 if (pociagNadCzujnikiem)
                     tor.getCzujnikiNajazdoweSBL().get(i).aktywuj(getNazwa());
 
-                pociagZaCzujnikiem = tor.getCzujnikiZjazdoweSBL().get(i).getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()) && tor.getCzujnikiZjazdoweSBL().get(i).getPolozenie().getX() < (getPolozenie().getX() + getDlugosc() * 2);
+                pociagZaCzujnikiem = (getPolozenie().getX() + getDlugosc()) < tor.getCzujnikiZjazdoweSBL().get(i).getPolozenie().getX() && tor.getCzujnikiZjazdoweSBL().get(i).getPolozenie().getX() < (getPolozenie().getX() + getDlugosc() * 2);
                 if (pociagZaCzujnikiem)
                     tor.getCzujnikiZjazdoweSBL().get(i).aktywuj(getNazwa());
             }
@@ -83,21 +87,21 @@ public class Pociag extends Pojazd {
             else if ((getPolozenie().getX() - getDlugosc()*2) < tor.getCzujnikZjazdowySSP().getPolozenie().getX() && tor.getCzujnikZjazdowySSP().getPolozenie().getX() < (getPolozenie().getX() - getDlugosc()))
                 tor.getCzujnikZjazdowySSP().aktywuj(getNazwa());    // zaSSP
 
-            if (getPolozenie().getX() < tor.getTarczaSSP().getPolozenie().getX() && przejazd.getPolozenie().getX() < getCel().getX()) {
+            if (getPolozenie().getX() < tor.getTarczaSSP().getPolozenie().getX() && przejazd.getPolozenie().getX() - getOdstep() < getCel().getX()) {
                 if (tor.getTarczaSSP().isStop()) {
                     copyCel(przejazd.getPolozenie());
                     return true;
                 }
             }
 
-        } else { // zwrot == "lewo"
+        } else {
             if (getPolozenie().getX() < tor.getCzujnikNajazdowySSP().getPolozenie().getX() && tor.getCzujnikNajazdowySSP().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()))
                 tor.getCzujnikNajazdowySSP().aktywuj(getNazwa());    // nadSSP
 
             else if ((getPolozenie().getX() + getDlugosc()) < tor.getCzujnikZjazdowySSP().getPolozenie().getX() && tor.getCzujnikZjazdowySSP().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc()*2))
                 tor.getCzujnikZjazdowySSP().aktywuj(getNazwa());    // zaSSP
 
-            if (tor.getTarczaSSP().getPolozenie().getX() < getPolozenie().getX() && getCel().getX() < przejazd.getPolozenie().getX()) {
+            if (tor.getTarczaSSP().getPolozenie().getX() < getPolozenie().getX() && getCel().getX() < przejazd.getPolozenie().getX() - getOdstep()) {
                 if (tor.getTarczaSSP().isStop()) {
                     copyCel(przejazd.getPolozenie());
                     return true;
@@ -118,7 +122,7 @@ public class Pociag extends Pojazd {
             boolean sbl = sprawdzSemaforySBL();
             boolean ssp = sprawdzSSP();
 
-            if (getCel().getX() == przejazd.getPolozenie().getX()) {
+            if (getCel().getX() == przejazd.getPolozenie().getX() - getOdstep()) {
                 if (Math.abs(getPolozenie().getX() - przejazd.getPolozenie().getX()) < 20 && !przejazd.isRogatkiOtwarte())
                     copyCel(tor.getKoniec());
             } else if (!sbl && !ssp)
