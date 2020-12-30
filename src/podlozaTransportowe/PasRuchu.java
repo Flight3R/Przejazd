@@ -1,3 +1,10 @@
+package podlozaTransportowe;
+
+import klasyAbstrakcyjne.Droga;
+import lokacja.Polozenie;
+import urzadzeniaUliczne.Rogatka;
+import urzadzeniaUliczne.Sygnalizator;
+
 public class PasRuchu extends Droga {
     private final Rogatka rogatka;
     private final Sygnalizator sygnalizacja;

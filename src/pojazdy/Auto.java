@@ -1,3 +1,9 @@
+package pojazdy;
+
+import klasyAbstrakcyjne.Pojazd;
+import lokacja.Polozenie;
+import podlozaTransportowe.PasRuchu;
+
 public class Auto extends Pojazd {
 
     private final PasRuchu pas;

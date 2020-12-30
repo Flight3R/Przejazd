@@ -1,3 +1,7 @@
+package klasyAbstrakcyjne;
+
+import lokacja.Polozenie;
+
 public abstract class Droga extends ElementInfrastruktury {
 
     private final String zwrot;

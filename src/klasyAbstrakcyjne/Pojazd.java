@@ -1,3 +1,6 @@
+package klasyAbstrakcyjne;
+import lokacja.Polozenie;
+
 public abstract class Pojazd extends Thread {
     private final String nazwa;
     private final Polozenie polozenie; // POLOZENIE PRZODU POJAZDU

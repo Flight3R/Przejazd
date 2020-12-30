@@ -1,3 +1,7 @@
+package klasyAbstrakcyjne;
+
+import lokacja.Polozenie;
+
 public abstract class ElementInfrastruktury extends Thread {
 
     protected Polozenie polozenie;

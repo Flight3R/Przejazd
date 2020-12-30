@@ -1,3 +1,10 @@
+package podlozaTransportowe;
+
+import klasyAbstrakcyjne.Droga;
+import lokacja.Polozenie;
+import urzadzeniaKolejowe.Czujnik;
+import urzadzeniaKolejowe.Semafor;
+
 import java.util.ArrayList;
 
 public class Tor extends Droga {

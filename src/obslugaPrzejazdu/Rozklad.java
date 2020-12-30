@@ -1,3 +1,7 @@
+package obslugaPrzejazdu;
+
+import pojazdy.Pociag;
+
 import java.util.ArrayList;
 
 public class Rozklad {

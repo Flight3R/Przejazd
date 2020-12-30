@@ -1,3 +1,9 @@
+package obslugaPrzejazdu;
+
+import lokacja.Polozenie;
+import pojazdy.Auto;
+import pojazdy.Pociag;
+
 import java.util.ArrayList;
 import java.util.Random;
 

@@ -1,3 +1,15 @@
+import lokacja.Polozenie;
+import obslugaPrzejazdu.KontrolaRuchu;
+import obslugaPrzejazdu.Przejazd;
+import obslugaPrzejazdu.Rozklad;
+import podlozaTransportowe.PasRuchu;
+import podlozaTransportowe.Tor;
+import pojazdy.Pociag;
+import urzadzeniaKolejowe.Czujnik;
+import urzadzeniaKolejowe.Semafor;
+import urzadzeniaUliczne.Rogatka;
+import urzadzeniaUliczne.Sygnalizator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -70,13 +82,13 @@ public class Main {
         Rozklad rozkladTestowyDolny = new Rozklad();
         Przejazd przejazd= new Przejazd(new Polozenie(0,0), "przejazd",pasL, pasP,torG, torD, rozkladTestowyGorny, rozkladTestowyDolny,0);
 
-//        Pociag pociagTestowy1 = new Pociag("444D",120,50000,27,60, torD, przejazd);
+//        pojazdy.Pociag pociagTestowy1 = new pojazdy.Pociag("444D",120,50000,27,60, torD, przejazd);
         Pociag pociagTestowy2 = new Pociag("555G",200,30000,25,105, torG, przejazd);
-//        Pociag pociagTestowy3 = new Pociag("111D",50,20000,38.89,50, torD, przejazd);
-//        Pociag pociagTestowy4 = new Pociag("600D",80,40000,27.67,250, torTestowyD, przejazdTestowy);
+//        pojazdy.Pociag pociagTestowy3 = new pojazdy.Pociag("111D",50,20000,38.89,50, torD, przejazd);
+//        pojazdy.Pociag pociagTestowy4 = new pojazdy.Pociag("600D",80,40000,27.67,250, torTestowyD, przejazdTestowy);
         Pociag pociagTestowy5 = new Pociag("777G",100,20000,27, 200, torG, przejazd);
-//        Pociag pociagTestowy6 = new Pociag("333G",600,200000,16.67,170, torTestowyG, przejazdTestowy);
-//        Pociag pociagTestowy7 = new Pociag("222D",15,15000,44.44,70, torD, przejazd);
+//        pojazdy.Pociag pociagTestowy6 = new pojazdy.Pociag("333G",600,200000,16.67,170, torTestowyG, przejazdTestowy);
+//        pojazdy.Pociag pociagTestowy7 = new pojazdy.Pociag("222D",15,15000,44.44,70, torD, przejazd);
 //
 //        rozkladTestowyDolny.dodaj(pociagTestowy1);
         rozkladTestowyGorny.dodaj(pociagTestowy2);
@@ -94,16 +106,16 @@ public class Main {
 //        rogatkaL.zamknij();
 //        rogatkaP.zamknij();
 
-//        Auto nowe = new Auto(Integer.toString(0),3, 2000, 10, new Polozenie(-1,70), przejazd.getPasLewy(), null);
+//        pojazdy.Auto nowe = new pojazdy.Auto(Integer.toString(0),3, 2000, 10, new lokacja.Polozenie(-1,70), przejazd.getPasLewy(), null);
 //        nowe.start();
 //
-//        Auto nowe2 = new Auto(Integer.toString(1),3, 2000, 16, new Polozenie(-1,80), przejazd.getPasLewy(), nowe);
+//        pojazdy.Auto nowe2 = new pojazdy.Auto(Integer.toString(1),3, 2000, 16, new lokacja.Polozenie(-1,80), przejazd.getPasLewy(), nowe);
 //        nowe2.start();
 
-//        Auto nowe = new Auto(Integer.toString(0),3, 2000, 10, new Polozenie(1,-70), przejazd.getPasPrawy(), null);
+//        pojazdy.Auto nowe = new pojazdy.Auto(Integer.toString(0),3, 2000, 10, new lokacja.Polozenie(1,-70), przejazd.getPasPrawy(), null);
 //        nowe.start();
 //
-//        Auto nowe2 = new Auto(Integer.toString(1),3, 2000, 16, new Polozenie(1,-80), przejazd.getPasPrawy(), nowe);
+//        pojazdy.Auto nowe2 = new pojazdy.Auto(Integer.toString(1),3, 2000, 16, new lokacja.Polozenie(1,-80), przejazd.getPasPrawy(), nowe);
 //        nowe2.start();
 //
 //        sleep(20*1000);

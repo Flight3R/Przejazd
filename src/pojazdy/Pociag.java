@@ -1,3 +1,10 @@
+package pojazdy;
+
+import klasyAbstrakcyjne.Pojazd;
+import lokacja.Polozenie;
+import obslugaPrzejazdu.Przejazd;
+import podlozaTransportowe.Tor;
+
 public class Pociag extends Pojazd {
 
     private final Integer czasPrzyjazdu;

@@ -1,6 +1,10 @@
+package urzadzeniaKolejowe;
+import klasyAbstrakcyjne.ElementInfrastruktury;
+import lokacja.Polozenie;
+
 import java.util.ArrayList;
 
-public class Czujnik extends ElementInfrastruktury{
+public class Czujnik extends ElementInfrastruktury {
     private Integer aktywacje = 0;
     private final ArrayList<String> listaAktywacji = new ArrayList<>();
 
@@ -21,7 +25,7 @@ public class Czujnik extends ElementInfrastruktury{
             aktywacje = aktywacje + 1;
             listaAktywacji.add(nazwa);
             aktywowany = true;
-            System.out.println("Czujnik: " + this.nazwa + " włączony przez pociąg: " + nazwa);
+            System.out.println("urzadzeniaKolejowe.Czujnik: " + this.nazwa + " włączony przez pociąg: " + nazwa);
         }
     }
 }

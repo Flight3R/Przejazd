@@ -1,3 +1,10 @@
+package obslugaPrzejazdu;
+
+import klasyAbstrakcyjne.ElementInfrastruktury;
+import lokacja.Polozenie;
+import podlozaTransportowe.PasRuchu;
+import podlozaTransportowe.Tor;
+
 public class Przejazd extends ElementInfrastruktury {
 
     private final PasRuchu pasLewy;

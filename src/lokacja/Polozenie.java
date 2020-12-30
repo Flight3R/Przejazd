@@ -1,3 +1,5 @@
+package lokacja;
+
 public class Polozenie {
     private double x;
     private double y;

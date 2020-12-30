@@ -1,3 +1,5 @@
+package klasyAbstrakcyjne;
+
 public interface Swiatlo {
     boolean stop = false;
 
