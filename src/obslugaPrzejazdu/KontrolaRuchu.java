@@ -9,12 +9,14 @@ import java.util.Random;
 
 public class KontrolaRuchu extends Thread {
     private final Przejazd przejazd;
+    int maxIloscNaPas;
     private final ArrayList<Auto> autaPrawy = new ArrayList<>();
     private final ArrayList<Auto> autaLewy = new ArrayList<>();
     private int numerPorzadkowy = 0;
 
-    public KontrolaRuchu(Przejazd przejazd) {
+    public KontrolaRuchu(Przejazd przejazd, int maxIloscNaPas) {
         this.przejazd = przejazd;
+        this.maxIloscNaPas = maxIloscNaPas;
         start();
     }
 
@@ -25,48 +27,47 @@ public class KontrolaRuchu extends Thread {
 
         // PAS LEWY
         if (autaLewy.size() == 0) {
-            miejsceNaAuto = true;
             poprzednieAuto = null;
+            miejsceNaAuto = true;
         } else {
-            miejsceNaAuto = autaLewy.get(autaLewy.size() - 1).getPolozenie().getY() < 1000 - 3;
             poprzednieAuto = autaLewy.get(autaLewy.size() - 1);
+            miejsceNaAuto = poprzednieAuto.getPolozenie().getY() + poprzednieAuto.getDlugosc() < przejazd.getPasLewy().getDlugosc() - 1;
         }
 
-        int maxIloscNaPas = 3;
         if (autaLewy.size() < maxIloscNaPas && miejsceNaAuto) {
             int masa = generator.nextInt(1500)+500;
-            int Vmax = generator.nextInt(4)+12;
-            Auto nowe = new Auto(Integer.toString(numerPorzadkowy),3, masa, Vmax, new Polozenie(-1,1000), przejazd.getPasLewy(), poprzednieAuto);
+            int Vmax = generator.nextInt(5)+12;
+            Auto nowe = new Auto(Integer.toString(numerPorzadkowy),3, masa, Vmax, new Polozenie(przejazd.getPasLewy().getPolozenie().getX() , przejazd.getPasLewy().getDlugosc()), przejazd.getPasLewy(), poprzednieAuto);
             autaLewy.add(nowe);
             nowe.start();
             numerPorzadkowy = numerPorzadkowy + 1;
         }
 
-        if (autaLewy.get(0).getPolozenie().getY() < -1000) {
+        if (autaLewy.get(0).getPolozenie().getY() < -przejazd.getPasLewy().getDlugosc()) {
             autaLewy.get(0).interrupt();
             autaLewy.remove(0);
         }
 
         // PAS PRAWY
         if (autaPrawy.size() == 0) {
-            miejsceNaAuto = true;
             poprzednieAuto = null;
+            miejsceNaAuto = true;
         }
         else {
-            miejsceNaAuto = -1000 + 3 < autaPrawy.get(autaPrawy.size() - 1).getPolozenie().getY();
             poprzednieAuto = autaPrawy.get(autaPrawy.size() - 1);
+            miejsceNaAuto = -przejazd.getPasLewy().getDlugosc() + 1 < poprzednieAuto.getPolozenie().getY() - poprzednieAuto.getDlugosc();
         }
 
         if (autaPrawy.size() < maxIloscNaPas && miejsceNaAuto) {
             int masa = generator.nextInt(1500)+500;
-            int Vmax = generator.nextInt(4)+12;
-            Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 3, masa, Vmax, new Polozenie(1,-1000), przejazd.getPasPrawy(), poprzednieAuto);
+            int Vmax = generator.nextInt(5)+12;
+            Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 3, masa, Vmax, new Polozenie(przejazd.getPasPrawy().getPolozenie().getX(), -przejazd.getPasPrawy().getDlugosc()), przejazd.getPasPrawy(), poprzednieAuto);
             autaPrawy.add(nowe);
             nowe.start();
             numerPorzadkowy = numerPorzadkowy + 1;
         }
 
-        if (1000 < autaPrawy.get(0).getPolozenie().getY()) {
+        if (przejazd.getPasPrawy().getDlugosc() < autaPrawy.get(0).getPolozenie().getY()) {
             autaPrawy.get(0).interrupt();
             autaPrawy.remove(0);
         }
