@@ -2,6 +2,7 @@ package obslugaPrzejazdu;
 
 import lokacja.Polozenie;
 import podlozaTransportowe.PasRuchu;
+import podlozaTransportowe.Tor;
 import pojazdy.Auto;
 import pojazdy.Pociag;
 
@@ -24,8 +25,7 @@ public class KontrolaRuchu extends Thread {
         boolean miejsceNaAuto;
         Auto poprzednieAuto;
 
-        for (int i=0; i<przejazd.getListaPasow().size(); i++) {
-            PasRuchu pasBierzacy = przejazd.getListaPasow().get(i);
+        for (PasRuchu pasBierzacy : przejazd.getListaPasow()) {
 
             if (pasBierzacy.getListaAut().size() == 0) {
                 poprzednieAuto = null;
@@ -42,7 +42,7 @@ public class KontrolaRuchu extends Thread {
             if (pasBierzacy.getListaAut().size() < maxIloscNaPas && miejsceNaAuto) {
                 int masa = generator.nextInt(1500) + 500;
                 int Vmax = generator.nextInt(5) + 12;
-                int wspY =  (int) (pasBierzacy.getZwrot() == "gora"? -pasBierzacy.getDlugosc() : pasBierzacy.getDlugosc());
+                int wspY = (int) (pasBierzacy.getZwrot() == "gora" ? -pasBierzacy.getDlugosc() : pasBierzacy.getDlugosc());
 
                 Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 3, masa, Vmax, new Polozenie(pasBierzacy.getPolozenie().getX(), wspY), pasBierzacy, poprzednieAuto);
                 pasBierzacy.getListaAut().add(nowe);
@@ -57,51 +57,17 @@ public class KontrolaRuchu extends Thread {
         }
     }
 
-       /* // PAS PRAWY
-        if (autaPrawy.size() == 0) {
-            poprzednieAuto = null;
-            miejsceNaAuto = true;
-        }
-        else {
-            poprzednieAuto = autaPrawy.get(autaPrawy.size() - 1);
-            miejsceNaAuto = -przejazd.getPasLewy().getDlugosc() + 1 < poprzednieAuto.getPolozenie().getY() - poprzednieAuto.getDlugosc();
-        }
-
-        if (autaPrawy.size() < maxIloscNaPas && miejsceNaAuto) {
-            int masa = generator.nextInt(1500)+500;
-            int Vmax = generator.nextInt(5)+12;
-            Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 3, masa, Vmax, new Polozenie(przejazd.getPasPrawy().getPolozenie().getX(), -przejazd.getPasPrawy().getDlugosc()), przejazd.getPasPrawy(), poprzednieAuto);
-            autaPrawy.add(nowe);
-            nowe.start();
-            numerPorzadkowy = numerPorzadkowy + 1;
-        }
-
-        if (przejazd.getPasPrawy().getDlugosc() < autaPrawy.get(0).getPolozenie().getY()) {
-            autaPrawy.get(0).interrupt();
-            autaPrawy.remove(0);
-        }
-    }*/
-
     public void obslugaPociagow() {
-        if (!przejazd.getTorGorny().getSemaforySBL().get(0).isStop() && przejazd.getRozkladGorny().ilePociagow() != 0) {
-            Pociag najblizszyPrzed = przejazd.getRozkladGorny().najblizszyPociag();
-            double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
-            if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < przejazd.getCzas()) {
-                najblizszyPrzed.start();
-                najblizszyPrzed.setSpoznienie(przejazd.getCzas() + czasDojazdu - najblizszyPrzed.getCzasPrzyjazdu());
-                przejazd.getPociagiObecne().dodaj(najblizszyPrzed);
-                przejazd.getRozkladGorny().usunPierwszy();
-            }
-        }
-
-        if (!przejazd.getTorDolny().getSemaforySBL().get(0).isStop() && przejazd.getRozkladDolny().ilePociagow() != 0) {
-            Pociag najblizszyPrzed = przejazd.getRozkladDolny().najblizszyPociag();
-            double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
-            if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < przejazd.getCzas()) {
-                najblizszyPrzed.start();
-                najblizszyPrzed.setSpoznienie(przejazd.getCzas() + czasDojazdu - najblizszyPrzed.getCzasPrzyjazdu());
-                przejazd.getPociagiObecne().dodaj(najblizszyPrzed);
-                przejazd.getRozkladDolny().usunPierwszy();
+        for (Tor torBierzacy : przejazd.getListaTorow()) {
+            if (!torBierzacy.getSemaforySBL().get(0).isStop() && torBierzacy.getRozkladPociagow().ilePociagow() != 0) {
+                Pociag najblizszyPrzed = torBierzacy.getRozkladPociagow().najblizszyPociag();
+                double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
+                if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < przejazd.getCzas()) {
+                    najblizszyPrzed.start();
+                    najblizszyPrzed.setSpoznienie(przejazd.getCzas() + czasDojazdu - najblizszyPrzed.getCzasPrzyjazdu());
+                    przejazd.getPociagiObecne().dodaj(najblizszyPrzed);
+                    torBierzacy.getRozkladPociagow().usunPierwszy();
+                }
             }
         }
 

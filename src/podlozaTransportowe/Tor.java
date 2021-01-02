@@ -2,6 +2,8 @@ package podlozaTransportowe;
 
 import klasyAbstrakcyjne.Droga;
 import lokacja.Polozenie;
+import obslugaPrzejazdu.Rozklad;
+import pojazdy.Pociag;
 import urzadzeniaKolejowe.Czujnik;
 import urzadzeniaKolejowe.Semafor;
 
@@ -17,6 +19,8 @@ public class Tor extends Droga {
     private final ArrayList<Czujnik> czujnikiZjazdoweSBL;
     private final ArrayList<Semafor> semaforySBL;
 
+    private final Rozklad rozkladPociagow = new Rozklad();
+
     public Tor(Polozenie polozenie, String nazwa, String zwrot, double dlugosc, Semafor tarczaSSP, Czujnik czujnikNajazdowySSP,
                Czujnik czujnikZjazdowySSP, ArrayList<Czujnik> czujnikiNajazdoweSBL, ArrayList<Czujnik> czujnikiZjazdoweSBL,
                ArrayList<Semafor> semaforySBL) {
@@ -29,19 +33,34 @@ public class Tor extends Droga {
         this.semaforySBL = semaforySBL;
     }
 
-    public Semafor getTarczaSSP() { return tarczaSSP; }
+    public Semafor getTarczaSSP() {
+        return tarczaSSP;
+    }
 
-    public Czujnik getCzujnikNajazdowySSP() { return czujnikNajazdowySSP; }
+    public Czujnik getCzujnikNajazdowySSP() {
+        return czujnikNajazdowySSP;
+    }
 
-    public Czujnik getCzujnikZjazdowySSP() { return czujnikZjazdowySSP; }
+    public Czujnik getCzujnikZjazdowySSP() {
+        return czujnikZjazdowySSP;
+    }
 
-    public ArrayList<Czujnik> getCzujnikiNajazdoweSBL() { return czujnikiNajazdoweSBL; }
+    public ArrayList<Czujnik> getCzujnikiNajazdoweSBL() {
+        return czujnikiNajazdoweSBL;
+    }
 
-    public ArrayList<Czujnik> getCzujnikiZjazdoweSBL() { return czujnikiZjazdoweSBL; }
+    public ArrayList<Czujnik> getCzujnikiZjazdoweSBL() {
+        return czujnikiZjazdoweSBL;
+    }
 
-    public ArrayList<Semafor> getSemaforySBL() { return semaforySBL; }
+    public ArrayList<Semafor> getSemaforySBL() {
+        return semaforySBL;
+    }
 
     public Integer getIloscSemaforowSBL() {
         return semaforySBL.size();
     }
+
+    public Rozklad getRozkladPociagow() { return rozkladPociagow; }
+
 }

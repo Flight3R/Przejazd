@@ -6,24 +6,20 @@ import podlozaTransportowe.PasRuchu;
 import podlozaTransportowe.Tor;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class Przejazd extends ElementInfrastruktury {
     
     private final ArrayList<PasRuchu> listaPasow;
-    private final Tor torGorny;
-    private final Tor torDolny;
-    private final Rozklad rozkladGorny;
-    private final Rozklad rozkladDolny;
+    private final ArrayList<Tor> listaTorow;
+
     private final Rozklad pociagiObecne = new Rozklad();
     private double czas;
 
-    public Przejazd(Polozenie polozenie, String nazwa, ArrayList<PasRuchu> listaPasow, Tor torGorny, Tor torDolny, Rozklad rozkladGorny, Rozklad rozkladDolny, double czas) {
+    public Przejazd(Polozenie polozenie, String nazwa, ArrayList<PasRuchu> listaPasow, ArrayList<Tor> listaTorow, double czas) {
         super(polozenie, nazwa);
         this.listaPasow = listaPasow;
-        this.torGorny = torGorny;
-        this.torDolny = torDolny;
-        this.rozkladGorny = rozkladGorny;
-        this.rozkladDolny = rozkladDolny;
+        this.listaTorow = listaTorow;
         this.czas = czas;
         start();
     }
@@ -35,13 +31,7 @@ public class Przejazd extends ElementInfrastruktury {
 
     public ArrayList<PasRuchu> getListaPasow() { return listaPasow; }
 
-    public Tor getTorGorny() { return torGorny; }
-
-    public Tor getTorDolny() { return torDolny; }
-
-    public Rozklad getRozkladGorny() { return rozkladGorny; }
-
-    public Rozklad getRozkladDolny() { return rozkladDolny; }
+    public ArrayList<Tor> getListaTorow() { return listaTorow; }
 
     public Rozklad getPociagiObecne() { return pociagiObecne; }
 
@@ -52,66 +42,60 @@ public class Przejazd extends ElementInfrastruktury {
     }
 
     public void sterowanieSBL() {
-        for (int i = 0; i<torGorny.getIloscSemaforowSBL(); i++) {
-            if (torGorny.getCzujnikiNajazdoweSBL().get(i).isAktywowany()) {
-                torGorny.getCzujnikiNajazdoweSBL().get(i).setAktywowany(false);
-                torGorny.getSemaforySBL().get(i).podajSTOP();
-            }
-            if (torGorny.getCzujnikiZjazdoweSBL().get(i).isAktywowany()) {
-                torGorny.getCzujnikiZjazdoweSBL().get(i).setAktywowany(false);
-                torGorny.getSemaforySBL().get(i).podajJEDZ();
-            }
-        }
-        for (int i = 0; i<torDolny.getIloscSemaforowSBL(); i++) {
-            if (torDolny.getCzujnikiNajazdoweSBL().get(i).isAktywowany()) {
-                torDolny.getCzujnikiNajazdoweSBL().get(i).setAktywowany(false);
-                torDolny.getSemaforySBL().get(i).podajSTOP();
-            }
-            if (torDolny.getCzujnikiZjazdoweSBL().get(i).isAktywowany()) {
-                torDolny.getCzujnikiZjazdoweSBL().get(i).setAktywowany(false);
-                torDolny.getSemaforySBL().get(i).podajJEDZ();
+        for (Tor torBierzacy : listaTorow) {
+            for (int j = 0; j < torBierzacy.getIloscSemaforowSBL(); j++) {
+                if (torBierzacy.getCzujnikiNajazdoweSBL().get(j).isAktywowany()) {
+                    torBierzacy.getCzujnikiNajazdoweSBL().get(j).setAktywowany(false);
+                    torBierzacy.getSemaforySBL().get(j).podajSTOP();
+                }
+                if (torBierzacy.getCzujnikiZjazdoweSBL().get(j).isAktywowany()) {
+                    torBierzacy.getCzujnikiZjazdoweSBL().get(j).setAktywowany(false);
+                    torBierzacy.getSemaforySBL().get(j).podajJEDZ();
+                }
             }
         }
     }
 
     public void sterowanieAutomatyczne() {
-        boolean zajetoscOdcinkaGornego = !torGorny.getCzujnikNajazdowySSP().getAktywacje().equals(torGorny.getCzujnikZjazdowySSP().getAktywacje());
-        boolean zajetoscOdcinkaDolnego = !torDolny.getCzujnikNajazdowySSP().getAktywacje().equals(torDolny.getCzujnikZjazdowySSP().getAktywacje());
+        boolean przejazdZajety = listaTorow.stream().anyMatch(tor -> tor.getCzujnikNajazdowySSP().getAktywacje().equals(tor.getCzujnikZjazdowySSP().getAktywacje()));
 
-        if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
+        if(przejazdZajety) {
             if (listaPasow.stream().anyMatch(pasRuchu -> !pasRuchu.getSygnalizacja().isStop())) {
-                for (int i = 0; i<listaPasow.size(); i++) {
-                    listaPasow.get(i).getSygnalizacja().podajSTOP();
-                    listaPasow.get(i).getRogatka().zamknij();
+                for (PasRuchu pasRuchu : listaPasow) {
+                    pasRuchu.getSygnalizacja().podajSTOP();
+                    pasRuchu.getRogatka().zamknij();
                 }
             }
         } else {
             if (listaPasow.stream().anyMatch(pasRuchu -> !pasRuchu.getRogatka().isOtwarta())) {
-                for (int i = 0; i<listaPasow.size(); i++) {
-                    listaPasow.get(i).getSygnalizacja().podajJEDZ();
-                    listaPasow.get(i).getRogatka().otworz();
+                for (PasRuchu pasRuchu : listaPasow) {
+                    pasRuchu.getSygnalizacja().podajJEDZ();
+                    pasRuchu.getRogatka().otworz();
                 }
             }
         }
     }
 
     public void sterowanieSSP() {
-        boolean zajetoscOdcinkaGornego = !torGorny.getCzujnikNajazdowySSP().getAktywacje().equals(torGorny.getCzujnikZjazdowySSP().getAktywacje());
-        boolean zajetoscOdcinkaDolnego = !torDolny.getCzujnikNajazdowySSP().getAktywacje().equals(torDolny.getCzujnikZjazdowySSP().getAktywacje());
+        boolean przejazdZajety = listaTorow.stream().anyMatch(tor -> tor.getCzujnikNajazdowySSP().getAktywacje().equals(tor.getCzujnikZjazdowySSP().getAktywacje()));
 
-        if (zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
+        if (przejazdZajety) {
             if (listaPasow.stream().anyMatch(pasRuchu -> !pasRuchu.getSygnalizacja().isStop())) {
-                if (!torGorny.getTarczaSSP().isStop() || !torDolny.getTarczaSSP().isStop()) {
-                    torGorny.getTarczaSSP().podajSTOP();
-                    torDolny.getTarczaSSP().podajSTOP();
+                for (Tor torBierzacy : listaTorow) {
+                    if (!torBierzacy.getTarczaSSP().isStop())
+                        torBierzacy.getTarczaSSP().podajSTOP();
                 }
-            } else if (torGorny.getTarczaSSP().isStop() || torDolny.getTarczaSSP().isStop()) {
-                torGorny.getTarczaSSP().podajJEDZ();
-                torDolny.getTarczaSSP().podajJEDZ();
+            } else {
+                for (Tor torBierzacy : listaTorow) {
+                    if (torBierzacy.getTarczaSSP().isStop())
+                        torBierzacy.getTarczaSSP().podajJEDZ();
+                }
             }
-        } else if (torGorny.getTarczaSSP().isStop() || torDolny.getTarczaSSP().isStop()) {
-            torGorny.getTarczaSSP().podajJEDZ();
-            torDolny.getTarczaSSP().podajJEDZ();
+        } else {
+            for (Tor torBierzacy : listaTorow) {
+                if (torBierzacy.getTarczaSSP().isStop())
+                    torBierzacy.getTarczaSSP().podajJEDZ();
+            }
         }
     }
 

@@ -76,37 +76,25 @@ public class Main {
         ArrayList<Czujnik> czujnikiSBLzG = new ArrayList<>(Arrays.asList(czujnikSBL1Gz, czujnikSBL2Gz, czujnikSBL3Gz));
         ArrayList<Semafor> semaforySBLG = new ArrayList<>(Arrays.asList(semaforSBL1G, semaforSBL2G, semaforSBL3G));
 
-        Tor torG = new Tor(new Polozenie(0, 2),"tor_gorny", "lewo", 5010, tarczaSSPG, czujnikSSPGn, czujnikSSPGz, czujnikiSBLnG, czujnikiSBLzG, semaforySBLG);
-
-        Rozklad rozkladTestowyGorny = new Rozklad();
-        Rozklad rozkladTestowyDolny = new Rozklad();
+        Tor torG = new Tor(new Polozenie(0, 2),"tor_gorny", "lewo", 5010, tarczaSSPG, czujnikSSPGn, czujnikSSPGz, czujnikiSBLnG, czujnikiSBLzG, semaforySBLG);;
 
         ArrayList<PasRuchu> listaPasow = new ArrayList<>(Arrays.asList(pasL, pasP));
-        Przejazd przejazd= new Przejazd(new Polozenie(0,0), "przejazd", listaPasow, torG, torD, rozkladTestowyGorny, rozkladTestowyDolny,0);
+        ArrayList<Tor> listaTorow = new ArrayList<>(Arrays.asList(torG,torD));
+        Przejazd przejazd= new Przejazd(new Polozenie(0,0), "przejazd", listaPasow, listaTorow, 0);
 
-/*//        pojazdy.Pociag pociagTestowy1 = new pojazdy.Pociag("444D",120,50000,27,60, torD, przejazd);
-        Pociag pociagTestowy2 = new Pociag("555G",200,30000,25,105, torG, przejazd);
+//        pojazdy.Pociag pociagTestowy1 = new pojazdy.Pociag("444D",120,50000,27,60, torD, przejazd);
+        Pociag pociagTestowy2 = new Pociag("555G",200,30000,25,95, torG, przejazd);
 //        pojazdy.Pociag pociagTestowy3 = new pojazdy.Pociag("111D",50,20000,38.89,50, torD, przejazd);
 //        pojazdy.Pociag pociagTestowy4 = new pojazdy.Pociag("600D",80,40000,27.67,250, torTestowyD, przejazdTestowy);
-        Pociag pociagTestowy5 = new Pociag("777G",100,20000,27, 200, torG, przejazd);
+        Pociag pociagTestowy5 = new Pociag("777G",100,20000,27, 120, torG, przejazd);
 //        pojazdy.Pociag pociagTestowy6 = new pojazdy.Pociag("333G",600,200000,16.67,170, torTestowyG, przejazdTestowy);
 //        pojazdy.Pociag pociagTestowy7 = new pojazdy.Pociag("222D",15,15000,44.44,70, torD, przejazd);
 //
-//        rozkladTestowyDolny.dodaj(pociagTestowy1);
-        rozkladTestowyGorny.dodaj(pociagTestowy2);
-//        rozkladTestowyDolny.dodaj(pociagTestowy3);
-//        rozkladTestowyDolny.dodaj(pociagTestowy4);
-        rozkladTestowyGorny.dodaj(pociagTestowy5);
-//        rozkladTestowyGorny.dodaj(pociagTestowy6);
-//        rozkladTestowyDolny.dodaj(pociagTestowy7);*/
+        torG.getRozkladPociagow().dodaj(pociagTestowy2);
+        torG.getRozkladPociagow().dodaj(pociagTestowy5);
 
         KontrolaRuchu kontrola = new KontrolaRuchu(przejazd, 3);
 
-        sygnalizacjaL.podajSTOP();
-        sygnalizacjaP.podajSTOP();
-
-        rogatkaL.zamknij();
-        rogatkaP.zamknij();
 
 //        pojazdy.Auto noweL = new pojazdy.Auto(Integer.toString(1),3, 2000, 10, new lokacja.Polozenie(-1,70), pasL, null);
 //        noweL.start();
