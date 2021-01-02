@@ -5,10 +5,11 @@ import lokacja.Polozenie;
 import podlozaTransportowe.PasRuchu;
 import podlozaTransportowe.Tor;
 
-public class Przejazd extends ElementInfrastruktury {
+import java.util.ArrayList;
 
-    private final PasRuchu pasLewy;
-    private final PasRuchu pasPrawy;
+public class Przejazd extends ElementInfrastruktury {
+    
+    private final ArrayList<PasRuchu> listaPasow;
     private final Tor torGorny;
     private final Tor torDolny;
     private final Rozklad rozkladGorny;
@@ -16,10 +17,9 @@ public class Przejazd extends ElementInfrastruktury {
     private final Rozklad pociagiObecne = new Rozklad();
     private double czas;
 
-    public Przejazd(Polozenie polozenie, String nazwa, PasRuchu pasLewy, PasRuchu pasPrawy, Tor torGorny, Tor torDolny, Rozklad rozkladGorny, Rozklad rozkladDolny, double czas) {
+    public Przejazd(Polozenie polozenie, String nazwa, ArrayList<PasRuchu> listaPasow, Tor torGorny, Tor torDolny, Rozklad rozkladGorny, Rozklad rozkladDolny, double czas) {
         super(polozenie, nazwa);
-        this.pasLewy = pasLewy;
-        this.pasPrawy = pasPrawy;
+        this.listaPasow = listaPasow;
         this.torGorny = torGorny;
         this.torDolny = torDolny;
         this.rozkladGorny = rozkladGorny;
@@ -33,9 +33,7 @@ public class Przejazd extends ElementInfrastruktury {
         return "Przejazd: " + nazwa + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY() + "\tT= " + Math.round(czas*100.0)/100.0;
     }
 
-    public PasRuchu getPasLewy() { return pasLewy; }
-
-    public PasRuchu getPasPrawy() { return pasPrawy; }
+    public ArrayList<PasRuchu> getListaPasow() { return listaPasow; }
 
     public Tor getTorGorny() { return torGorny; }
 
@@ -49,8 +47,8 @@ public class Przejazd extends ElementInfrastruktury {
 
     public double getCzas() { return czas; }
 
-    public boolean isRogatkiOtwarte() {
-        return pasLewy.getRogatka().isOtwarta() || pasPrawy.getRogatka().isOtwarta();
+    public boolean isRogatkaOtwarta() {
+        return listaPasow.stream().anyMatch(pasRuchu -> pasRuchu.getRogatka().isOtwarta());
     }
 
     public void sterowanieSBL() {
@@ -81,19 +79,18 @@ public class Przejazd extends ElementInfrastruktury {
         boolean zajetoscOdcinkaDolnego = !torDolny.getCzujnikNajazdowySSP().getAktywacje().equals(torDolny.getCzujnikZjazdowySSP().getAktywacje());
 
         if(zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
-            if (!pasLewy.getSygnalizacja().isStop() || !pasPrawy.getSygnalizacja().isStop() ) {
-                pasLewy.getSygnalizacja().podajSTOP();
-                pasPrawy.getSygnalizacja().podajSTOP();
-                pasLewy.getRogatka().zamknij();
-                pasPrawy.getRogatka().zamknij();
+            if (listaPasow.stream().anyMatch(pasRuchu -> !pasRuchu.getSygnalizacja().isStop())) {
+                for (int i = 0; i<listaPasow.size(); i++) {
+                    listaPasow.get(i).getSygnalizacja().podajSTOP();
+                    listaPasow.get(i).getRogatka().zamknij();
+                }
             }
         } else {
-            if (!pasLewy.getRogatka().isOtwarta() || !pasPrawy.getRogatka().isOtwarta()) {
-                pasLewy.getRogatka().otworz();
-                pasPrawy.getRogatka().otworz();
-                pasLewy.getSygnalizacja().podajJEDZ();
-                pasPrawy.getSygnalizacja().podajJEDZ();
-
+            if (listaPasow.stream().anyMatch(pasRuchu -> !pasRuchu.getRogatka().isOtwarta())) {
+                for (int i = 0; i<listaPasow.size(); i++) {
+                    listaPasow.get(i).getSygnalizacja().podajJEDZ();
+                    listaPasow.get(i).getRogatka().otworz();
+                }
             }
         }
     }
@@ -103,7 +100,7 @@ public class Przejazd extends ElementInfrastruktury {
         boolean zajetoscOdcinkaDolnego = !torDolny.getCzujnikNajazdowySSP().getAktywacje().equals(torDolny.getCzujnikZjazdowySSP().getAktywacje());
 
         if (zajetoscOdcinkaGornego || zajetoscOdcinkaDolnego) {
-            if (!pasPrawy.getSygnalizacja().isStop() || !pasLewy.getSygnalizacja().isStop()) {
+            if (listaPasow.stream().anyMatch(pasRuchu -> !pasRuchu.getSygnalizacja().isStop())) {
                 if (!torGorny.getTarczaSSP().isStop() || !torDolny.getTarczaSSP().isStop()) {
                     torGorny.getTarczaSSP().podajSTOP();
                     torDolny.getTarczaSSP().podajSTOP();
@@ -126,7 +123,7 @@ public class Przejazd extends ElementInfrastruktury {
 
             sterowanieSBL();
 
-            if (1==1) // >>>>>>>>>>>>>>>>>> STAN PRZEŁĄCZNIKA NA PULPICIE
+            if (1==0) // >>>>>>>>>>>>>>>>>> STAN PRZEŁĄCZNIKA NA PULPICIE
                 sterowanieAutomatyczne();
             else
                 sterowanieSSP();

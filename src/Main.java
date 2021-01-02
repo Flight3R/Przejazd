@@ -21,7 +21,7 @@ public class Main {
 
         Sygnalizator sygnalizacjaP = new Sygnalizator(new Polozenie(1, -4), "sygnalizacja_pas_prawy");
         Rogatka rogatkaP = new Rogatka(new Polozenie(1, -3), "rogatka_pas_prawy", 5);
-        PasRuchu pasP = new PasRuchu(new Polozenie(1, 0), "pas_prawy", sygnalizacjaP, "gora", 1001, rogatkaP);
+        PasRuchu pasP = new PasRuchu(new Polozenie(1, 0), "pas_prawy", sygnalizacjaP, "gora", 501, rogatkaP);
 
         Semafor semaforSBL1D  = new Semafor(new Polozenie(-2501,-2), "semafor_SBL1_tor_dolny");
         Czujnik czujnikSBL1Dn = new Czujnik(new Polozenie(-2501,-2), "czujnik_SBL1n_tor_dolny");
@@ -50,7 +50,7 @@ public class Main {
 
         Sygnalizator sygnalizacjaL = new Sygnalizator(new Polozenie(-1, 4), "sygnalizacja_pas_lewy");
         Rogatka rogatkaL = new Rogatka(new Polozenie(-1, 3), "rogatka_pas_lewy", 5);
-        PasRuchu pasL = new PasRuchu(new Polozenie(-1, 0), "pas_lewy", sygnalizacjaL, "dol", 1001, rogatkaL);
+        PasRuchu pasL = new PasRuchu(new Polozenie(-1, 0), "pas_lewy", sygnalizacjaL, "dol", 501, rogatkaL);
 
 
         Semafor semaforSBL1G  = new Semafor(new Polozenie(2501, 2), "semafor_SBL1_tor_gorny");
@@ -80,9 +80,11 @@ public class Main {
 
         Rozklad rozkladTestowyGorny = new Rozklad();
         Rozklad rozkladTestowyDolny = new Rozklad();
-        Przejazd przejazd= new Przejazd(new Polozenie(0,0), "przejazd",pasL, pasP,torG, torD, rozkladTestowyGorny, rozkladTestowyDolny,0);
 
-//        pojazdy.Pociag pociagTestowy1 = new pojazdy.Pociag("444D",120,50000,27,60, torD, przejazd);
+        ArrayList<PasRuchu> listaPasow = new ArrayList<>(Arrays.asList(pasL, pasP));
+        Przejazd przejazd= new Przejazd(new Polozenie(0,0), "przejazd", listaPasow, torG, torD, rozkladTestowyGorny, rozkladTestowyDolny,0);
+
+/*//        pojazdy.Pociag pociagTestowy1 = new pojazdy.Pociag("444D",120,50000,27,60, torD, przejazd);
         Pociag pociagTestowy2 = new Pociag("555G",200,30000,25,105, torG, przejazd);
 //        pojazdy.Pociag pociagTestowy3 = new pojazdy.Pociag("111D",50,20000,38.89,50, torD, przejazd);
 //        pojazdy.Pociag pociagTestowy4 = new pojazdy.Pociag("600D",80,40000,27.67,250, torTestowyD, przejazdTestowy);
@@ -96,27 +98,27 @@ public class Main {
 //        rozkladTestowyDolny.dodaj(pociagTestowy4);
         rozkladTestowyGorny.dodaj(pociagTestowy5);
 //        rozkladTestowyGorny.dodaj(pociagTestowy6);
-//        rozkladTestowyDolny.dodaj(pociagTestowy7);
+//        rozkladTestowyDolny.dodaj(pociagTestowy7);*/
 
         KontrolaRuchu kontrola = new KontrolaRuchu(przejazd, 3);
 
-//        sygnalizacjaL.podajSTOP();
-//        sygnalizacjaP.podajSTOP();
-//
-//        rogatkaL.zamknij();
-//        rogatkaP.zamknij();
+        sygnalizacjaL.podajSTOP();
+        sygnalizacjaP.podajSTOP();
 
-//        pojazdy.Auto nowe = new pojazdy.Auto(Integer.toString(0),3, 2000, 10, new lokacja.Polozenie(-1,70), przejazd.getPasLewy(), null);
-//        nowe.start();
-//
-//        pojazdy.Auto nowe2 = new pojazdy.Auto(Integer.toString(1),3, 2000, 16, new lokacja.Polozenie(-1,80), przejazd.getPasLewy(), nowe);
-//        nowe2.start();
+        rogatkaL.zamknij();
+        rogatkaP.zamknij();
 
-//        pojazdy.Auto nowe = new pojazdy.Auto(Integer.toString(0),3, 2000, 10, new lokacja.Polozenie(1,-70), przejazd.getPasPrawy(), null);
-//        nowe.start();
+//        pojazdy.Auto noweL = new pojazdy.Auto(Integer.toString(1),3, 2000, 10, new lokacja.Polozenie(-1,70), pasL, null);
+//        noweL.start();
 //
-//        pojazdy.Auto nowe2 = new pojazdy.Auto(Integer.toString(1),3, 2000, 16, new lokacja.Polozenie(1,-80), przejazd.getPasPrawy(), nowe);
-//        nowe2.start();
+//        pojazdy.Auto nowe2L = new pojazdy.Auto(Integer.toString(2),3, 2000, 16, new lokacja.Polozenie(-1,80), pasL, noweL);
+//        nowe2L.start();
+
+//        pojazdy.Auto noweP = new pojazdy.Auto(Integer.toString(3),3, 2000, 10, new lokacja.Polozenie(1,-70), pasP, null);
+//        noweP.start();
+//
+//        pojazdy.Auto nowe2P = new pojazdy.Auto(Integer.toString(4),3, 2000, 16, new lokacja.Polozenie(1,-80), pasP, noweP);
+//        nowe2P.start();
 //
 //        sleep(20*1000);
 //        rogatkaL.otworz();

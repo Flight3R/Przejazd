@@ -1,6 +1,7 @@
 package obslugaPrzejazdu;
 
 import lokacja.Polozenie;
+import podlozaTransportowe.PasRuchu;
 import pojazdy.Auto;
 import pojazdy.Pociag;
 
@@ -10,8 +11,6 @@ import java.util.Random;
 public class KontrolaRuchu extends Thread {
     private final Przejazd przejazd;
     int maxIloscNaPas;
-    private final ArrayList<Auto> autaPrawy = new ArrayList<>();
-    private final ArrayList<Auto> autaLewy = new ArrayList<>();
     private int numerPorzadkowy = 0;
 
     public KontrolaRuchu(Przejazd przejazd, int maxIloscNaPas) {
@@ -25,30 +24,40 @@ public class KontrolaRuchu extends Thread {
         boolean miejsceNaAuto;
         Auto poprzednieAuto;
 
-        // PAS LEWY
-        if (autaLewy.size() == 0) {
-            poprzednieAuto = null;
-            miejsceNaAuto = true;
-        } else {
-            poprzednieAuto = autaLewy.get(autaLewy.size() - 1);
-            miejsceNaAuto = poprzednieAuto.getPolozenie().getY() + poprzednieAuto.getDlugosc() < przejazd.getPasLewy().getDlugosc() - 1;
-        }
+        for (int i=0; i<przejazd.getListaPasow().size(); i++) {
+            PasRuchu pasBierzacy = przejazd.getListaPasow().get(i);
 
-        if (autaLewy.size() < maxIloscNaPas && miejsceNaAuto) {
-            int masa = generator.nextInt(1500)+500;
-            int Vmax = generator.nextInt(5)+12;
-            Auto nowe = new Auto(Integer.toString(numerPorzadkowy),3, masa, Vmax, new Polozenie(przejazd.getPasLewy().getPolozenie().getX() , przejazd.getPasLewy().getDlugosc()), przejazd.getPasLewy(), poprzednieAuto);
-            autaLewy.add(nowe);
-            nowe.start();
-            numerPorzadkowy = numerPorzadkowy + 1;
-        }
+            if (pasBierzacy.getListaAut().size() == 0) {
+                poprzednieAuto = null;
+                miejsceNaAuto = true;
+            } else {
+                poprzednieAuto = pasBierzacy.getListaAut().get(pasBierzacy.getListaAut().size() - 1);
 
-        if (autaLewy.get(0).getPolozenie().getY() < -przejazd.getPasLewy().getDlugosc()) {
-            autaLewy.get(0).interrupt();
-            autaLewy.remove(0);
-        }
+                if (pasBierzacy.getZwrot() == "gora")
+                    miejsceNaAuto =  pasBierzacy.getDlugosc() < (poprzednieAuto.getPolozenie().getY() - poprzednieAuto.getDlugosc() - 1);
+                else
+                    miejsceNaAuto = (poprzednieAuto.getPolozenie().getY() + poprzednieAuto.getDlugosc() + 1) < pasBierzacy.getDlugosc();
+            }
 
-        // PAS PRAWY
+            if (pasBierzacy.getListaAut().size() < maxIloscNaPas && miejsceNaAuto) {
+                int masa = generator.nextInt(1500) + 500;
+                int Vmax = generator.nextInt(5) + 12;
+                int wspY =  (int) (pasBierzacy.getZwrot() == "gora"? -pasBierzacy.getDlugosc() : pasBierzacy.getDlugosc());
+
+                Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 3, masa, Vmax, new Polozenie(pasBierzacy.getPolozenie().getX(), wspY), pasBierzacy, poprzednieAuto);
+                pasBierzacy.getListaAut().add(nowe);
+                nowe.start();
+                numerPorzadkowy = numerPorzadkowy + 1;
+            }
+
+            if (pasBierzacy.getDlugosc() < Math.abs(pasBierzacy.getPolozenie().getY() - pasBierzacy.getListaAut().get(0).getPolozenie().getY())) {
+                pasBierzacy.getListaAut().get(0).interrupt();
+                pasBierzacy.getListaAut().remove(0);
+            }
+        }
+    }
+
+       /* // PAS PRAWY
         if (autaPrawy.size() == 0) {
             poprzednieAuto = null;
             miejsceNaAuto = true;
@@ -71,7 +80,7 @@ public class KontrolaRuchu extends Thread {
             autaPrawy.get(0).interrupt();
             autaPrawy.remove(0);
         }
-    }
+    }*/
 
     public void obslugaPociagow() {
         if (!przejazd.getTorGorny().getSemaforySBL().get(0).isStop() && przejazd.getRozkladGorny().ilePociagow() != 0) {

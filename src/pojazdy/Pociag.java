@@ -139,7 +139,7 @@ public class Pociag extends Pojazd {
             boolean ssp = sprawdzSSP();
 
             if (getCel().getX() == przejazd.getPolozenie().getX() - getOdstep()) {
-                if (Math.abs(getPolozenie().getX() - przejazd.getPolozenie().getX()) < 20 && !przejazd.isRogatkiOtwarte())
+                if (Math.abs(getPolozenie().getX() - przejazd.getPolozenie().getX()) < 20 && !przejazd.isRogatkaOtwarta())
                     copyCel(tor.getKoniec());
             } else if (!sbl && !ssp)
                 copyCel(tor.getKoniec());
