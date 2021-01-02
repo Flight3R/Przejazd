@@ -57,42 +57,37 @@ public class Przejazd extends ElementInfrastruktury {
     }
 
     public void sterowanieAutomatyczne() {
-        boolean przejazdZajety = listaTorow.stream().anyMatch(tor -> tor.getCzujnikNajazdowySSP().getAktywacje().equals(tor.getCzujnikZjazdowySSP().getAktywacje()));
+        boolean przejazdZajety = listaTorow.stream().anyMatch(tor -> !tor.getCzujnikNajazdowySSP().getAktywacje().equals(tor.getCzujnikZjazdowySSP().getAktywacje()));
 
-        if(przejazdZajety) {
-            if (listaPasow.stream().anyMatch(pasRuchu -> !pasRuchu.getSygnalizacja().isStop())) {
-                for (PasRuchu pasRuchu : listaPasow) {
-                    pasRuchu.getSygnalizacja().podajSTOP();
-                    pasRuchu.getRogatka().zamknij();
+        for (PasRuchu pasBierzacy : listaPasow) {
+            if (przejazdZajety) {
+                if (!pasBierzacy.getSygnalizacja().isStop()) {
+                    pasBierzacy.getSygnalizacja().podajSTOP();
+                    pasBierzacy.getRogatka().zamknij();
                 }
-            }
-        } else {
-            if (listaPasow.stream().anyMatch(pasRuchu -> !pasRuchu.getRogatka().isOtwarta())) {
-                for (PasRuchu pasRuchu : listaPasow) {
-                    pasRuchu.getSygnalizacja().podajJEDZ();
-                    pasRuchu.getRogatka().otworz();
+            } else {
+                if (!pasBierzacy.getRogatka().isOtwarta()) {
+                    pasBierzacy.getSygnalizacja().podajJEDZ();
+                    pasBierzacy.getRogatka().otworz();
                 }
             }
         }
     }
 
     public void sterowanieSSP() {
-        boolean przejazdZajety = listaTorow.stream().anyMatch(tor -> tor.getCzujnikNajazdowySSP().getAktywacje().equals(tor.getCzujnikZjazdowySSP().getAktywacje()));
+        boolean przejazdZajety = listaTorow.stream().anyMatch(tor -> !tor.getCzujnikNajazdowySSP().getAktywacje().equals(tor.getCzujnikZjazdowySSP().getAktywacje()));
+        boolean przejazdOtwarty = listaPasow.stream().anyMatch(pasRuchu -> !pasRuchu.getSygnalizacja().isStop());
 
-        if (przejazdZajety) {
-            if (listaPasow.stream().anyMatch(pasRuchu -> !pasRuchu.getSygnalizacja().isStop())) {
-                for (Tor torBierzacy : listaTorow) {
+        for (Tor torBierzacy : listaTorow) {
+            if (przejazdZajety) {
+                if (przejazdOtwarty) {
                     if (!torBierzacy.getTarczaSSP().isStop())
                         torBierzacy.getTarczaSSP().podajSTOP();
-                }
-            } else {
-                for (Tor torBierzacy : listaTorow) {
+                } else {
                     if (torBierzacy.getTarczaSSP().isStop())
                         torBierzacy.getTarczaSSP().podajJEDZ();
                 }
-            }
-        } else {
-            for (Tor torBierzacy : listaTorow) {
+            } else {
                 if (torBierzacy.getTarczaSSP().isStop())
                     torBierzacy.getTarczaSSP().podajJEDZ();
             }
@@ -107,7 +102,7 @@ public class Przejazd extends ElementInfrastruktury {
 
             sterowanieSBL();
 
-            if (1==0) // >>>>>>>>>>>>>>>>>> STAN PRZEŁĄCZNIKA NA PULPICIE
+            if (1==1) // >>>>>>>>>>>>>>>>>> STAN PRZEŁĄCZNIKA NA PULPICIE
                 sterowanieAutomatyczne();
             else
                 sterowanieSSP();

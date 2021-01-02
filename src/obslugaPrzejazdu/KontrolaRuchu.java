@@ -39,7 +39,7 @@ public class KontrolaRuchu extends Thread {
                     miejsceNaAuto = (poprzednieAuto.getPolozenie().getY() + poprzednieAuto.getDlugosc() + 1) < pasBierzacy.getDlugosc();
             }
 
-            if (pasBierzacy.getListaAut().size() < maxIloscNaPas && miejsceNaAuto) {
+            if (pasBierzacy.getListaAut().size() <= maxIloscNaPas && miejsceNaAuto) {
                 int masa = generator.nextInt(1500) + 500;
                 int Vmax = generator.nextInt(5) + 12;
                 int wspY = (int) (pasBierzacy.getZwrot() == "gora" ? -pasBierzacy.getDlugosc() : pasBierzacy.getDlugosc());
@@ -70,7 +70,6 @@ public class KontrolaRuchu extends Thread {
                 }
             }
         }
-
         if (przejazd.getPociagiObecne().ilePociagow() != 0) {
             Pociag najblizszyZa = przejazd.getPociagiObecne().najblizszyPociag();
             if (Math.abs(najblizszyZa.getPolozenie().getX()) > 3200) {
