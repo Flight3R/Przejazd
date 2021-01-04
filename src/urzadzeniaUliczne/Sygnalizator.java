@@ -1,10 +1,10 @@
 package urzadzeniaUliczne;
 
-import klasyAbstrakcyjne.ElementInfrastruktury;
+import klasyAbstrakcyjne.obiektSymulacji;
 import klasyAbstrakcyjne.Swiatlo;
 import lokacja.Polozenie;
 
-public class Sygnalizator extends ElementInfrastruktury implements Swiatlo {
+public class Sygnalizator extends obiektSymulacji implements Swiatlo {
 
     boolean stop = false;
     private boolean polecenieJedz = false;
@@ -12,6 +12,10 @@ public class Sygnalizator extends ElementInfrastruktury implements Swiatlo {
     public Sygnalizator(Polozenie polozenie, String nazwa) {
         super(polozenie, nazwa);
         start();
+    }
+
+    public boolean isStop() {
+        return stop;
     }
 
     public void podajSTOP() {
@@ -22,8 +26,6 @@ public class Sygnalizator extends ElementInfrastruktury implements Swiatlo {
     public void podajJEDZ() {
         polecenieJedz = true;
     }
-
-    public boolean isStop() { return stop; }
 
     private void podajJEDZprivate() throws InterruptedException {
         sleep(5000);

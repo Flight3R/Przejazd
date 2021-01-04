@@ -9,8 +9,8 @@ public class Auto extends Pojazd {
     private final PasRuchu pas;
     private final Auto autoPrzed;
 
-    public Auto(String nazwa, double dlugosc, Integer masa, double maxPredkosc, Polozenie polozenie, PasRuchu pas, Auto autoPrzed) {
-        super("Auto", pas.getZwrot(), nazwa, dlugosc, masa, maxPredkosc, polozenie);
+    public Auto(String nazwa, double dlugosc, Integer masa, double maxPredkosc, PasRuchu pas, Auto autoPrzed) {
+        super(new Polozenie(pas.getPolozenie().getX(), -pas.getKoniec().getY()/2), nazwa, "Auto", pas.getZwrot(), dlugosc, masa, maxPredkosc);
         this.pas = pas;
         this.autoPrzed = autoPrzed;
         copyCel(pas.getKoniec());
@@ -29,7 +29,6 @@ public class Auto extends Pojazd {
     public boolean sprawdzSwiatla() {
         boolean przedSygnalizatorem;
         boolean mozliwoscWyhamowania;
-
 
         if (pas.getZwrot() == "gora") {
             przedSygnalizatorem = getPolozenie().getY() <= pas.getSygnalizacja().getPolozenie().getY();

@@ -15,8 +15,12 @@ public class Polozenie {
     public double getY() {
         return y;
     }
-    public void setX(double x) { this.x = x; }
-    public void setY(double y) { this.y = y; }
+    public void setX(double x) {
+        this.x = x;
+    }
+    public void setY(double y) {
+        this.y = y;
+    }
 
     public void przenies(double predkosc, double deltaT, String zwrot, Polozenie cel){
         double deltaX;

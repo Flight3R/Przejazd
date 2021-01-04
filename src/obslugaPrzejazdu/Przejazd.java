@@ -1,14 +1,14 @@
 package obslugaPrzejazdu;
 
-import klasyAbstrakcyjne.ElementInfrastruktury;
+import klasyAbstrakcyjne.obiektSymulacji;
 import lokacja.Polozenie;
 import podlozaTransportowe.PasRuchu;
 import podlozaTransportowe.Tor;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
 
-public class Przejazd extends ElementInfrastruktury {
+
+public class Przejazd extends obiektSymulacji {
     
     private final ArrayList<PasRuchu> listaPasow;
     private final ArrayList<Tor> listaTorow;
@@ -29,13 +29,21 @@ public class Przejazd extends ElementInfrastruktury {
         return "Przejazd: " + nazwa + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY() + "\tT= " + Math.round(czas*100.0)/100.0;
     }
 
-    public ArrayList<PasRuchu> getListaPasow() { return listaPasow; }
+    public ArrayList<PasRuchu> getListaPasow() {
+        return listaPasow;
+    }
 
-    public ArrayList<Tor> getListaTorow() { return listaTorow; }
+    public ArrayList<Tor> getListaTorow() {
+        return listaTorow;
+    }
 
-    public Rozklad getPociagiObecne() { return pociagiObecne; }
+    public Rozklad getPociagiObecne() {
+        return pociagiObecne;
+    }
 
-    public double getCzas() { return czas; }
+    public double getCzas() {
+        return czas;
+    }
 
     public boolean isRogatkaOtwarta() {
         return listaPasow.stream().anyMatch(pasRuchu -> pasRuchu.getRogatka().isOtwarta());
@@ -45,11 +53,11 @@ public class Przejazd extends ElementInfrastruktury {
         for (Tor torBierzacy : listaTorow) {
             for (int j = 0; j < torBierzacy.getIloscSemaforowSBL(); j++) {
                 if (torBierzacy.getCzujnikiNajazdoweSBL().get(j).isAktywowany()) {
-                    torBierzacy.getCzujnikiNajazdoweSBL().get(j).setAktywowany(false);
+                    torBierzacy.getCzujnikiNajazdoweSBL().get(j).deaktywuj();
                     torBierzacy.getSemaforySBL().get(j).podajSTOP();
                 }
                 if (torBierzacy.getCzujnikiZjazdoweSBL().get(j).isAktywowany()) {
-                    torBierzacy.getCzujnikiZjazdoweSBL().get(j).setAktywowany(false);
+                    torBierzacy.getCzujnikiZjazdoweSBL().get(j).deaktywuj();
                     torBierzacy.getSemaforySBL().get(j).podajJEDZ();
                 }
             }

@@ -19,7 +19,6 @@ public class Rozklad {
     }
 
     public void wyswietl(){
-        // wyświetlanie na ekranie a nie w konsoli raczej
         for (int i=0; i<ilePociagow(); i++) {
             System.out.println(tabelaPociagow.get(i));
         }

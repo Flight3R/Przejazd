@@ -34,17 +34,16 @@ public class KontrolaRuchu extends Thread {
                 poprzednieAuto = pasBierzacy.getListaAut().get(pasBierzacy.getListaAut().size() - 1);
 
                 if (pasBierzacy.getZwrot() == "gora")
-                    miejsceNaAuto =  pasBierzacy.getDlugosc() < (poprzednieAuto.getPolozenie().getY() - poprzednieAuto.getDlugosc() - 1);
+                    miejsceNaAuto = (pasBierzacy.getPolozenie().getY() - pasBierzacy.getDlugosc()) < (poprzednieAuto.getPolozenie().getY() - poprzednieAuto.getDlugosc() - 1);
                 else
-                    miejsceNaAuto = (poprzednieAuto.getPolozenie().getY() + poprzednieAuto.getDlugosc() + 1) < pasBierzacy.getDlugosc();
+                    miejsceNaAuto = (poprzednieAuto.getPolozenie().getY() + poprzednieAuto.getDlugosc() + 1) < (pasBierzacy.getPolozenie().getY() + pasBierzacy.getDlugosc());
             }
 
             if (pasBierzacy.getListaAut().size() <= maxIloscNaPas && miejsceNaAuto) {
                 int masa = generator.nextInt(1500) + 500;
                 int Vmax = generator.nextInt(5) + 12;
-                int wspY = (int) (pasBierzacy.getZwrot() == "gora" ? -pasBierzacy.getDlugosc() : pasBierzacy.getDlugosc());
 
-                Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 3, masa, Vmax, new Polozenie(pasBierzacy.getPolozenie().getX(), wspY), pasBierzacy, poprzednieAuto);
+                Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 3, masa, Vmax, pasBierzacy, poprzednieAuto);
                 pasBierzacy.getListaAut().add(nowe);
                 nowe.start();
                 numerPorzadkowy = numerPorzadkowy + 1;

@@ -1,9 +1,9 @@
 package urzadzeniaUliczne;
 
-import klasyAbstrakcyjne.ElementInfrastruktury;
+import klasyAbstrakcyjne.obiektSymulacji;
 import lokacja.Polozenie;
 
-public class Rogatka extends ElementInfrastruktury {
+public class Rogatka extends obiektSymulacji {
 
     private final Integer czasZamykania;
     private boolean otwarta = true;
@@ -19,7 +19,9 @@ public class Rogatka extends ElementInfrastruktury {
         return czasZamykania;
     }
 
-    public boolean isOtwarta() { return otwarta; }
+    public boolean isOtwarta() {
+        return otwarta;
+    }
 
     public void otworz() {
         System.out.println("Rogatka: " + nazwa + " otwarta");

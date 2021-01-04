@@ -2,7 +2,7 @@ package klasyAbstrakcyjne;
 
 import lokacja.Polozenie;
 
-public abstract class Droga extends ElementInfrastruktury {
+public abstract class Droga extends obiektSymulacji {
 
     private final String zwrot;
     private final double dlugosc;
@@ -19,15 +19,19 @@ public abstract class Droga extends ElementInfrastruktury {
             this.koniec = new Polozenie(polozenie.getX(), polozenie.getY() - dlugosc);
         else if (zwrot == "lewo")
             this.koniec = new Polozenie(polozenie.getX() - dlugosc, polozenie.getY());
-        else // zwrot == "prawo"
+        else if (zwrot == "prawo")
             this.koniec = new Polozenie(polozenie.getX() + dlugosc, polozenie.getY());
 
     }
 
-    public String getZwrot() { return zwrot; }
-
-    public double getDlugosc() { return dlugosc; }
-
-    public Polozenie getKoniec() { return koniec; }
+    public String getZwrot() {
+        return zwrot;
+    }
+    public double getDlugosc() {
+        return dlugosc;
+    }
+    public Polozenie getKoniec() {
+        return koniec;
+    }
 
 }

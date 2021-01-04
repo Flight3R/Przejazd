@@ -13,11 +13,11 @@ public class Pociag extends Pojazd {
     private final Przejazd przejazd;
 
     public Pociag(String nazwa, double dlugosc, Integer masa, double maxPredkosc, Integer czasPrzyjazdu, Tor tor, Przejazd przejazd) {
-        super("Pociag" , tor.getZwrot(), nazwa, dlugosc, masa, maxPredkosc, new Polozenie(-tor.getKoniec().getX()/2,tor.getKoniec().getY()));
+        super(new Polozenie(-tor.getKoniec().getX()/2,tor.getPolozenie().getY()), nazwa, "Pociag" , tor.getZwrot(), dlugosc, masa, maxPredkosc);
         this.czasPrzyjazdu = czasPrzyjazdu;
         this.tor = tor;
         this.przejazd = przejazd;
-        copyCel(tor.getKoniec());
+        ustawCel(tor.getKoniec());
     }
 
     @Override
@@ -26,13 +26,16 @@ public class Pociag extends Pojazd {
                 "\tY= " + getPolozenie().getY() + "\tETA= " + czasPrzyjazdu + "\tSP= " + Math.round(spoznienie) + "\tCEL=" + getCel().getX();
     }
 
-    public Integer getCzasPrzyjazdu() { return czasPrzyjazdu; }
-
-    public double getSpoznienie() { return spoznienie; }
-
-    public void setSpoznienie(double spoznienie) { this.spoznienie = spoznienie; }
-
-    public void copyCel(Polozenie cel) {
+    public Integer getCzasPrzyjazdu() {
+        return czasPrzyjazdu;
+    }
+    public double getSpoznienie() {
+        return spoznienie;
+    }
+    public void setSpoznienie(double spoznienie) {
+        this.spoznienie = spoznienie;
+    }
+    public void ustawCel(Polozenie cel) {
         getCel().setX(cel.getX() - getOdstep());
     }
 
@@ -68,7 +71,7 @@ public class Pociag extends Pojazd {
             for (int i = 0; i < tor.getIloscSemaforowSBL(); i++) {
                 if (getPolozenie().getX() <= tor.getSemaforySBL().get(i).getPolozenie().getX()) {
                     if (tor.getSemaforySBL().get(i).isStop()) {
-                        copyCel(tor.getSemaforySBL().get(i).getPolozenie());
+                        ustawCel(tor.getSemaforySBL().get(i).getPolozenie());
                         return true;
                     }
                 }
@@ -77,7 +80,7 @@ public class Pociag extends Pojazd {
             for (int i = 0; i < tor.getIloscSemaforowSBL(); i++) {
                 if (tor.getSemaforySBL().get(i).getPolozenie().getX() <= getPolozenie().getX()) {
                     if (tor.getSemaforySBL().get(i).isStop()) {
-                        copyCel(tor.getSemaforySBL().get(i).getPolozenie());
+                        ustawCel(tor.getSemaforySBL().get(i).getPolozenie());
                         return true;
                     }
                 }
@@ -102,7 +105,7 @@ public class Pociag extends Pojazd {
 
             if (getPolozenie().getX() < tor.getTarczaSSP().getPolozenie().getX() && przejazd.getPolozenie().getX() - getOdstep() < getCel().getX()) {
                 if (tor.getTarczaSSP().isStop()) {
-                    copyCel(przejazd.getPolozenie());
+                    ustawCel(przejazd.getPolozenie());
                     return true;
                 }
             }
@@ -119,7 +122,7 @@ public class Pociag extends Pojazd {
 
             if (tor.getTarczaSSP().getPolozenie().getX() < getPolozenie().getX() && getCel().getX() < przejazd.getPolozenie().getX() - getOdstep()) {
                 if (tor.getTarczaSSP().isStop()) {
-                    copyCel(przejazd.getPolozenie());
+                    ustawCel(przejazd.getPolozenie());
                     return true;
                 }
             }
@@ -140,9 +143,9 @@ public class Pociag extends Pojazd {
 
             if (getCel().getX() == przejazd.getPolozenie().getX() - getOdstep()) {
                 if (Math.abs(getPolozenie().getX() - przejazd.getPolozenie().getX()) < 20 && !przejazd.isRogatkaOtwarta())
-                    copyCel(tor.getKoniec());
+                    ustawCel(tor.getKoniec());
             } else if (!sbl && !ssp)
-                copyCel(tor.getKoniec());
+                ustawCel(tor.getKoniec());
 
             if (getCel().getX() != getPolozenie().getX()) {
 

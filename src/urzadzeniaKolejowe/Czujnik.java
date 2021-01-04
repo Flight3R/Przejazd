@@ -1,10 +1,10 @@
 package urzadzeniaKolejowe;
-import klasyAbstrakcyjne.ElementInfrastruktury;
+import klasyAbstrakcyjne.obiektSymulacji;
 import lokacja.Polozenie;
 
 import java.util.ArrayList;
 
-public class Czujnik extends ElementInfrastruktury {
+public class Czujnik extends obiektSymulacji {
     private Integer aktywacje = 0;
     private final ArrayList<String> listaAktywacji = new ArrayList<>();
 
@@ -13,12 +13,16 @@ public class Czujnik extends ElementInfrastruktury {
     public Czujnik(Polozenie polozenie, String nazwa) {
         super(polozenie, nazwa);
     }
+    public Integer getAktywacje() {
+        return aktywacje;
+    }
+    public boolean isAktywowany() {
+        return aktywowany;
+    }
 
-    public Integer getAktywacje() { return aktywacje; }
-
-    public boolean isAktywowany() { return aktywowany; }
-
-    public void setAktywowany(boolean aktywowany) { this.aktywowany = aktywowany; }
+    public void deaktywuj() {
+        this.aktywowany = false;
+    }
 
     public void aktywuj(String nazwa){
         if (!listaAktywacji.contains(nazwa)) {

@@ -19,9 +19,15 @@ public class PasRuchu extends Droga {
         this.sygnalizacja = sygnalizacja;
     }
 
-    public Rogatka getRogatka() { return rogatka; }
+    public Rogatka getRogatka() {
+        return rogatka;
+    }
 
-    public Sygnalizator getSygnalizacja() { return sygnalizacja; }
+    public Sygnalizator getSygnalizacja() {
+        return sygnalizacja;
+    }
 
-    public ArrayList<Auto> getListaAut() { return listaAut; }
+    public ArrayList<Auto> getListaAut() {
+        return listaAut;
+    }
 }

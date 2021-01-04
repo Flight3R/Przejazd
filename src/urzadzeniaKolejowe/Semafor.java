@@ -1,10 +1,10 @@
 package urzadzeniaKolejowe;
 
-import klasyAbstrakcyjne.ElementInfrastruktury;
+import klasyAbstrakcyjne.obiektSymulacji;
 import klasyAbstrakcyjne.Swiatlo;
 import lokacja.Polozenie;
 
-public class Semafor extends ElementInfrastruktury implements Swiatlo {
+public class Semafor extends obiektSymulacji implements Swiatlo {
     private boolean stop = false;
 
     public Semafor(Polozenie polozenie, String nazwa) {
@@ -12,7 +12,9 @@ public class Semafor extends ElementInfrastruktury implements Swiatlo {
         start();
     }
 
-    public boolean isStop() { return stop; }
+    public boolean isStop() {
+        return stop;
+    }
 
     public void podajSTOP() {
         stop = true;

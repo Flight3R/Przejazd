@@ -98,6 +98,5 @@ public class Main {
         torD.getRozkladPociagow().dodaj(pociagTestowy4);
         
         KontrolaRuchu kontrola = new KontrolaRuchu(przejazd, 3);
-
     }
 }
