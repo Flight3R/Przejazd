@@ -43,7 +43,7 @@ public class KontrolaRuchu extends Thread {
                 int masa = generator.nextInt(1500) + 500;
                 int Vmax = generator.nextInt(5) + 12;
 
-                Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 3, masa, Vmax, pasBierzacy, poprzednieAuto);
+                Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 4, masa, Vmax, pasBierzacy, poprzednieAuto);
                 pasBierzacy.getListaAut().add(nowe);
                 nowe.start();
                 numerPorzadkowy = numerPorzadkowy + 1;
