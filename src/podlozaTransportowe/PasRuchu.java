@@ -6,6 +6,7 @@ import pojazdy.Auto;
 import urzadzeniaUliczne.Rogatka;
 import urzadzeniaUliczne.Sygnalizator;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class PasRuchu extends Droga {
@@ -13,8 +14,8 @@ public class PasRuchu extends Droga {
     private final Sygnalizator sygnalizacja;
     private final ArrayList<Auto> listaAut = new ArrayList<>();
 
-    public PasRuchu(Polozenie polozenie, String nazwa, Sygnalizator sygnalizacja, String zwrot, double dlugosc, Rogatka rogatka) {
-        super(polozenie, nazwa, zwrot, dlugosc);
+    public PasRuchu(Polozenie polozenie, String nazwa, Sygnalizator sygnalizacja, String zwrot, double dlugosc, Rogatka rogatka, Icon ikona) {
+        super(polozenie, nazwa, zwrot, dlugosc, ikona);
         this.rogatka = rogatka;
         this.sygnalizacja = sygnalizacja;
     }

@@ -7,6 +7,7 @@ import pojazdy.Pociag;
 import urzadzeniaKolejowe.Czujnik;
 import urzadzeniaKolejowe.Semafor;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Tor extends Droga {
@@ -23,8 +24,8 @@ public class Tor extends Droga {
 
     public Tor(Polozenie polozenie, String nazwa, String zwrot, double dlugosc, Semafor tarczaSSP, Czujnik czujnikNajazdowySSP,
                Czujnik czujnikZjazdowySSP, ArrayList<Czujnik> czujnikiNajazdoweSBL, ArrayList<Czujnik> czujnikiZjazdoweSBL,
-               ArrayList<Semafor> semaforySBL) {
-        super(polozenie, nazwa, zwrot, dlugosc);
+               ArrayList<Semafor> semaforySBL, Icon ikona) {
+        super(polozenie, nazwa, zwrot, dlugosc, ikona);
         this.tarczaSSP = tarczaSSP;
         this.czujnikNajazdowySSP = czujnikNajazdowySSP;
         this.czujnikZjazdowySSP = czujnikZjazdowySSP;

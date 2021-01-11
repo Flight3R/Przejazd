@@ -6,6 +6,7 @@ import podlozaTransportowe.Tor;
 import pojazdy.Auto;
 import pojazdy.Pociag;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -43,7 +44,7 @@ public class KontrolaRuchu extends Thread {
                 int masa = generator.nextInt(1500) + 500;
                 int Vmax = generator.nextInt(5) + 12;
 
-                Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 4, masa, Vmax, pasBierzacy, poprzednieAuto);
+                Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 4, masa, Vmax, pasBierzacy, poprzednieAuto, new ImageIcon("src/grafiki/auto_gora.png"));
                 pasBierzacy.getListaAut().add(nowe);
                 nowe.start();
                 numerPorzadkowy = numerPorzadkowy + 1;

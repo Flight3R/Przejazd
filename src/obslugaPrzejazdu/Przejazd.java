@@ -5,6 +5,7 @@ import lokacja.Polozenie;
 import podlozaTransportowe.PasRuchu;
 import podlozaTransportowe.Tor;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 
@@ -16,8 +17,8 @@ public class Przejazd extends obiektSymulacji {
     private final Rozklad pociagiObecne = new Rozklad();
     private double czas;
 
-    public Przejazd(Polozenie polozenie, String nazwa, ArrayList<PasRuchu> listaPasow, ArrayList<Tor> listaTorow, double czas) {
-        super(polozenie, nazwa);
+    public Przejazd(Polozenie polozenie, String nazwa, ArrayList<PasRuchu> listaPasow, ArrayList<Tor> listaTorow, double czas, Icon ikona) {
+        super(polozenie, nazwa, ikona);
         this.listaPasow = listaPasow;
         this.listaTorow = listaTorow;
         this.czas = czas;

@@ -5,6 +5,8 @@ import lokacja.Polozenie;
 import obslugaPrzejazdu.Przejazd;
 import podlozaTransportowe.Tor;
 
+import javax.swing.*;
+
 public class Pociag extends Pojazd {
 
     private final Integer czasPrzyjazdu;
@@ -12,8 +14,8 @@ public class Pociag extends Pojazd {
     private final Tor tor;
     private final Przejazd przejazd;
 
-    public Pociag(String nazwa, double dlugosc, Integer masa, double maxPredkosc, Integer czasPrzyjazdu, Tor tor, Przejazd przejazd) {
-        super(new Polozenie(-tor.getKoniec().getX()/2,tor.getPolozenie().getY()), nazwa, "Pociag" , tor.getZwrot(), dlugosc, masa, maxPredkosc);
+    public Pociag(String nazwa, int dlugosc, Integer masa, double maxPredkosc, Integer czasPrzyjazdu, Tor tor, Przejazd przejazd, Icon ikona) {
+        super(new Polozenie(-tor.getKoniec().getX()/2,tor.getPolozenie().getY()), nazwa, "Pociag" , tor.getZwrot(), dlugosc, masa, maxPredkosc, ikona);
         this.czasPrzyjazdu = czasPrzyjazdu;
         this.tor = tor;
         this.przejazd = przejazd;
@@ -32,6 +34,11 @@ public class Pociag extends Pojazd {
     public double getSpoznienie() {
         return spoznienie;
     }
+
+    public Tor getTor() {
+        return tor;
+    }
+
     public void setSpoznienie(double spoznienie) {
         this.spoznienie = spoznienie;
     }

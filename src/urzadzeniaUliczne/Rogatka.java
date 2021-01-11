@@ -3,14 +3,16 @@ package urzadzeniaUliczne;
 import klasyAbstrakcyjne.obiektSymulacji;
 import lokacja.Polozenie;
 
+import javax.swing.*;
+
 public class Rogatka extends obiektSymulacji {
 
     private final Integer czasZamykania;
     private boolean otwarta = true;
     private boolean polecenieZamkniecia = false;
 
-    public Rogatka(Polozenie polozenie, String nazwa, Integer czasZamykania) {
-        super(polozenie, nazwa);
+    public Rogatka(Polozenie polozenie, String nazwa, Integer czasZamykania, Icon ikona) {
+        super(polozenie, nazwa, ikona);
         this.czasZamykania = czasZamykania;
         start();
     }

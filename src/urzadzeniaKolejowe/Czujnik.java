@@ -2,6 +2,7 @@ package urzadzeniaKolejowe;
 import klasyAbstrakcyjne.obiektSymulacji;
 import lokacja.Polozenie;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Czujnik extends obiektSymulacji {
@@ -10,8 +11,8 @@ public class Czujnik extends obiektSymulacji {
 
     private boolean aktywowany = false;
 
-    public Czujnik(Polozenie polozenie, String nazwa) {
-        super(polozenie, nazwa);
+    public Czujnik(Polozenie polozenie, String nazwa, Icon ikona) {
+        super(polozenie, nazwa, ikona);
     }
     public Integer getAktywacje() {
         return aktywacje;

@@ -1,9 +1,11 @@
 package klasyAbstrakcyjne;
 import lokacja.Polozenie;
 
+import javax.swing.*;
+
 public abstract class Pojazd extends obiektSymulacji {
 
-    private final double dlugosc;
+    private final int dlugosc;
     private final double maxPredkosc;
     private double predkosc;
     private final double opoznienie;
@@ -12,8 +14,8 @@ public abstract class Pojazd extends obiektSymulacji {
     private final double odstep;
     private Polozenie cel = new Polozenie(0,0);
 
-    public Pojazd(Polozenie polozenie, String nazwa, String typ, String zwrot,  double dlugosc, Integer masa, double maxPredkosc) {
-        super(polozenie, nazwa);
+    public Pojazd(Polozenie polozenie, String nazwa, String typ, String zwrot, int dlugosc, Integer masa, double maxPredkosc, Icon ikona) {
+        super(polozenie, nazwa, ikona);
         this.dlugosc = dlugosc;
         this.maxPredkosc = maxPredkosc;
         predkosc = maxPredkosc;
@@ -43,7 +45,7 @@ public abstract class Pojazd extends obiektSymulacji {
     public Polozenie getPolozenie() {
         return polozenie;
     }
-    public double getDlugosc() {
+    public int getDlugosc() {
         return dlugosc;
     }
     public double getPredkosc() {

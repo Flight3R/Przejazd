@@ -2,14 +2,16 @@ package klasyAbstrakcyjne;
 
 import lokacja.Polozenie;
 
+import javax.swing.*;
+
 public abstract class Droga extends obiektSymulacji {
 
     private final String zwrot;
     private final double dlugosc;
     private Polozenie koniec = null;
 
-    public Droga(Polozenie polozenie, String nazwa, String zwrot, double dlugosc) {
-        super(polozenie, nazwa);
+    public Droga(Polozenie polozenie, String nazwa, String zwrot, double dlugosc, Icon ikona) {
+        super(polozenie, nazwa, ikona);
         this.zwrot = zwrot;
         this.dlugosc = dlugosc;
 

@@ -4,11 +4,13 @@ import klasyAbstrakcyjne.obiektSymulacji;
 import klasyAbstrakcyjne.Swiatlo;
 import lokacja.Polozenie;
 
+import javax.swing.*;
+
 public class Semafor extends obiektSymulacji implements Swiatlo {
     private boolean stop = false;
 
-    public Semafor(Polozenie polozenie, String nazwa) {
-        super(polozenie, nazwa);
+    public Semafor(Polozenie polozenie, String nazwa, Icon ikona) {
+        super(polozenie, nazwa, ikona);
         start();
     }
 

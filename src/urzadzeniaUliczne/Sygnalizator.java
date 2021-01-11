@@ -4,13 +4,15 @@ import klasyAbstrakcyjne.obiektSymulacji;
 import klasyAbstrakcyjne.Swiatlo;
 import lokacja.Polozenie;
 
+import javax.swing.*;
+
 public class Sygnalizator extends obiektSymulacji implements Swiatlo {
 
     boolean stop = false;
     private boolean polecenieJedz = false;
 
-    public Sygnalizator(Polozenie polozenie, String nazwa) {
-        super(polozenie, nazwa);
+    public Sygnalizator(Polozenie polozenie, String nazwa, Icon ikona) {
+        super(polozenie, nazwa, ikona);
         start();
     }
 

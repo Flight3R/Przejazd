@@ -4,13 +4,15 @@ import klasyAbstrakcyjne.Pojazd;
 import lokacja.Polozenie;
 import podlozaTransportowe.PasRuchu;
 
+import javax.swing.*;
+
 public class Auto extends Pojazd {
 
     private final PasRuchu pas;
     private final Auto autoPrzed;
 
-    public Auto(String nazwa, double dlugosc, Integer masa, double maxPredkosc, PasRuchu pas, Auto autoPrzed) {
-        super(new Polozenie(pas.getPolozenie().getX(), -pas.getKoniec().getY()/2), nazwa, "Auto", pas.getZwrot(), dlugosc, masa, maxPredkosc);
+    public Auto(String nazwa, int dlugosc, Integer masa, double maxPredkosc, PasRuchu pas, Auto autoPrzed, Icon ikona) {
+        super(new Polozenie(pas.getPolozenie().getX(), -pas.getKoniec().getY()/2), nazwa, "Auto", pas.getZwrot(), dlugosc, masa, maxPredkosc, ikona);
         this.pas = pas;
         this.autoPrzed = autoPrzed;
         copyCel(pas.getKoniec());
