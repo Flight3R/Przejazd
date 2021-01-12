@@ -197,7 +197,7 @@ public class Panel extends Thread {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         frame.getContentPane().add(scrollPane);
 
-        scrollPane.setViewport(new JViewport());
+        scrollPane.getViewport().setViewPosition(new Point(scrollPane.getViewport().getViewSize().width/2-640, scrollPane.getViewport().getViewSize().height/2-360));
 
         for (obiektSymulacji obiekt : listaStatyczna) {
             obiekt.getLabel().setBounds((int)obiekt.getPolozenie().getX()+deltaX-obiekt.getLabel().getIcon().getIconWidth()/2, -(int)(obiekt.getPolozenie().getY()+deltaY+obiekt.getLabel().getIcon().getIconHeight()/2), obiekt.getLabel().getPreferredSize().width, obiekt.getLabel().getPreferredSize().height);
@@ -214,11 +214,9 @@ public class Panel extends Thread {
         start();
     }
     public void odswierz() {
-        System.out.println("refresh");
         for (PasRuchu pas : przejazd.getListaPasow()) {
             for (Auto auto : pas.getListaAut()) {
                 if (!listaDynamiczna.contains(auto)) {
-                    System.out.println("auto dodane");
                     listaDynamiczna.add(auto);
                     innerPanel.add(auto.getLabel(),0);
                 }
@@ -226,7 +224,6 @@ public class Panel extends Thread {
         }
 
         for (Pociag pociag : przejazd.getPociagiObecne().getTabelaPociagow()) {
-            System.out.println(pociag.getNazwa());
             if (!listaDynamiczna.contains(pociag)) {
                 listaDynamiczna.add(pociag);
                 innerPanel.add(pociag.getLabel(), 0);
@@ -234,22 +231,24 @@ public class Panel extends Thread {
         }
 
         for (obiektSymulacji obiekt : listaDynamiczna) {
-            if (obiekt instanceof Pociag) {
-                if (((Pociag) obiekt).getTor().getZwrot().equals("prawo")) {
-                    obiekt.getLabel().setBounds((int)obiekt.getPolozenie().getX()+deltaX-((Pociag) obiekt).getDlugosc(), -(int)(obiekt.getPolozenie().getY()+deltaY+obiekt.getLabel().getIcon().getIconHeight()/2), obiekt.getLabel().getPreferredSize().width, obiekt.getLabel().getPreferredSize().height);
-                } else {
-                    obiekt.getLabel().setBounds((int)obiekt.getPolozenie().getX()+deltaX, -(int)(obiekt.getPolozenie().getY()+deltaY+obiekt.getLabel().getIcon().getIconHeight()/2), obiekt.getLabel().getPreferredSize().width, obiekt.getLabel().getPreferredSize().height);
-                }
-            } else if (obiekt instanceof Auto) {
-                if (((Auto) obiekt).getPas().getZwrot().equals("gora")) {
-                    obiekt.getLabel().setBounds((int)obiekt.getPolozenie().getX()+deltaX-obiekt.getLabel().getIcon().getIconWidth()/2, -(int)(obiekt.getPolozenie().getY()+deltaY), obiekt.getLabel().getPreferredSize().width, obiekt.getLabel().getPreferredSize().height);
-                    System.out.println("autogora");
-                } else {
-                    obiekt.getLabel().setBounds((int)obiekt.getPolozenie().getX()+deltaX-obiekt.getLabel().getIcon().getIconWidth()/2, -(int)(obiekt.getPolozenie().getY()+deltaY+((Auto) obiekt).getDlugosc()), obiekt.getLabel().getPreferredSize().width, obiekt.getLabel().getPreferredSize().height);
-                    System.out.println("autodol");
-                }
+            if (obiekt.getLabel().getIcon() == null) {
+
             } else {
-                obiekt.getLabel().setBounds((int)obiekt.getPolozenie().getX()+deltaX-obiekt.getLabel().getIcon().getIconWidth()/2, -(int)(obiekt.getPolozenie().getY()+deltaY+obiekt.getLabel().getIcon().getIconHeight()/2), obiekt.getLabel().getIcon().getIconWidth(), obiekt.getLabel().getIcon().getIconHeight());
+                if (obiekt instanceof Pociag) {
+                    if (((Pociag) obiekt).getTor().getZwrot().equals("prawo")) {
+                        obiekt.getLabel().setBounds((int) obiekt.getPolozenie().getX() + deltaX - ((Pociag) obiekt).getDlugosc(), -(int) (obiekt.getPolozenie().getY() + deltaY + obiekt.getLabel().getIcon().getIconHeight() / 2), obiekt.getLabel().getPreferredSize().width, obiekt.getLabel().getPreferredSize().height);
+                    } else {
+                        obiekt.getLabel().setBounds((int) obiekt.getPolozenie().getX() + deltaX, -(int) (obiekt.getPolozenie().getY() + deltaY + obiekt.getLabel().getIcon().getIconHeight() / 2), obiekt.getLabel().getPreferredSize().width, obiekt.getLabel().getPreferredSize().height);
+                    }
+                } else if (obiekt instanceof Auto) {
+                    if (((Auto) obiekt).getPas().getZwrot().equals("gora")) {
+                        obiekt.getLabel().setBounds((int) obiekt.getPolozenie().getX() + deltaX - obiekt.getLabel().getIcon().getIconWidth() / 2, -(int) (obiekt.getPolozenie().getY() + deltaY), obiekt.getLabel().getPreferredSize().width, obiekt.getLabel().getPreferredSize().height);
+                    } else {
+                        obiekt.getLabel().setBounds((int) obiekt.getPolozenie().getX() + deltaX - obiekt.getLabel().getIcon().getIconWidth() / 2, -(int) (obiekt.getPolozenie().getY() + deltaY + ((Auto) obiekt).getDlugosc()), obiekt.getLabel().getPreferredSize().width, obiekt.getLabel().getPreferredSize().height);
+                    }
+                } else {
+                    obiekt.getLabel().setBounds((int) obiekt.getPolozenie().getX() + deltaX - obiekt.getLabel().getIcon().getIconWidth() / 2, -(int) (obiekt.getPolozenie().getY() + deltaY + obiekt.getLabel().getIcon().getIconHeight() / 2), obiekt.getLabel().getIcon().getIconWidth(), obiekt.getLabel().getIcon().getIconHeight());
+                }
             }
         }
     }

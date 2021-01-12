@@ -106,7 +106,7 @@ public class Przejazd extends obiektSymulacji {
     @Override
     public void run() {
         System.out.println(this + "\tROZPOCZYNAM DYŻUR!");
-        double deltaT = 40.0/1000;
+        double deltaT = 200.0/1000;
         while (true) {
 
             sterowanieSBL();

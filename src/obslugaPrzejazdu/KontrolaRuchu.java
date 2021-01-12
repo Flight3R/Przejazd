@@ -48,22 +48,21 @@ public class KontrolaRuchu extends Thread {
 
             if (pasBierzacy.getListaAut().size() < maxIloscNaPas && miejsceNaAuto) {
                 int masa = generator.nextInt(1500) + 500;
-                int Vmax = generator.nextInt(10) + 100;
+                int Vmax = generator.nextInt(15) + 30;
 
                 Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 40, masa, Vmax, pasBierzacy, poprzednieAuto, ikona);
                 pasBierzacy.getListaAut().add(nowe);
                 nowe.start();
-                System.out.println("auto myyyyyk");
                 numerPorzadkowy = numerPorzadkowy + 1;
             }
             double cybant = Math.abs(pasBierzacy.getPolozenie().getY() - pasBierzacy.getListaAut().get(0).getPolozenie().getY());
             double dlug = pasBierzacy.getDlugosc()/2;
             if (dlug < cybant ) {
-                pasBierzacy.getListaAut().get(0).getLabel().setIcon(new ImageIcon("src/grafiki/rogatka_otwarta.png"));
-                pasBierzacy.getListaAut().get(1).setAutoPrzed(null);
+                pasBierzacy.getListaAut().get(0).getLabel().setIcon(null);
+
                 pasBierzacy.getListaAut().get(0).interrupt();
-                pasBierzacy.getListaAut().get(0).getLabel().remove(0);
                 pasBierzacy.getListaAut().remove(0);
+                pasBierzacy.getListaAut().get(0).setAutoPrzed(null);
 
             }
         }

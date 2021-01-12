@@ -90,7 +90,7 @@ public class Auto extends Pojazd {
 
             if (getCel().getY() != getPolozenie().getY()) {
 
-                System.out.println(this + "   " + getDrogaHamowania());
+//                System.out.println(this + "   " + getDrogaHamowania());
 
                 if (Math.abs(getCel().getY() - getPolozenie().getY()) < getDrogaHamowania()*2)
                     hamuj(deltaT);
@@ -102,7 +102,7 @@ public class Auto extends Pojazd {
                 setPredkosc(0);
             }
 
-            try { sleep((long) (deltaT*1000)); } catch (InterruptedException interruptedException) { interrupt(); }
+            try { sleep((long) (deltaT*1000)); } catch (InterruptedException interruptedException) { return; }
         }
     }
 }
