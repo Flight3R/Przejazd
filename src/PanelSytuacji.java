@@ -1,5 +1,4 @@
 
-import klasyAbstrakcyjne.Pojazd;
 import klasyAbstrakcyjne.obiektSymulacji;
 import lokacja.Polozenie;
 import obslugaPrzejazdu.KontrolaRuchu;
@@ -18,7 +17,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Panel extends Thread {
+public class PanelSytuacji extends Thread {
 
     int deltaX=2500;
     int deltaY=-500;
@@ -55,12 +54,12 @@ public class Panel extends Thread {
     ArrayList<obiektSymulacji> listaDynamiczna = new ArrayList<>();
 
     Przejazd przejazd;
-
+    private final JFrame s1;
     private final JFrame frame = new JFrame();
     private final JLabel innerPanel = new JLabel();
     private final JScrollPane scrollPane = new JScrollPane(innerPanel);
 
-    public Panel() {
+    public PanelSytuacji() {
         // GENEROWANIE CZUJNIKOW I SEMAFORÓW - TOR GORNY
         Semafor semaforSBL1G  = new Semafor(new Polozenie(2501, 40+15), "semafor_SBL1_tor_gorny", s2L, s1L);
         Czujnik czujnikSBL1Gn = new Czujnik(new Polozenie(2501, 40), "czujnik_SBL1n_tor_gorny", czujnik);
@@ -118,11 +117,11 @@ public class Panel extends Thread {
         // GENEROWANIE SYGNALIZATORÓW I ROGATEK - PAS PRAWY I LEWY
         Sygnalizator sygnalizacjaP = new Sygnalizator(new Polozenie(30+20, -80), "sygnalizacja_pas_prawy", sygnG, sygnG1, sygnG2);
         Rogatka rogatkaP = new Rogatka(new Polozenie(30+20, -80), "rogatka_pas_prawy", 5, rogatka2, rogatka1);
-        PasRuchu pasP = new PasRuchu(new Polozenie(30, 0), "pas_prawy", sygnalizacjaP, "gora", 520, rogatkaP, pas);
+        PasRuchu pasP = new PasRuchu(new Polozenie(30, 0), "pas_prawy", sygnalizacjaP, "gora", 1020, rogatkaP, pas);
 
         Sygnalizator sygnalizacjaL = new Sygnalizator(new Polozenie(-30-20, 80), "sygnalizacja_pas_lewy", sygnD, sygnD1, sygnD2);
         Rogatka rogatkaL = new Rogatka(new Polozenie(-30-20, 80), "rogatka_pas_lewy", 5, rogatka2, rogatka1);
-        PasRuchu pasL = new PasRuchu(new Polozenie(-30, 0), "pas_lewy", sygnalizacjaL, "dol", 520, rogatkaL, pas);
+        PasRuchu pasL = new PasRuchu(new Polozenie(-30, 0), "pas_lewy", sygnalizacjaL, "dol", 1020, rogatkaL, pas);
 
         ArrayList<PasRuchu> listaPasow = new ArrayList<>(Arrays.asList(pasL, pasP));
 
@@ -130,8 +129,8 @@ public class Panel extends Thread {
         przejazd = new Przejazd(new Polozenie(0,0), "przejazd", listaPasow, listaTorow, 0, przej);
 
         // GENEROWANIE POCIĄGÓW
-        Pociag pociagTestowy1 = new Pociag("1111-G",300,30000,50,95, torG, przejazd, pociag300L);
-        Pociag pociagTestowy2 = new Pociag("2222-G",300,20000,60, 120, torG, przejazd, pociag300L);
+        Pociag pociagTestowy1 = new Pociag("1111-G",300,30000,50,20, torG, przejazd, pociag300L);
+        Pociag pociagTestowy2 = new Pociag("2222-G",300,20000,60, 80, torG, przejazd, pociag300L);
         Pociag pociagTestowy3 = new Pociag("3333-D",320,50000,40,60, torD, przejazd, pociag300P);
         Pociag pociagTestowy4 = new Pociag("4444-D", 300,20000,70,30, torD, przejazd, pociag300P);
 
@@ -139,8 +138,6 @@ public class Panel extends Thread {
         torD.getRozkladPociagow().dodaj(pociagTestowy4);
         torG.getRozkladPociagow().dodaj(pociagTestowy1);
         torG.getRozkladPociagow().dodaj(pociagTestowy2);
-
-        KontrolaRuchu kontrola = new KontrolaRuchu(przejazd, 7);
 
         listaStatyczna = new ArrayList(Arrays.asList(
                 semaforSBL1G,
@@ -181,6 +178,12 @@ public class Panel extends Thread {
         listaDynamiczna.add(rogatkaL);
         listaDynamiczna.add(rogatkaP);
 
+        s1 = new PanelSterowania(przejazd);
+        Thread s1t = new Thread((Runnable) s1);
+        s1t.start();
+        s1.pack();
+        s1.setVisible(true);
+
         frame.setPreferredSize(new Dimension(1300,800));
         frame.setBounds(0,0,1280,720);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -211,6 +214,8 @@ public class Panel extends Thread {
             }
         }
 
+
+KontrolaRuchu kontrola = new KontrolaRuchu(przejazd, 8);
         start();
     }
     public void odswierz() {
@@ -218,6 +223,7 @@ public class Panel extends Thread {
             for (Auto auto : pas.getListaAut()) {
                 if (!listaDynamiczna.contains(auto)) {
                     listaDynamiczna.add(auto);
+                    auto.getLabel().setText(auto.getNazwa());
                     innerPanel.add(auto.getLabel(),0);
                 }
             }
@@ -226,6 +232,7 @@ public class Panel extends Thread {
         for (Pociag pociag : przejazd.getPociagiObecne().getTabelaPociagow()) {
             if (!listaDynamiczna.contains(pociag)) {
                 listaDynamiczna.add(pociag);
+                pociag.getLabel().setText(pociag.getNazwa());
                 innerPanel.add(pociag.getLabel(), 0);
             }
         }
@@ -256,6 +263,7 @@ public class Panel extends Thread {
     public void run() {
         while (true) {
             odswierz();
+
             try {
                 sleep(40);
             } catch (InterruptedException e) {
@@ -265,6 +273,7 @@ public class Panel extends Thread {
     }
 
     public static void main(String[] args) {
-        new Panel();
+        new PanelSytuacji();
+
     }
 }

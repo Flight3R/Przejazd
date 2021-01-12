@@ -32,11 +32,12 @@ public class KontrolaRuchu extends Thread {
             if (pasBierzacy.getListaAut().size() == 0) {
                 poprzednieAuto = null;
                 miejsceNaAuto = true;
+                ikona = new ImageIcon(pasBierzacy.getZwrot().equals("gora")?"src/grafiki/auto_gora.png":"src/grafiki/auto_dol.png");
 
             } else {
                 poprzednieAuto = pasBierzacy.getListaAut().get(pasBierzacy.getListaAut().size() - 1);
 
-                if (pasBierzacy.getZwrot() == "gora") {
+                if (pasBierzacy.getZwrot().equals("gora")) {
                     miejsceNaAuto = (pasBierzacy.getPolozenie().getY() - pasBierzacy.getDlugosc()/2) < (poprzednieAuto.getPolozenie().getY() - poprzednieAuto.getDlugosc() - 20);
                     ikona = new ImageIcon("src/grafiki/auto_gora.png");
                 }

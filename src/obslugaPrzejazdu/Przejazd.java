@@ -16,6 +16,7 @@ public class Przejazd extends obiektSymulacji {
 
     private final Rozklad pociagiObecne = new Rozklad();
     private double czas;
+    private boolean sterowanieAutomatyczne = true;
 
     public Przejazd(Polozenie polozenie, String nazwa, ArrayList<PasRuchu> listaPasow, ArrayList<Tor> listaTorow, double czas, ImageIcon ikona) {
         super(polozenie, nazwa, ikona);
@@ -44,6 +45,10 @@ public class Przejazd extends obiektSymulacji {
 
     public double getCzas() {
         return czas;
+    }
+
+    public void setSterowanieAutomatyczne(boolean sterowanieAutomatyczne) {
+        this.sterowanieAutomatyczne = sterowanieAutomatyczne;
     }
 
     public boolean isRogatkaOtwarta() {
@@ -111,7 +116,7 @@ public class Przejazd extends obiektSymulacji {
 
             sterowanieSBL();
 
-            if (1==1) // >>>>>>>>>>>>>>>>>> STAN PRZEŁĄCZNIKA NA PULPICIE
+            if (sterowanieAutomatyczne) // >>>>>>>>>>>>>>>>>> STAN PRZEŁĄCZNIKA NA PULPICIE
                 sterowanieAutomatyczne();
             else
                 sterowanieSSP();
