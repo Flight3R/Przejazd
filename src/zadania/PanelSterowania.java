@@ -1,3 +1,5 @@
+package zadania;
+
 import obslugaPrzejazdu.Przejazd;
 import podlozaTransportowe.PasRuchu;
 
