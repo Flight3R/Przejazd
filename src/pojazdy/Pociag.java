@@ -14,7 +14,7 @@ public class Pociag extends Pojazd {
     private final Tor tor;
     private final Przejazd przejazd;
 
-    public Pociag(String nazwa, int dlugosc, Integer masa, double maxPredkosc, Integer czasPrzyjazdu, Tor tor, Przejazd przejazd, Icon ikona) {
+    public Pociag(String nazwa, int dlugosc, Integer masa, double maxPredkosc, Integer czasPrzyjazdu, Tor tor, Przejazd przejazd, ImageIcon ikona) {
         super(new Polozenie(-tor.getKoniec().getX()/2,tor.getPolozenie().getY()), nazwa, "Pociag" , tor.getZwrot(), dlugosc, masa, maxPredkosc, ikona);
         this.czasPrzyjazdu = czasPrzyjazdu;
         this.tor = tor;
@@ -140,7 +140,7 @@ public class Pociag extends Pojazd {
     @Override
     public void run() {
         System.out.println(this + "\tZGŁASZAM SIĘ!");
-        double deltaT = 200.0/1000;
+        double deltaT = 40.0/1000;
         while(true) {
 
             sprawdzCzujniki();

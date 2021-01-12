@@ -10,7 +10,7 @@ public abstract class obiektSymulacji extends Thread {
     protected String nazwa;
     private JLabel label;
 
-    public obiektSymulacji(Polozenie polozenie, String nazwa, Icon ikona) {
+    public obiektSymulacji(Polozenie polozenie, String nazwa, ImageIcon ikona) {
         this.polozenie = polozenie;
         this.nazwa = nazwa;
         label = new JLabel(ikona);
@@ -20,6 +20,8 @@ public abstract class obiektSymulacji extends Thread {
         return polozenie;
     }
 
+    public String getNazwa() { return nazwa; }
+
     public JLabel getLabel() {
         return label;
     }
@@ -27,4 +29,5 @@ public abstract class obiektSymulacji extends Thread {
     public void setLabel(JLabel label) {
         this.label = label;
     }
+
 }

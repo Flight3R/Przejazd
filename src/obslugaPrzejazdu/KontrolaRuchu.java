@@ -25,26 +25,33 @@ public class KontrolaRuchu extends Thread {
         Random generator = new Random();
         boolean miejsceNaAuto;
         Auto poprzednieAuto;
+        ImageIcon ikona = new ImageIcon();;
 
         for (PasRuchu pasBierzacy : przejazd.getListaPasow()) {
 
             if (pasBierzacy.getListaAut().size() == 0) {
                 poprzednieAuto = null;
                 miejsceNaAuto = true;
+
+
             } else {
                 poprzednieAuto = pasBierzacy.getListaAut().get(pasBierzacy.getListaAut().size() - 1);
 
-                if (pasBierzacy.getZwrot() == "gora")
+                if (pasBierzacy.getZwrot() == "gora") {
                     miejsceNaAuto = (pasBierzacy.getPolozenie().getY() - pasBierzacy.getDlugosc()) < (poprzednieAuto.getPolozenie().getY() - poprzednieAuto.getDlugosc() - 1);
-                else
+                    ikona = new ImageIcon("src/grafiki/auto_gora.png");
+                }
+                else {
                     miejsceNaAuto = (poprzednieAuto.getPolozenie().getY() + poprzednieAuto.getDlugosc() + 1) < (pasBierzacy.getPolozenie().getY() + pasBierzacy.getDlugosc());
+                    ikona = new ImageIcon("src/grafiki/auto_dol.png");
+                }
             }
 
             if (pasBierzacy.getListaAut().size() <= maxIloscNaPas && miejsceNaAuto) {
                 int masa = generator.nextInt(1500) + 500;
-                int Vmax = generator.nextInt(5) + 12;
+                int Vmax = generator.nextInt(20) + 20;
 
-                Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 4, masa, Vmax, pasBierzacy, poprzednieAuto, new ImageIcon("src/grafiki/auto_gora.png"));
+                Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 40, masa, Vmax, pasBierzacy, poprzednieAuto, ikona);
                 pasBierzacy.getListaAut().add(nowe);
                 nowe.start();
                 numerPorzadkowy = numerPorzadkowy + 1;
@@ -88,7 +95,7 @@ public class KontrolaRuchu extends Thread {
 
             if (czasKolejnegoAuta <= przejazd.getCzas()) {
                 obslugaAut();
-                czasKolejnegoAuta = przejazd.getCzas() + losowyCzas.nextInt(2)+4;
+                czasKolejnegoAuta = przejazd.getCzas() + losowyCzas.nextInt(2)+10;
             }
 
             obslugaPociagow();

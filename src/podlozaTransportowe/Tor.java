@@ -24,7 +24,7 @@ public class Tor extends Droga {
 
     public Tor(Polozenie polozenie, String nazwa, String zwrot, double dlugosc, Semafor tarczaSSP, Czujnik czujnikNajazdowySSP,
                Czujnik czujnikZjazdowySSP, ArrayList<Czujnik> czujnikiNajazdoweSBL, ArrayList<Czujnik> czujnikiZjazdoweSBL,
-               ArrayList<Semafor> semaforySBL, Icon ikona) {
+               ArrayList<Semafor> semaforySBL, ImageIcon ikona) {
         super(polozenie, nazwa, zwrot, dlugosc, ikona);
         this.tarczaSSP = tarczaSSP;
         this.czujnikNajazdowySSP = czujnikNajazdowySSP;

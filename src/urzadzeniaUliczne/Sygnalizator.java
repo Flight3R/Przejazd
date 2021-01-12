@@ -11,7 +11,7 @@ public class Sygnalizator extends obiektSymulacji implements Swiatlo {
     boolean stop = false;
     private boolean polecenieJedz = false;
 
-    public Sygnalizator(Polozenie polozenie, String nazwa, Icon ikona) {
+    public Sygnalizator(Polozenie polozenie, String nazwa, ImageIcon ikona) {
         super(polozenie, nazwa, ikona);
         start();
     }
@@ -45,7 +45,10 @@ public class Sygnalizator extends obiektSymulacji implements Swiatlo {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
                 polecenieJedz = false;
+
+
             }
             try { sleep(200); } catch (InterruptedException e) { e.printStackTrace(); }
         }

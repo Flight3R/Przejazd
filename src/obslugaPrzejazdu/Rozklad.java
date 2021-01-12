@@ -5,7 +5,7 @@ import pojazdy.Pociag;
 import java.util.ArrayList;
 
 public class Rozklad {
-    private final ArrayList<Pociag> tabelaPociagow = new ArrayList<>();
+    private ArrayList<Pociag> tabelaPociagow = new ArrayList<>();
 
     public ArrayList<Pociag> getTabelaPociagow() {
         return tabelaPociagow;

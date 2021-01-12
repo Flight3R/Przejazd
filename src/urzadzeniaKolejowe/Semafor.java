@@ -9,7 +9,7 @@ import javax.swing.*;
 public class Semafor extends obiektSymulacji implements Swiatlo {
     private boolean stop = false;
 
-    public Semafor(Polozenie polozenie, String nazwa, Icon ikona) {
+    public Semafor(Polozenie polozenie, String nazwa, ImageIcon ikona) {
         super(polozenie, nazwa, ikona);
         start();
     }

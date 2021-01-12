@@ -14,26 +14,26 @@ public abstract class Pojazd extends obiektSymulacji {
     private final double odstep;
     private Polozenie cel = new Polozenie(0,0);
 
-    public Pojazd(Polozenie polozenie, String nazwa, String typ, String zwrot, int dlugosc, Integer masa, double maxPredkosc, Icon ikona) {
+    public Pojazd(Polozenie polozenie, String nazwa, String typ, String zwrot, int dlugosc, Integer masa, double maxPredkosc, ImageIcon ikona) {
         super(polozenie, nazwa, ikona);
         this.dlugosc = dlugosc;
         this.maxPredkosc = maxPredkosc;
         predkosc = maxPredkosc;
 
         if (typ.equals("Pociag")) {
-            opoznienie = -36000.0 / masa;
-            przyspieszenie = 20000.0 / masa;
+            opoznienie = -100000.0 / masa;
+            przyspieszenie = 100000.0 / masa;
             if (zwrot.equals("prawo"))
+                odstep = 40;
+            else
+                odstep = -40;
+        } else {
+            opoznienie = -100000.0 / masa;
+            przyspieszenie = 100000.0 / masa;
+            if (zwrot.equals("gora"))
                 odstep = 10;
             else
                 odstep = -10;
-        } else {
-            opoznienie = -5000.0 / masa;
-            przyspieszenie = 5000.0 / masa;
-            if (zwrot.equals("gora"))
-                odstep = 1;
-            else
-                odstep = -1;
         }
 
         drogaHamowania = Math.pow(maxPredkosc, 2) / (2 * -opoznienie);

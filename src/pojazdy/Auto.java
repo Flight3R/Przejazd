@@ -11,11 +11,15 @@ public class Auto extends Pojazd {
     private final PasRuchu pas;
     private final Auto autoPrzed;
 
-    public Auto(String nazwa, int dlugosc, Integer masa, double maxPredkosc, PasRuchu pas, Auto autoPrzed, Icon ikona) {
+    public Auto(String nazwa, int dlugosc, Integer masa, double maxPredkosc, PasRuchu pas, Auto autoPrzed, ImageIcon ikona) {
         super(new Polozenie(pas.getPolozenie().getX(), -pas.getKoniec().getY()/2), nazwa, "Auto", pas.getZwrot(), dlugosc, masa, maxPredkosc, ikona);
         this.pas = pas;
         this.autoPrzed = autoPrzed;
         copyCel(pas.getKoniec());
+    }
+
+    public PasRuchu getPas() {
+        return pas;
     }
 
     @Override
@@ -69,7 +73,7 @@ public class Auto extends Pojazd {
 
     @Override
     public void run() {
-        double deltaT = 200.0/1000;
+        double deltaT = 40.0/1000;
         while(true) {
             boolean swiatla = sprawdzSwiatla();         // Aby zawsze sie wykonalo
 

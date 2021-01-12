@@ -11,7 +11,7 @@ public class Czujnik extends obiektSymulacji {
 
     private boolean aktywowany = false;
 
-    public Czujnik(Polozenie polozenie, String nazwa, Icon ikona) {
+    public Czujnik(Polozenie polozenie, String nazwa, ImageIcon ikona) {
         super(polozenie, nazwa, ikona);
     }
     public Integer getAktywacje() {

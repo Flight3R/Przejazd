@@ -18,6 +18,7 @@ public class Przejazd1GUI {
     private JPanel przejazd;
     private JButton dodajPociągButton;
     private JButton usuńPociągButton;
+    private JPanel panel;
 
 
     public static void main(String[] args) {
@@ -27,4 +28,6 @@ public class Przejazd1GUI {
         frame.pack();
         frame.setVisible(true);
     }
+
+
 }

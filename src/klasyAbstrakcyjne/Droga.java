@@ -10,7 +10,7 @@ public abstract class Droga extends obiektSymulacji {
     private final double dlugosc;
     private Polozenie koniec = null;
 
-    public Droga(Polozenie polozenie, String nazwa, String zwrot, double dlugosc, Icon ikona) {
+    public Droga(Polozenie polozenie, String nazwa, String zwrot, double dlugosc, ImageIcon ikona) {
         super(polozenie, nazwa, ikona);
         this.zwrot = zwrot;
         this.dlugosc = dlugosc;

@@ -11,7 +11,7 @@ public class Rogatka extends obiektSymulacji {
     private boolean otwarta = true;
     private boolean polecenieZamkniecia = false;
 
-    public Rogatka(Polozenie polozenie, String nazwa, Integer czasZamykania, Icon ikona) {
+    public Rogatka(Polozenie polozenie, String nazwa, Integer czasZamykania, ImageIcon ikona) {
         super(polozenie, nazwa, ikona);
         this.czasZamykania = czasZamykania;
         start();
@@ -27,6 +27,7 @@ public class Rogatka extends obiektSymulacji {
 
     public void otworz() {
         System.out.println("Rogatka: " + nazwa + " otwarta");
+        getLabel().setIcon(new ImageIcon("src/grafiki/rogatka_otwarta.png"));
         otwarta = true;
     }
 
@@ -38,6 +39,7 @@ public class Rogatka extends obiektSymulacji {
     private void zamknijPrivate() throws InterruptedException {
         sleep(5000);
         System.out.println("Rogatka: " + nazwa + " zamknieta");
+        getLabel().setIcon(new ImageIcon("src/grafiki/rogatka_zamknieta.png"));
         otwarta = false;
     }
 

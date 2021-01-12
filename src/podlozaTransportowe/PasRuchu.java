@@ -14,7 +14,7 @@ public class PasRuchu extends Droga {
     private final Sygnalizator sygnalizacja;
     private final ArrayList<Auto> listaAut = new ArrayList<>();
 
-    public PasRuchu(Polozenie polozenie, String nazwa, Sygnalizator sygnalizacja, String zwrot, double dlugosc, Rogatka rogatka, Icon ikona) {
+    public PasRuchu(Polozenie polozenie, String nazwa, Sygnalizator sygnalizacja, String zwrot, double dlugosc, Rogatka rogatka, ImageIcon ikona) {
         super(polozenie, nazwa, zwrot, dlugosc, ikona);
         this.rogatka = rogatka;
         this.sygnalizacja = sygnalizacja;
