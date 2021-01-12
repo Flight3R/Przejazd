@@ -56,14 +56,10 @@ public class Przejazd extends obiektSymulacji {
                 if (torBierzacy.getCzujnikiNajazdoweSBL().get(j).isAktywowany()) {
                     torBierzacy.getCzujnikiNajazdoweSBL().get(j).deaktywuj();
                     torBierzacy.getSemaforySBL().get(j).podajSTOP();
-                    torBierzacy.getSemaforySBL().get(j).getLabel().setIcon(new ImageIcon(torBierzacy.getZwrot().equals("prawo")?"src/grafiki/s1_prawo.png":"src/grafiki/s1_lewo.png"));
-
                 }
                 if (torBierzacy.getCzujnikiZjazdoweSBL().get(j).isAktywowany()) {
                     torBierzacy.getCzujnikiZjazdoweSBL().get(j).deaktywuj();
                     torBierzacy.getSemaforySBL().get(j).podajJEDZ();
-                    torBierzacy.getSemaforySBL().get(j).getLabel().setIcon(new ImageIcon(torBierzacy.getZwrot().equals("prawo")?"src/grafiki/s2_prawo.png":"src/grafiki/s2_lewo.png"));
-
                 }
             }
         }
@@ -76,16 +72,12 @@ public class Przejazd extends obiektSymulacji {
             if (przejazdZajety) {
                 if (!pasBierzacy.getSygnalizacja().isStop()) {
                     pasBierzacy.getSygnalizacja().podajSTOP();
-                    pasBierzacy.getSygnalizacja().getLabel().setIcon(new ImageIcon(pasBierzacy.getZwrot().equals("gora") ?"src/grafiki/sygnalizacja1_gora.png":"src/grafiki/sygnalizacja1_dol.png"));
                     pasBierzacy.getRogatka().zamknij();
-
                 }
             } else {
                 if (!pasBierzacy.getRogatka().isOtwarta()) {
                     pasBierzacy.getSygnalizacja().podajJEDZ();
-                    pasBierzacy.getSygnalizacja().getLabel().setIcon(new ImageIcon(pasBierzacy.getZwrot().equals("gora") ?"src/grafiki/sygnalizacja_gora.png":"src/grafiki/sygnalizacja_dol.png"));
                     pasBierzacy.getRogatka().otworz();
-
                 }
             }
         }
@@ -98,21 +90,15 @@ public class Przejazd extends obiektSymulacji {
         for (Tor torBierzacy : listaTorow) {
             if (przejazdZajety) {
                 if (przejazdOtwarty) {
-                    if (!torBierzacy.getTarczaSSP().isStop()) {
+                    if (!torBierzacy.getTarczaSSP().isStop())
                         torBierzacy.getTarczaSSP().podajSTOP();
-                        torBierzacy.getTarczaSSP().getLabel().setIcon(new ImageIcon(torBierzacy.getZwrot().equals("prawo")?"src/grafiki/osp1_prawo.png":"src/grafiki/osp1_lewo.png"));
-                    }
                 } else {
-                    if (torBierzacy.getTarczaSSP().isStop()) {
+                    if (torBierzacy.getTarczaSSP().isStop())
                         torBierzacy.getTarczaSSP().podajJEDZ();
-                        torBierzacy.getTarczaSSP().getLabel().setIcon(new ImageIcon(torBierzacy.getZwrot().equals("prawo")?"src/grafiki/osp2_prawo.png":"src/grafiki/osp2_lewo.png"));
-                    }
                 }
             } else {
-                if (torBierzacy.getTarczaSSP().isStop()) {
+                if (torBierzacy.getTarczaSSP().isStop())
                     torBierzacy.getTarczaSSP().podajJEDZ();
-                    torBierzacy.getTarczaSSP().getLabel().setIcon(new ImageIcon(torBierzacy.getZwrot().equals("prawo")?"src/grafiki/osp2_prawo.png":"src/grafiki/osp2_lewo.png"));
-                }
             }
         }
     }

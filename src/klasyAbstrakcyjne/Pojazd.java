@@ -21,22 +21,23 @@ public abstract class Pojazd extends obiektSymulacji {
         predkosc = maxPredkosc;
 
         if (typ.equals("Pociag")) {
-            opoznienie = -100000.0 / masa;
-            przyspieszenie = 100000.0 / masa;
+//            opoznienie = -70000.0 / masa;
+//            przyspieszenie = 70000.0 / masa;
             if (zwrot.equals("prawo"))
                 odstep = 40;
             else
                 odstep = -40;
         } else {
-            opoznienie = -100000.0 / masa;
-            przyspieszenie = 100000.0 / masa;
+//            opoznienie = -5000.0 / masa;
+//            przyspieszenie = 5000.0 / masa;
             if (zwrot.equals("gora"))
                 odstep = 10;
             else
                 odstep = -10;
         }
-
-        drogaHamowania = Math.pow(maxPredkosc, 2) / (2 * -opoznienie);
+            opoznienie = -Math.pow(maxPredkosc, 2)/2/dlugosc;
+            przyspieszenie = -opoznienie;
+//        drogaHamowania = Math.pow(maxPredkosc, 2) / (2 * -opoznienie);
     }
 
     public String getNazwa() {

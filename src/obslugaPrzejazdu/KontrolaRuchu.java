@@ -25,7 +25,7 @@ public class KontrolaRuchu extends Thread {
         Random generator = new Random();
         boolean miejsceNaAuto;
         Auto poprzednieAuto;
-        ImageIcon ikona = new ImageIcon();;
+        ImageIcon ikona = new ImageIcon();
 
         for (PasRuchu pasBierzacy : przejazd.getListaPasow()) {
 
@@ -33,33 +33,38 @@ public class KontrolaRuchu extends Thread {
                 poprzednieAuto = null;
                 miejsceNaAuto = true;
 
-
             } else {
                 poprzednieAuto = pasBierzacy.getListaAut().get(pasBierzacy.getListaAut().size() - 1);
 
                 if (pasBierzacy.getZwrot() == "gora") {
-                    miejsceNaAuto = (pasBierzacy.getPolozenie().getY() - pasBierzacy.getDlugosc()) < (poprzednieAuto.getPolozenie().getY() - poprzednieAuto.getDlugosc() - 1);
+                    miejsceNaAuto = (pasBierzacy.getPolozenie().getY() - pasBierzacy.getDlugosc()/2) < (poprzednieAuto.getPolozenie().getY() - poprzednieAuto.getDlugosc() - 20);
                     ikona = new ImageIcon("src/grafiki/auto_gora.png");
                 }
                 else {
-                    miejsceNaAuto = (poprzednieAuto.getPolozenie().getY() + poprzednieAuto.getDlugosc() + 1) < (pasBierzacy.getPolozenie().getY() + pasBierzacy.getDlugosc());
+                    miejsceNaAuto = (poprzednieAuto.getPolozenie().getY() + poprzednieAuto.getDlugosc() + 20) < (pasBierzacy.getPolozenie().getY() + pasBierzacy.getDlugosc()/2);
                     ikona = new ImageIcon("src/grafiki/auto_dol.png");
                 }
             }
 
-            if (pasBierzacy.getListaAut().size() <= maxIloscNaPas && miejsceNaAuto) {
+            if (pasBierzacy.getListaAut().size() < maxIloscNaPas && miejsceNaAuto) {
                 int masa = generator.nextInt(1500) + 500;
-                int Vmax = generator.nextInt(20) + 20;
+                int Vmax = generator.nextInt(10) + 100;
 
                 Auto nowe = new Auto(Integer.toString(numerPorzadkowy), 40, masa, Vmax, pasBierzacy, poprzednieAuto, ikona);
                 pasBierzacy.getListaAut().add(nowe);
                 nowe.start();
+                System.out.println("auto myyyyyk");
                 numerPorzadkowy = numerPorzadkowy + 1;
             }
-
-            if (pasBierzacy.getDlugosc() < Math.abs(pasBierzacy.getPolozenie().getY() - pasBierzacy.getListaAut().get(0).getPolozenie().getY())) {
+            double cybant = Math.abs(pasBierzacy.getPolozenie().getY() - pasBierzacy.getListaAut().get(0).getPolozenie().getY());
+            double dlug = pasBierzacy.getDlugosc()/2;
+            if (dlug < cybant ) {
+                pasBierzacy.getListaAut().get(0).getLabel().setIcon(new ImageIcon("src/grafiki/rogatka_otwarta.png"));
+                pasBierzacy.getListaAut().get(1).setAutoPrzed(null);
                 pasBierzacy.getListaAut().get(0).interrupt();
+                pasBierzacy.getListaAut().get(0).getLabel().remove(0);
                 pasBierzacy.getListaAut().remove(0);
+
             }
         }
     }
@@ -89,18 +94,18 @@ public class KontrolaRuchu extends Thread {
     @Override
     public void run() {
         Random losowyCzas = new Random();
-        double czasKolejnegoAuta = przejazd.getCzas();
+        double czasKolejnegoAuta = 0;
 
         while (true) {
 
             if (czasKolejnegoAuta <= przejazd.getCzas()) {
                 obslugaAut();
-                czasKolejnegoAuta = przejazd.getCzas() + losowyCzas.nextInt(2)+10;
+                czasKolejnegoAuta = przejazd.getCzas() + losowyCzas.nextInt(2)+2;
             }
 
             obslugaPociagow();
 
-            try { sleep(600); } catch (InterruptedException e) { e.printStackTrace(); }
+            try { sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
         }
     }
 }

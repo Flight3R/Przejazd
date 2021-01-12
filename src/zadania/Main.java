@@ -87,15 +87,15 @@ public class Main {
 //        Przejazd przejazd= new Przejazd(new Polozenie(0,0), "przejazd", listaPasow, listaTorow, 0);
 //
 //// GENEROWANIE POCIĄGÓW
-//        Pociag pociagTestowy1 = new Pociag("1111-G",200,30000,25,95, torG, przejazd);
-//        Pociag pociagTestowy2 = new Pociag("2222-G",100,20000,27, 120, torG, przejazd);
-//        Pociag pociagTestowy3 = new Pociag("3333-D",120,50000,27,60, torD, przejazd);
-//        Pociag pociagTestowy4 = new Pociag("4444-D", 50,20000,38.89,50, torD, przejazd);
-//
-//        torG.getRozkladPociagow().dodaj(pociagTestowy1);
-//        torG.getRozkladPociagow().dodaj(pociagTestowy2);
-//        torD.getRozkladPociagow().dodaj(pociagTestowy3);
-//        torD.getRozkladPociagow().dodaj(pociagTestowy4);
+////        Pociag pociagTestowy1 = new Pociag("1111-G",200,30000,25,95, torG, przejazd);
+////        Pociag pociagTestowy2 = new Pociag("2222-G",100,20000,27, 120, torG, przejazd);
+////        Pociag pociagTestowy3 = new Pociag("3333-D",120,50000,27,60, torD, przejazd);
+////        Pociag pociagTestowy4 = new Pociag("4444-D", 50,20000,38.89,50, torD, przejazd);
+////
+////        torG.getRozkladPociagow().dodaj(pociagTestowy1);
+////        torG.getRozkladPociagow().dodaj(pociagTestowy2);
+////        torD.getRozkladPociagow().dodaj(pociagTestowy3);
+////        torD.getRozkladPociagow().dodaj(pociagTestowy4);
 //
 //        KontrolaRuchu kontrola = new KontrolaRuchu(przejazd, 3);
     }

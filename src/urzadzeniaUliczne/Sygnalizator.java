@@ -9,10 +9,13 @@ import javax.swing.*;
 public class Sygnalizator extends obiektSymulacji implements Swiatlo {
 
     boolean stop = false;
-    private boolean polecenieJedz = false;
+    private final ImageIcon ikona2;
+    private final ImageIcon ikona3;
 
-    public Sygnalizator(Polozenie polozenie, String nazwa, ImageIcon ikona) {
+    public Sygnalizator(Polozenie polozenie, String nazwa, ImageIcon ikona, ImageIcon ikona2, ImageIcon ikona3) {
         super(polozenie, nazwa, ikona);
+        this.ikona2 = ikona2;
+        this.ikona3 = ikona3;
         start();
     }
 
@@ -26,31 +29,36 @@ public class Sygnalizator extends obiektSymulacji implements Swiatlo {
     }
 
     public void podajJEDZ() {
-        polecenieJedz = true;
-    }
-
-    private void podajJEDZprivate() throws InterruptedException {
-        sleep(5000);
         stop = false;
         System.out.println("Sygnalizator: " + nazwa + " świeci JEDŹ!");
-
+        getLabel().setIcon(getIkona());
     }
 
     @Override
     public void run() {
         while (true) {
-            if (polecenieJedz) {
+
+
+            if (stop) {
+                getLabel().setIcon(ikona2);
                 try {
-                    podajJEDZprivate();
+                    sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-                polecenieJedz = false;
-
-
+                getLabel().setIcon(ikona3);
+                try {
+                    sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            try { sleep(200); } catch (InterruptedException e) { e.printStackTrace(); }
         }
     }
 }

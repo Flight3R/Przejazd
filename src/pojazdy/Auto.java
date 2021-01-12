@@ -9,7 +9,7 @@ import javax.swing.*;
 public class Auto extends Pojazd {
 
     private final PasRuchu pas;
-    private final Auto autoPrzed;
+    private Auto autoPrzed;
 
     public Auto(String nazwa, int dlugosc, Integer masa, double maxPredkosc, PasRuchu pas, Auto autoPrzed, ImageIcon ikona) {
         super(new Polozenie(pas.getPolozenie().getX(), -pas.getKoniec().getY()/2), nazwa, "Auto", pas.getZwrot(), dlugosc, masa, maxPredkosc, ikona);
@@ -27,7 +27,9 @@ public class Auto extends Pojazd {
         return "Auto: " + getNazwa() + "\tV= " + Math.round(getPredkosc()*100.0)/100.0 + "\tX= " + getPolozenie().getX() +
                 "\tY= " + Math.round(getPolozenie().getY()*100.0)/100.0 + "\tCEL= " + getCel().getY();
     }
-
+    public void setAutoPrzed(Auto autoPrzed) {
+        this.autoPrzed = autoPrzed;
+    }
     public void copyCel(Polozenie cel) {
         getCel().setY(cel.getY() - getOdstep());
     }
@@ -100,7 +102,7 @@ public class Auto extends Pojazd {
                 setPredkosc(0);
             }
 
-            try { sleep(200); } catch (InterruptedException interruptedException) { stop(); }
+            try { sleep((long) (deltaT*1000)); } catch (InterruptedException interruptedException) { interrupt(); }
         }
     }
 }
