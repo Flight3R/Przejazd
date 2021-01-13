@@ -25,8 +25,10 @@ public class Rozklad {
     }
 
     public void dodaj(Pociag pociag){
-        tabelaPociagow.add(pociag);
-        this.tabelaPociagow.sort((p1, p2) -> p1.getCzasPrzyjazdu() - p2.getCzasPrzyjazdu());
+        if (!tabelaPociagow.contains(pociag)) {
+            tabelaPociagow.add(pociag);
+            this.tabelaPociagow.sort((p1, p2) -> p1.getCzasPrzyjazdu() - p2.getCzasPrzyjazdu());
+        }
     }
 
     public void usunPierwszy(){

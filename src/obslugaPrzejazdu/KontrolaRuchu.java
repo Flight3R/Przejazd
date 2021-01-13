@@ -79,6 +79,7 @@ public class KontrolaRuchu extends Thread {
                     najblizszyPrzed.setSpoznienie(przejazd.getCzas() + czasDojazdu - najblizszyPrzed.getCzasPrzyjazdu());
                     przejazd.getPociagiObecne().dodaj(najblizszyPrzed);
                     torBierzacy.getRozkladPociagow().usunPierwszy();
+
                 }
             }
         }
@@ -86,7 +87,9 @@ public class KontrolaRuchu extends Thread {
             Pociag najblizszyZa = przejazd.getPociagiObecne().najblizszyPociag();
             if (Math.abs(najblizszyZa.getPolozenie().getX()) > 3200) {
                 przejazd.getPociagiObecne().usunPierwszy();
+                przejazd.getRozklad().getTabelaPociagow().remove(najblizszyZa);
                 najblizszyZa.interrupt();
+
             }
         }
     }

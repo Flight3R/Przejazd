@@ -4,6 +4,7 @@ import klasyAbstrakcyjne.obiektSymulacji;
 import lokacja.Polozenie;
 import podlozaTransportowe.PasRuchu;
 import podlozaTransportowe.Tor;
+import pojazdy.Pociag;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Przejazd extends obiektSymulacji {
     private final ArrayList<Tor> listaTorow;
 
     private final Rozklad pociagiObecne = new Rozklad();
+    private final Rozklad rozklad = new Rozklad();
     private double czas;
     private boolean sterowanieAutomatyczne = true;
 
@@ -43,8 +45,17 @@ public class Przejazd extends obiektSymulacji {
         return pociagiObecne;
     }
 
+    public Rozklad getRozklad() {
+        return rozklad;
+    }
+
     public double getCzas() {
         return czas;
+    }
+
+    public void dodajDoRozkladu(Pociag pociag) {
+            rozklad.dodaj(pociag);
+            pociag.getTor().getRozkladPociagow().dodaj(pociag);
     }
 
     public void setSterowanieAutomatyczne(boolean sterowanieAutomatyczne) {

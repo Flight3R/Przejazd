@@ -25,6 +25,10 @@ public class PanelSterowania extends JFrame implements Runnable {
     private JRadioButton WYLRadioButton;
     private JButton zamykanieButton;
     private JButton otwieranieButton;
+    private JTextField p4S;
+    private JTextField p4G;
+    private JTextField p4N;
+    private JButton dodajPociagButton;
     private Przejazd przejazd;
 
     public PanelSterowania(Przejazd przejazd) {
@@ -45,6 +49,8 @@ public class PanelSterowania extends JFrame implements Runnable {
         zamykanieButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                WYLRadioButton.setSelected(true);
+                przejazd.setSterowanieAutomatyczne(false);
                 for (PasRuchu pas : przejazd.getListaPasow()) {
                     pas.getSygnalizacja().podajSTOP();
                     pas.getRogatka().zamknij();
@@ -54,6 +60,8 @@ public class PanelSterowania extends JFrame implements Runnable {
         otwieranieButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                WYLRadioButton.setSelected(true);
+                przejazd.setSterowanieAutomatyczne(false);
                 for (PasRuchu pas : przejazd.getListaPasow()) {
                     pas.getSygnalizacja().podajJEDZ();
                     pas.getRogatka().otworz();
@@ -63,23 +71,29 @@ public class PanelSterowania extends JFrame implements Runnable {
 
         ZALRadioButton.setSelected(true);
 
+
     }
 public void odswierz() {
     godzinaTextField.setText((int)przejazd.getCzas()/3600 + ":" + (int)przejazd.getCzas()/60 + ":" + (int)przejazd.getCzas()%60);
-    if (przejazd.getPociagiObecne().getTabelaPociagow().size() > 0) {
-        p1N.setText(przejazd.getPociagiObecne().getTabelaPociagow().get(0).getNazwa());
-        p1G.setText(Integer.toString(przejazd.getPociagiObecne().getTabelaPociagow().get(0).getCzasPrzyjazdu()));
-        p1S.setText(Double.toString((int)przejazd.getPociagiObecne().getTabelaPociagow().get(0).getSpoznienie()));
+    if (przejazd.getRozklad().getTabelaPociagow().size() > 0) {
+        p1N.setText(przejazd.getRozklad().getTabelaPociagow().get(0).getNazwa());
+        p1G.setText(Integer.toString(przejazd.getRozklad().getTabelaPociagow().get(0).getCzasPrzyjazdu()));
+        p1S.setText(Double.toString((int)przejazd.getRozklad().getTabelaPociagow().get(0).getSpoznienie()));
     }
-    if (przejazd.getPociagiObecne().getTabelaPociagow().size() > 1) {
-        p2N.setText(przejazd.getPociagiObecne().getTabelaPociagow().get(1).getNazwa());
-        p2G.setText(Integer.toString(przejazd.getPociagiObecne().getTabelaPociagow().get(1).getCzasPrzyjazdu()));
-        p2S.setText(Double.toString((int)przejazd.getPociagiObecne().getTabelaPociagow().get(1).getSpoznienie()));
+    if (przejazd.getRozklad().getTabelaPociagow().size() > 1) {
+        p2N.setText(przejazd.getRozklad().getTabelaPociagow().get(1).getNazwa());
+        p2G.setText(Integer.toString(przejazd.getRozklad().getTabelaPociagow().get(1).getCzasPrzyjazdu()));
+        p2S.setText(Double.toString((int)przejazd.getRozklad().getTabelaPociagow().get(1).getSpoznienie()));
     }
-    if (przejazd.getPociagiObecne().getTabelaPociagow().size() > 2) {
-        p3N.setText(przejazd.getPociagiObecne().getTabelaPociagow().get(2).getNazwa());
-        p3G.setText(Integer.toString(przejazd.getPociagiObecne().getTabelaPociagow().get(2).getCzasPrzyjazdu()));
-        p3S.setText(Double.toString((int)przejazd.getPociagiObecne().getTabelaPociagow().get(2).getSpoznienie()));
+    if (przejazd.getRozklad().getTabelaPociagow().size() > 2) {
+        p3N.setText(przejazd.getRozklad().getTabelaPociagow().get(2).getNazwa());
+        p3G.setText(Integer.toString(przejazd.getRozklad().getTabelaPociagow().get(2).getCzasPrzyjazdu()));
+        p3S.setText(Double.toString((int)przejazd.getRozklad().getTabelaPociagow().get(2).getSpoznienie()));
+    }
+    if (przejazd.getRozklad().getTabelaPociagow().size() > 3) {
+        p4N.setText(przejazd.getRozklad().getTabelaPociagow().get(3).getNazwa());
+        p4G.setText(Integer.toString(przejazd.getRozklad().getTabelaPociagow().get(3).getCzasPrzyjazdu()));
+        p4S.setText(Double.toString((int)przejazd.getRozklad().getTabelaPociagow().get(3).getSpoznienie()));
     }
 }
 

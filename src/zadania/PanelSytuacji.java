@@ -42,7 +42,7 @@ public class PanelSytuacji extends JFrame implements Runnable {
 
         getContentPane().setLayout(new FlowLayout());
 
-        innerPanel.setPreferredSize(new Dimension(5000,1000));
+        innerPanel.setIcon(new ImageIcon("src/grafiki/tlo.png"));
 
         scrollPane.setPreferredSize(new Dimension(1280,720));
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -73,6 +73,10 @@ public class PanelSytuacji extends JFrame implements Runnable {
             innerPanel.add(obiekt.getLabel());
         }
 
+        for (obiektSymulacji obiekt : listaDynamiczna) {
+            innerPanel.add(obiekt.getLabel());
+        }
+
     }
     public void odswierz() {
         for (PasRuchu pas : przejazd.getListaPasow()) {
@@ -80,6 +84,7 @@ public class PanelSytuacji extends JFrame implements Runnable {
                 if (!listaDynamiczna.contains(auto)) {
                     listaDynamiczna.add(auto);
                     auto.getLabel().setText(auto.getNazwa());
+                    auto.getLabel().setHorizontalTextPosition(0);
                     innerPanel.add(auto.getLabel(),0);
                 }
             }
@@ -89,6 +94,7 @@ public class PanelSytuacji extends JFrame implements Runnable {
             if (!listaDynamiczna.contains(pociag)) {
                 listaDynamiczna.add(pociag);
                 pociag.getLabel().setText(pociag.getNazwa());
+                pociag.getLabel().setHorizontalTextPosition(0);
                 innerPanel.add(pociag.getLabel(), 0);
             }
         }
