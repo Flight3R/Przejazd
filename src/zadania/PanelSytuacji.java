@@ -34,25 +34,6 @@ public class PanelSytuacji extends JFrame implements Runnable {
     private final JScrollPane scrollPane = new JScrollPane(innerPanel);
 
     public PanelSytuacji(Przejazd przejazd) {
-        this.przejazd = przejazd;
-        listaStatyczna.add(przejazd);
-        for (Tor tor : przejazd.getListaTorow()) {
-            for (Semafor semafor : tor.getSemaforySBL())
-                listaStatyczna.add(semafor);
-            for (Czujnik czujnik : tor.getCzujnikiNajazdoweSBL())
-                listaStatyczna.add(czujnik);
-            for (Czujnik czujnik : tor.getCzujnikiZjazdoweSBL())
-                listaStatyczna.add(czujnik);
-            listaStatyczna.add(tor);
-            listaStatyczna.add(tor.getCzujnikNajazdowySSP());
-            listaStatyczna.add(tor.getCzujnikZjazdowySSP());
-            listaStatyczna.add(tor.getTarczaSSP());
-        }
-        for (PasRuchu pas : przejazd.getListaPasow()) {
-            listaStatyczna.add(pas);
-            listaStatyczna.add(pas.getSygnalizacja());
-            listaStatyczna.add(pas.getRogatka());
-        }
 
         setPreferredSize(new Dimension(1300,800));
         setBounds(0,0,1280,720);
@@ -66,21 +47,32 @@ public class PanelSytuacji extends JFrame implements Runnable {
         scrollPane.setPreferredSize(new Dimension(1280,720));
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.getViewport().setViewPosition(new Point(scrollPane.getViewport().getViewSize().width/2-640, scrollPane.getViewport().getViewSize().height/2-360));
         getContentPane().add(scrollPane);
 
-        scrollPane.getViewport().setViewPosition(new Point(scrollPane.getViewport().getViewSize().width/2-640, scrollPane.getViewport().getViewSize().height/2-360));
+        this.przejazd = przejazd;
+        listaStatyczna.add(przejazd); // BUDOWANIE LISTY STATYCZNEJ
+        for (Tor tor : przejazd.getListaTorow()) {
+            listaStatyczna.addAll(tor.getSemaforySBL());
+            listaStatyczna.addAll(tor.getCzujnikiNajazdoweSBL());
+            listaStatyczna.addAll(tor.getCzujnikiZjazdoweSBL());
 
-        for (obiektSymulacji obiekt : listaStatyczna) {
+            listaStatyczna.add(tor.getCzujnikNajazdowySSP());
+            listaStatyczna.add(tor.getCzujnikZjazdowySSP());
+            listaStatyczna.add(tor.getTarczaSSP());
+            listaStatyczna.add(tor);
+        }
+        for (PasRuchu pas : przejazd.getListaPasow()) {
+            listaStatyczna.add(pas.getSygnalizacja());
+            listaDynamiczna.add(pas.getRogatka());
+            listaStatyczna.add(pas);
+        }
+
+        for (obiektSymulacji obiekt : listaStatyczna) { // DODAWANIE LISTY STATYCZNEJ DO PANELU
             obiekt.getLabel().setBounds((int)obiekt.getPolozenie().getX()+deltaX-obiekt.getLabel().getIcon().getIconWidth()/2, -(int)(obiekt.getPolozenie().getY()+deltaY+obiekt.getLabel().getIcon().getIconHeight()/2), obiekt.getLabel().getPreferredSize().width, obiekt.getLabel().getPreferredSize().height);
             innerPanel.add(obiekt.getLabel());
         }
 
-        for (Tor tor : przejazd.getListaTorow()) {
-            for (Pociag pociag : tor.getRozkladPociagow().getTabelaPociagow()) {
-                listaDynamiczna.add(pociag);
-                innerPanel.add(pociag.getLabel(),0);
-            }
-        }
     }
     public void odswierz() {
         for (PasRuchu pas : przejazd.getListaPasow()) {

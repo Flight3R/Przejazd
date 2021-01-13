@@ -133,7 +133,7 @@ public class Main {
         panelSterowania.pack();
         panelSterowania.setVisible(true);
 
-        PanelSytuacji panelSytuacji = new PanelSytuacji(przejazd);
+        JFrame panelSytuacji = new PanelSytuacji(przejazd);
         Thread panelSytuacjiThread = new Thread((Runnable) panelSytuacji);
         panelSytuacjiThread.start();
         panelSytuacji.pack();
