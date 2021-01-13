@@ -39,7 +39,7 @@ public class Rogatka extends obiektSymulacji {
 
 
     private void zamknijPrivate() throws InterruptedException {
-        sleep(5000);
+        sleep(6000);
         System.out.println("Rogatka: " + nazwa + " zamknieta");
         getLabel().setIcon(ikona2);
         otwarta = false;
@@ -56,7 +56,7 @@ public class Rogatka extends obiektSymulacji {
                 }
                 polecenieZamkniecia = false;
             }
-            try { sleep(200); } catch (InterruptedException e) { e.printStackTrace(); }
+            try { sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
         }
     }
 }

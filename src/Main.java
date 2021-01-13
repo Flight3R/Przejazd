@@ -46,7 +46,7 @@ public class Main {
 
         ImageIcon przej = new ImageIcon("src/grafiki/przejazd.png");
 
-        // GENEROWANIE CZUJNIKOW I SEMAFORÓW - TOR GORNY
+// GENEROWANIE CZUJNIKOW I SEMAFORÓW - TOR GORNY
         Semafor semaforSBL1G  = new Semafor(new Polozenie(2490, 40+15), "semafor_SBL1_tor_gorny", s2L, s1L);
         Czujnik czujnikSBL1Gn = new Czujnik(new Polozenie(2490, 40), "czujnik_SBL1n_tor_gorny", czujnik);
 
@@ -58,7 +58,7 @@ public class Main {
 
         Semafor tarczaSSPG   = new Semafor(new Polozenie(1000, 40+15), "tarcza_SSP_tor_gorny", osp2L, osp1L);
 
-        Czujnik czujnikSSPGz  = new Czujnik(new Polozenie(-40,  40), "czujnik_SSPz_tor_gorny", czujnik);
+        Czujnik czujnikSSPGz  = new Czujnik(new Polozenie(-50,  40), "czujnik_SSPz_tor_gorny", czujnik);
 
         Semafor semaforSBL3G  = new Semafor(new Polozenie(-1000,40+15), "semafor_SBL3_tor_gorny", s2L, s1L);
         Czujnik czujnikSBL3Gn = new Czujnik(new Polozenie(-1000,40), "czujnik_SBL3n_tor_gorny", czujnik);
@@ -72,7 +72,7 @@ public class Main {
 
         Tor torG = new Tor(new Polozenie(0, 40),"tor_gorny", "lewo", 5010, tarczaSSPG, czujnikSSPGn, czujnikSSPGz, czujnikiSBLnG, czujnikiSBLzG, semaforySBLG, tor);
 
-        // GENEROWANIE CZUJNIKOW I SEMAFORÓW - TOR DOLNY
+// GENEROWANIE CZUJNIKOW I SEMAFORÓW - TOR DOLNY
         Semafor semaforSBL1D  = new Semafor(new Polozenie(-2490,-40-15), "semafor_SBL1_tor_dolny", s2P, s1P);
         Czujnik czujnikSBL1Dn = new Czujnik(new Polozenie(-2490,-40), "czujnik_SBL1n_tor_dolny", czujnik);
 
@@ -84,7 +84,7 @@ public class Main {
 
         Semafor tarczaSSPD   = new Semafor(new Polozenie(-1000,-40-15), "tarcza_SSP_tor_dolny", osp2P, osp1P);
 
-        Czujnik czujnikSSPDz  = new Czujnik(new Polozenie(40,   -40), "czujnik_SSPz_tor_dolny", czujnik);
+        Czujnik czujnikSSPDz  = new Czujnik(new Polozenie(50,   -40), "czujnik_SSPz_tor_dolny", czujnik);
 
         Semafor semaforSBL3D  = new Semafor(new Polozenie(1000, -40-15), "semafor_SBL3_tor_dolny", s2P, s1P);
         Czujnik czujnikSBL3Dn = new Czujnik(new Polozenie(1000, -40), "czujnik_SBL3n_tor_dolny", czujnik);
@@ -100,7 +100,7 @@ public class Main {
 
         ArrayList<Tor> listaTorow = new ArrayList<>(Arrays.asList(torG,torD));
 
-        // GENEROWANIE SYGNALIZATORÓW I ROGATEK - PAS PRAWY I LEWY
+// GENEROWANIE SYGNALIZATORÓW I ROGATEK - PAS PRAWY I LEWY
         Sygnalizator sygnalizacjaP = new Sygnalizator(new Polozenie(30+20, -80), "sygnalizacja_pas_prawy", sygnG, sygnG1, sygnG2);
         Rogatka rogatkaP = new Rogatka(new Polozenie(30+20, -80), "rogatka_pas_prawy", 5, rogatka2, rogatka1);
         PasRuchu pasP = new PasRuchu(new Polozenie(30, 0), "pas_prawy", sygnalizacjaP, "gora", 1020, rogatkaP, pas);
@@ -111,24 +111,19 @@ public class Main {
 
         ArrayList<PasRuchu> listaPasow = new ArrayList<>(Arrays.asList(pasL, pasP));
 
-        // GENEROWANIE PRZEJAZDU
+// GENEROWANIE PRZEJAZDU
         Przejazd przejazd = new Przejazd(new Polozenie(0,0), "przejazd", listaPasow, listaTorow, 0, przej);
 
-        // GENEROWANIE POCIĄGÓW
+// GENEROWANIE POCIĄGÓW
         Pociag pociagTestowy1 = new Pociag("1111-G",300,30000,50,20, torG, przejazd, pociag300L);
         Pociag pociagTestowy2 = new Pociag("2222-G",300,20000,50, 20, torG, przejazd, pociag300L);
         Pociag pociagTestowy3 = new Pociag("3333-D",320,50000,40,60, torD, przejazd, pociag300P);
         Pociag pociagTestowy4 = new Pociag("4444-D", 300,20000,70,30, torD, przejazd, pociag300P);
 
-//        torD.getRozkladPociagow().dodaj(pociagTestowy3);
-//        torD.getRozkladPociagow().dodaj(pociagTestowy4);
-//        torG.getRozkladPociagow().dodaj(pociagTestowy1);
-//        torG.getRozkladPociagow().dodaj(pociagTestowy2);
         przejazd.dodajDoRozkladu(pociagTestowy1);
         przejazd.dodajDoRozkladu(pociagTestowy2);
         przejazd.dodajDoRozkladu(pociagTestowy3);
         przejazd.dodajDoRozkladu(pociagTestowy4);
-
 
         KontrolaRuchu kontrolaRuchu = new KontrolaRuchu(przejazd, 8);
 

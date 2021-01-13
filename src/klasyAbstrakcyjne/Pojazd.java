@@ -24,9 +24,9 @@ public abstract class Pojazd extends obiektSymulacji {
 //            opoznienie = -70000.0 / masa;
 //            przyspieszenie = 70000.0 / masa;
             if (zwrot.equals("prawo"))
-                odstep = 40;
+                odstep = 50;
             else
-                odstep = -40;
+                odstep = -50;
         } else {
 //            opoznienie = -5000.0 / masa;
 //            przyspieszenie = 5000.0 / masa;

@@ -77,7 +77,7 @@ public class Pociag extends Pojazd {
         if (tor.getZwrot().equals("prawo")) {
             for (int i = 0; i < tor.getIloscSemaforowSBL(); i++) {
                 if (getPolozenie().getX() <= tor.getSemaforySBL().get(i).getPolozenie().getX()) {
-                    if (tor.getSemaforySBL().get(i).isStop()) {
+                    if (tor.getSemaforySBL().get(i).isStop() && getCel().getX() != przejazd.getPolozenie().getX() - getOdstep()) {
                         ustawCel(tor.getSemaforySBL().get(i).getPolozenie());
                         return true;
                     }
@@ -86,7 +86,7 @@ public class Pociag extends Pojazd {
         } else {
             for (int i = 0; i < tor.getIloscSemaforowSBL(); i++) {
                 if (tor.getSemaforySBL().get(i).getPolozenie().getX() <= getPolozenie().getX()) {
-                    if (tor.getSemaforySBL().get(i).isStop()) {
+                    if (tor.getSemaforySBL().get(i).isStop() && getCel().getX() != przejazd.getPolozenie().getX() - getOdstep()) {
                         ustawCel(tor.getSemaforySBL().get(i).getPolozenie());
                         return true;
                     }
