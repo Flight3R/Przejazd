@@ -19,10 +19,12 @@ public class Sygnalizator extends obiektSymulacji implements Swiatlo {
         start();
     }
 
+// ------------------ gettery ------------------
     public boolean isStop() {
         return stop;
     }
 
+// ------------------ metody ------------------
     public void podajSTOP() {
         stop = true;
         System.out.println("Sygnalizator: " + nazwa + " świeci STOP!");
@@ -31,14 +33,11 @@ public class Sygnalizator extends obiektSymulacji implements Swiatlo {
     public void podajJEDZ() {
         stop = false;
         System.out.println("Sygnalizator: " + nazwa + " świeci JEDŹ!");
-        getLabel().setIcon(getIkona());
     }
 
     @Override
     public void run() {
         while (true) {
-
-
             if (stop) {
                 getLabel().setIcon(ikona2);
                 try {
@@ -52,6 +51,7 @@ public class Sygnalizator extends obiektSymulacji implements Swiatlo {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                getLabel().setIcon(getIkona());
             } else {
                 try {
                     sleep(200);

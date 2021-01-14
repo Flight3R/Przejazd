@@ -40,40 +40,45 @@ public abstract class Pojazd extends obiektSymulacji {
 //        drogaHamowania = Math.pow(maxPredkosc, 2) / (2 * -opoznienie);
     }
 
+// ------------------ gettery ------------------
     public String getNazwa() {
         return nazwa;
     }
+
     public Polozenie getPolozenie() {
         return polozenie;
     }
+
     public int getDlugosc() {
         return dlugosc;
     }
+
     public double getPredkosc() {
         return predkosc;
     }
+
     public double getMaxPredkosc() {
         return maxPredkosc;
     }
-    public double getOpoznienie() {
-        return opoznienie;
-    }
-    public double getPrzyspieszenie() {
-        return przyspieszenie;
-    }
+
     public double getDrogaHamowania() {
         return drogaHamowania;
     }
+
     public double getOdstep() {
         return odstep;
     }
+
     public Polozenie getCel() {
         return cel;
     }
+
+// ------------------ settery ------------------
     public void setPredkosc(double predkosc) {
         this.predkosc = predkosc;
     }
 
+// ------------------ metody ------------------
     public void hamuj(double deltaT) {
         predkosc = predkosc + opoznienie * deltaT;
         if (predkosc < 0)

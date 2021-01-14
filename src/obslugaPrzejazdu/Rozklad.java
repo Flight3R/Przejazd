@@ -5,25 +5,22 @@ import pojazdy.Pociag;
 import java.util.ArrayList;
 
 public class Rozklad {
-    private ArrayList<Pociag> tabelaPociagow = new ArrayList<>();
+    private final ArrayList<Pociag> tabelaPociagow = new ArrayList<>();
 
+// ------------------ gettery ------------------
     public ArrayList<Pociag> getTabelaPociagow() {
         return tabelaPociagow;
     }
 
-    public Integer ilePociagow() {
+    public Integer getIlePociagow() {
         return tabelaPociagow.size();
     }
-    public Pociag najblizszyPociag(){
+
+    public Pociag getNajblizszyPociag(){
         return tabelaPociagow.get(0);
     }
 
-    public void wyswietl(){
-        for (int i=0; i<ilePociagow(); i++) {
-            System.out.println(tabelaPociagow.get(i));
-        }
-    }
-
+// ------------------ metody ------------------
     public void dodaj(Pociag pociag){
         if (!tabelaPociagow.contains(pociag)) {
             tabelaPociagow.add(pociag);

@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Semafor extends obiektSymulacji implements Swiatlo {
     private boolean stop = false;
-    private ImageIcon ikona2;
+    private final ImageIcon ikona2;
 
     public Semafor(Polozenie polozenie, String nazwa, ImageIcon ikona, ImageIcon ikona2) {
         super(polozenie, nazwa, ikona);
@@ -16,10 +16,12 @@ public class Semafor extends obiektSymulacji implements Swiatlo {
         start();
     }
 
+// ------------------ gettery ------------------
     public boolean isStop() {
         return stop;
     }
 
+// ------------------ metody ------------------
     public void podajSTOP() {
         stop = true;
         System.out.println("Semafor: " + nazwa + " podaje STOP!");

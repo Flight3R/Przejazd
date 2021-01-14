@@ -20,6 +20,7 @@ public class PasRuchu extends Droga {
         this.sygnalizacja = sygnalizacja;
     }
 
+// ------------------ gettery ------------------
     public Rogatka getRogatka() {
         return rogatka;
     }

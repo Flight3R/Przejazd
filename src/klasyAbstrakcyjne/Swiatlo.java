@@ -8,5 +8,4 @@ public interface Swiatlo {
     void podajJEDZ();
 
     boolean isStop();
-
 }

@@ -1,13 +1,11 @@
 package obslugaPrzejazdu;
 
-import lokacja.Polozenie;
 import podlozaTransportowe.PasRuchu;
 import podlozaTransportowe.Tor;
 import pojazdy.Auto;
 import pojazdy.Pociag;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class KontrolaRuchu extends Thread {
@@ -20,12 +18,12 @@ public class KontrolaRuchu extends Thread {
         this.maxIloscNaPas = maxIloscNaPas;
         start();
     }
-
+// ------------------ metody ------------------
     public void obslugaAut() {
         Random generator = new Random();
         boolean miejsceNaAuto;
         Auto poprzednieAuto;
-        ImageIcon ikona = new ImageIcon();
+        ImageIcon ikona;
 
         for (PasRuchu pasBierzacy : przejazd.getListaPasow()) {
 
@@ -71,8 +69,8 @@ public class KontrolaRuchu extends Thread {
 
     public void obslugaPociagow() {
         for (Tor torBierzacy : przejazd.getListaTorow()) {
-            if (!torBierzacy.getSemaforySBL().get(0).isStop() && torBierzacy.getRozkladPociagow().ilePociagow() != 0) {
-                Pociag najblizszyPrzed = torBierzacy.getRozkladPociagow().najblizszyPociag();
+            if (!torBierzacy.getSemaforySBL().get(0).isStop() && torBierzacy.getRozkladPociagow().getIlePociagow() != 0) {
+                Pociag najblizszyPrzed = torBierzacy.getRozkladPociagow().getNajblizszyPociag();
                 double czasDojazdu = 2500 / najblizszyPrzed.getMaxPredkosc();
                 if (najblizszyPrzed.getCzasPrzyjazdu() - czasDojazdu < przejazd.getCzas()) {
                     najblizszyPrzed.start();
@@ -83,8 +81,8 @@ public class KontrolaRuchu extends Thread {
                 }
             }
         }
-        if (przejazd.getPociagiObecne().ilePociagow() != 0) {
-            Pociag najblizszyZa = przejazd.getPociagiObecne().najblizszyPociag();
+        if (przejazd.getPociagiObecne().getIlePociagow() != 0) {
+            Pociag najblizszyZa = przejazd.getPociagiObecne().getNajblizszyPociag();
             if (Math.abs(najblizszyZa.getPolozenie().getX()) > 3200) {
                 przejazd.getPociagiObecne().usunPierwszy();
                 przejazd.getRozklad().getTabelaPociagow().remove(najblizszyZa);

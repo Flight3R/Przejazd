@@ -51,7 +51,8 @@ public class PanelSytuacji extends JFrame implements Runnable {
         getContentPane().add(scrollPane);
 
         this.przejazd = przejazd;
-        listaStatyczna.add(przejazd); // BUDOWANIE LISTY STATYCZNEJ
+// BUDOWANIE LISTY STATYCZNEJ
+        listaStatyczna.add(przejazd);
         for (Tor tor : przejazd.getListaTorow()) {
             listaStatyczna.addAll(tor.getSemaforySBL());
             listaStatyczna.addAll(tor.getCzujnikiNajazdoweSBL());
@@ -67,8 +68,8 @@ public class PanelSytuacji extends JFrame implements Runnable {
             listaDynamiczna.add(pas.getRogatka());
             listaStatyczna.add(pas);
         }
-
-        for (obiektSymulacji obiekt : listaStatyczna) { // DODAWANIE LISTY STATYCZNEJ DO PANELU
+// DODAWANIE LISTY STATYCZNEJ DO PANELU
+        for (obiektSymulacji obiekt : listaStatyczna) {
             obiekt.getLabel().setBounds((int)obiekt.getPolozenie().getX()+deltaX-obiekt.getLabel().getIcon().getIconWidth()/2, -(int)(obiekt.getPolozenie().getY()+deltaY+obiekt.getLabel().getIcon().getIconHeight()/2), obiekt.getLabel().getPreferredSize().width, obiekt.getLabel().getPreferredSize().height);
             innerPanel.add(obiekt.getLabel());
         }
@@ -76,8 +77,9 @@ public class PanelSytuacji extends JFrame implements Runnable {
         for (obiektSymulacji obiekt : listaDynamiczna) {
             innerPanel.add(obiekt.getLabel());
         }
-
     }
+
+// ------------------ metody ------------------
     public void odswierz() {
         for (PasRuchu pas : przejazd.getListaPasow()) {
             for (Auto auto : pas.getListaAut()) {
@@ -133,8 +135,4 @@ public class PanelSytuacji extends JFrame implements Runnable {
         }
     }
 
-//    public static void main(String[] args) {
-//
-//
-//    }
 }

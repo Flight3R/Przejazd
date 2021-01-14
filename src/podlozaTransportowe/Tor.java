@@ -34,27 +34,35 @@ public class Tor extends Droga {
         this.semaforySBL = semaforySBL;
     }
 
+// ------------------ gettery ------------------
     public Semafor getTarczaSSP() {
         return tarczaSSP;
     }
+
     public Czujnik getCzujnikNajazdowySSP() {
         return czujnikNajazdowySSP;
     }
+
     public Czujnik getCzujnikZjazdowySSP() {
         return czujnikZjazdowySSP;
     }
+
     public ArrayList<Czujnik> getCzujnikiNajazdoweSBL() {
         return czujnikiNajazdoweSBL;
     }
+
     public ArrayList<Czujnik> getCzujnikiZjazdoweSBL() {
         return czujnikiZjazdoweSBL;
     }
+
     public ArrayList<Semafor> getSemaforySBL() {
         return semaforySBL;
     }
+
     public Integer getIloscSemaforowSBL() {
         return semaforySBL.size();
     }
+
     public Rozklad getRozkladPociagow() {
         return rozkladPociagow;
     }

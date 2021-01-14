@@ -5,6 +5,7 @@ import lokacja.Polozenie;
 import podlozaTransportowe.PasRuchu;
 
 import javax.swing.*;
+import java.util.Arrays;
 
 public class Auto extends Pojazd {
 
@@ -15,11 +16,7 @@ public class Auto extends Pojazd {
         super(new Polozenie(pas.getPolozenie().getX(), -pas.getKoniec().getY()/2), nazwa, "Auto", pas.getZwrot(), dlugosc, masa, maxPredkosc, ikona);
         this.pas = pas;
         this.autoPrzed = autoPrzed;
-        copyCel(pas.getKoniec());
-    }
-
-    public PasRuchu getPas() {
-        return pas;
+        ustawCel(pas.getKoniec());
     }
 
     @Override
@@ -27,14 +24,23 @@ public class Auto extends Pojazd {
         return "Auto: " + getNazwa() + "\tV= " + Math.round(getPredkosc()*100.0)/100.0 + "\tX= " + getPolozenie().getX() +
                 "\tY= " + Math.round(getPolozenie().getY()*100.0)/100.0 + "\tCEL= " + getCel().getY();
     }
+
+// ------------------ gettery ------------------
+    public PasRuchu getPas() {
+        return pas;
+    }
+
+// ------------------ settery ------------------
     public void setAutoPrzed(Auto autoPrzed) {
         this.autoPrzed = autoPrzed;
     }
-    public void copyCel(Polozenie cel) {
+
+// ------------------ metody ------------------
+    public void ustawCel(Polozenie cel) {
         getCel().setY(cel.getY() - getOdstep());
     }
 
-    public boolean sprawdzSwiatla() {
+    public Polozenie sprawdzSwiatla() {
         boolean przedSygnalizatorem;
         boolean mozliwoscWyhamowania;
 
@@ -49,44 +55,36 @@ public class Auto extends Pojazd {
         }
 
         if (przedSygnalizatorem && pas.getSygnalizacja().isStop()) {
-            if (getCel().getY() == pas.getSygnalizacja().getPolozenie().getY() - getOdstep() || mozliwoscWyhamowania) {
-                copyCel(pas.getSygnalizacja().getPolozenie());
-                return true;
-            }
+            if (getCel().getY() == pas.getSygnalizacja().getPolozenie().getY() - getOdstep() || mozliwoscWyhamowania)
+                return pas.getSygnalizacja().getPolozenie();
         }
-        return false;
+        return pas.getKoniec();
     }
 
-    public boolean sprawdzAutoPrzed() {
+    public Polozenie sprawdzAutoPrzed() {
+        if (autoPrzed != null) {
+            if (pas.getZwrot() == "gora") {
+                if (Math.abs(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc() - getOdstep() - getPolozenie().getY()) <= getDrogaHamowania())
+                    return new Polozenie(0, autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc());
 
-        if (pas.getZwrot() == "gora") {
-            if (Math.abs(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc() - getOdstep() - getPolozenie().getY()) <= getDrogaHamowania()) {
-                getCel().setY(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc() - getOdstep());
-                return true;
-            }
-        } else {
-            if (Math.abs(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc() - getOdstep() - getPolozenie().getY()) <= getDrogaHamowania()) {
-                getCel().setY(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc() - getOdstep());
-                return true;
+            } else {
+                if (Math.abs(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc() - getOdstep() - getPolozenie().getY()) <= getDrogaHamowania())
+                    return new Polozenie(0, autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc());
             }
         }
-        return false;
+        return pas.getKoniec();
     }
 
     @Override
     public void run() {
         double deltaT = 40.0/1000;
         while(true) {
-            boolean swiatla = sprawdzSwiatla();         // Aby zawsze sie wykonalo
 
-            boolean autoPrzed;
-            if (this.autoPrzed != null)
-                autoPrzed = sprawdzAutoPrzed();     // Aby zawsze sie wykonalo i nadpisało jak cos
+            if (pas.getZwrot().equals("gora"))
+                ustawCel(Arrays.stream(new Polozenie[]{sprawdzAutoPrzed(),  sprawdzSwiatla()}).reduce((p1, p2) -> p1.getY() < p2.getY() ? p1 : p2).orElse(pas.getKoniec()));
             else
-                autoPrzed = false;
+                ustawCel(Arrays.stream(new Polozenie[]{sprawdzAutoPrzed(),  sprawdzSwiatla()}).reduce((p1, p2) -> p1.getY() < p2.getY() ? p2 : p1).orElse(pas.getKoniec()));
 
-            if ( !swiatla && !autoPrzed && getCel().getY() != pas.getKoniec().getY() - getOdstep())
-               copyCel(pas.getKoniec());
 
             if (getCel().getY() != getPolozenie().getY()) {
 

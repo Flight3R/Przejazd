@@ -7,26 +7,22 @@ import javax.swing.*;
 
 public class Rogatka extends obiektSymulacji {
 
-    private final Integer czasZamykania;
     private boolean otwarta = true;
     private boolean polecenieZamkniecia = false;
     private final ImageIcon ikona2;
 
-    public Rogatka(Polozenie polozenie, String nazwa, Integer czasZamykania, ImageIcon ikona, ImageIcon ikona2) {
+    public Rogatka(Polozenie polozenie, String nazwa, ImageIcon ikona, ImageIcon ikona2) {
         super(polozenie, nazwa, ikona);
-        this.czasZamykania = czasZamykania;
         this.ikona2 = ikona2;
         start();
     }
 
-    public Integer getCzasZamykania() {
-        return czasZamykania;
-    }
-
+// ------------------ gettery ------------------
     public boolean isOtwarta() {
         return otwarta;
     }
 
+// ------------------ metody ------------------
     public void otworz() {
         System.out.println("Rogatka: " + nazwa + " otwarta");
         getLabel().setIcon(getIkona());
@@ -36,7 +32,6 @@ public class Rogatka extends obiektSymulacji {
     public void zamknij() {
         this.polecenieZamkniecia = true;
     }
-
 
     private void zamknijPrivate() throws InterruptedException {
         sleep(6000);

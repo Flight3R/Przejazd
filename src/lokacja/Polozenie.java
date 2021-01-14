@@ -9,19 +9,25 @@ public class Polozenie {
         this.y = y;
     }
 
+// ------------------ gettery ------------------
     public double getX() {
         return x;
     }
+
     public double getY() {
         return y;
     }
+
+// ------------------ settery ------------------
     public void setX(double x) {
         this.x = x;
     }
+
     public void setY(double y) {
         this.y = y;
     }
 
+// ------------------ metody ------------------
     public void przenies(double predkosc, double deltaT, String zwrot, Polozenie cel){
         double deltaX;
         double deltaY;
@@ -56,5 +62,4 @@ public class Polozenie {
                 break;
         }
     }
-
 }

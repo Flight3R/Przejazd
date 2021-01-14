@@ -9,7 +9,6 @@ import pojazdy.Pociag;
 import javax.swing.*;
 import java.util.ArrayList;
 
-
 public class Przejazd extends obiektSymulacji {
     
     private final ArrayList<PasRuchu> listaPasow;
@@ -33,6 +32,7 @@ public class Przejazd extends obiektSymulacji {
         return "Przejazd: " + nazwa + "\tX= " + getPolozenie().getX() + "\tY= " + getPolozenie().getY() + "\tT= " + Math.round(czas*100.0)/100.0;
     }
 
+// ------------------ gettery ------------------
     public ArrayList<PasRuchu> getListaPasow() {
         return listaPasow;
     }
@@ -53,17 +53,23 @@ public class Przejazd extends obiektSymulacji {
         return czas;
     }
 
-    public void dodajDoRozkladu(Pociag pociag) {
-            rozklad.dodaj(pociag);
-            pociag.getTor().getRozkladPociagow().dodaj(pociag);
+    public boolean isRogatkaOtwarta() {
+        return listaPasow.stream().anyMatch(pasRuchu -> pasRuchu.getRogatka().isOtwarta());
     }
 
+    public boolean isTarczaSSPzapalona() {
+        return listaTorow.stream().anyMatch(tor -> tor.getTarczaSSP().isStop());
+    }
+
+// ------------------ settery ------------------
     public void setSterowanieAutomatyczne(boolean sterowanieAutomatyczne) {
         this.sterowanieAutomatyczne = sterowanieAutomatyczne;
     }
 
-    public boolean isRogatkaOtwarta() {
-        return listaPasow.stream().anyMatch(pasRuchu -> pasRuchu.getRogatka().isOtwarta());
+// ------------------ metody ------------------
+    public void dodajDoRozkladu(Pociag pociag) {
+        rozklad.dodaj(pociag);
+        pociag.getTor().getRozkladPociagow().dodaj(pociag);
     }
 
     public void sterowanieSBL() {
@@ -122,19 +128,19 @@ public class Przejazd extends obiektSymulacji {
     @Override
     public void run() {
         System.out.println(this + "\tROZPOCZYNAM DYŻUR!");
-        double deltaT = 200.0/1000;
+        double deltaT = 500.0/1000;
+
         while (true) {
 
             sterowanieSBL();
 
-            if (sterowanieAutomatyczne) // >>>>>>>>>>>>>>>>>> STAN PRZEŁĄCZNIKA NA PULPICIE
+            if (sterowanieAutomatyczne)
                 sterowanieAutomatyczne();
             else
                 sterowanieSSP();
 
             czas = czas + deltaT;
             try { sleep((long) (deltaT*1000)); } catch (InterruptedException e) { e.printStackTrace(); }
-
         }
     }
 }

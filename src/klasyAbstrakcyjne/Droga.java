@@ -26,14 +26,16 @@ public abstract class Droga extends obiektSymulacji {
 
     }
 
+// ------------------ gettery ------------------
     public String getZwrot() {
         return zwrot;
     }
+
     public double getDlugosc() {
         return dlugosc;
     }
+
     public Polozenie getKoniec() {
         return koniec;
     }
-
 }
