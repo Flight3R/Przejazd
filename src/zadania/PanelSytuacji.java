@@ -80,7 +80,7 @@ public class PanelSytuacji extends JFrame implements Runnable {
     }
 
 // ------------------ metody ------------------
-    public void odswierz() {
+    public void odswiez() {
         for (PasRuchu pas : przejazd.getListaPasow()) {
             for (Auto auto : pas.getListaAut()) {
                 if (!listaDynamiczna.contains(auto)) {
@@ -126,7 +126,7 @@ public class PanelSytuacji extends JFrame implements Runnable {
 
     public void run() {
         while (true) {
-            odswierz();
+            odswiez();
             try {
                 sleep(40);
             } catch (InterruptedException e) {
