@@ -64,11 +64,11 @@ public class Auto extends Pojazd {
     public Polozenie sprawdzAutoPrzed() {
         if (autoPrzed != null) {
             if (pas.getZwrot() == "gora") {
-                if (Math.abs(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc() - getOdstep() - getPolozenie().getY()) <= getDrogaHamowania())
+//                if (Math.abs(autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc() - getOdstep() - getPolozenie().getY()) <= getDrogaHamowania())
                     return new Polozenie(0, autoPrzed.getPolozenie().getY() - autoPrzed.getDlugosc());
 
             } else {
-                if (Math.abs(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc() - getOdstep() - getPolozenie().getY()) <= getDrogaHamowania())
+//                if (Math.abs(autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc() - getOdstep() - getPolozenie().getY()) <= getDrogaHamowania())
                     return new Polozenie(0, autoPrzed.getPolozenie().getY() + autoPrzed.getDlugosc());
             }
         }

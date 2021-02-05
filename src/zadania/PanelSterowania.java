@@ -82,8 +82,8 @@ public class PanelSterowania extends JFrame implements Runnable {
             p1S.setText((int)przejazd.getRozklad().getTabelaPociagow().get(0).getSpoznienie()/3600 + ":" + (int)przejazd.getRozklad().getTabelaPociagow().get(0).getSpoznienie()/60 + ":" + (int)przejazd.getRozklad().getTabelaPociagow().get(0).getSpoznienie()%60);
         } else {
             p1N.setText("");
-            p1N.setText("");
-            p1N.setText("");
+            p1G.setText("");
+            p1S.setText("");
         }
         if (przejazd.getRozklad().getTabelaPociagow().size() > 1) {
             p2N.setText(przejazd.getRozklad().getTabelaPociagow().get(1).getNazwa());
@@ -91,8 +91,8 @@ public class PanelSterowania extends JFrame implements Runnable {
             p2S.setText((int)przejazd.getRozklad().getTabelaPociagow().get(1).getSpoznienie()/3600 + ":" + (int)przejazd.getRozklad().getTabelaPociagow().get(1).getSpoznienie()/60 + ":" + (int)przejazd.getRozklad().getTabelaPociagow().get(1).getSpoznienie()%60);
         }else {
             p2N.setText("");
-            p2N.setText("");
-            p2N.setText("");
+            p2G.setText("");
+            p2S.setText("");
         }
         if (przejazd.getRozklad().getTabelaPociagow().size() > 2) {
             p3N.setText(przejazd.getRozklad().getTabelaPociagow().get(2).getNazwa());
@@ -100,8 +100,8 @@ public class PanelSterowania extends JFrame implements Runnable {
             p3S.setText((int)przejazd.getRozklad().getTabelaPociagow().get(2).getSpoznienie()/3600 + ":" + (int)przejazd.getRozklad().getTabelaPociagow().get(2).getSpoznienie()/60 + ":" + (int)przejazd.getRozklad().getTabelaPociagow().get(2).getSpoznienie()%60);
         }else {
             p3N.setText("");
-            p3N.setText("");
-            p3N.setText("");
+            p3G.setText("");
+            p3S.setText("");
         }
         if (przejazd.getRozklad().getTabelaPociagow().size() > 3) {
             p4N.setText(przejazd.getRozklad().getTabelaPociagow().get(3).getNazwa());
@@ -109,8 +109,8 @@ public class PanelSterowania extends JFrame implements Runnable {
             p4S.setText((int)przejazd.getRozklad().getTabelaPociagow().get(3).getSpoznienie()/3600 + ":" + (int)przejazd.getRozklad().getTabelaPociagow().get(3).getSpoznienie()/60 + ":" + (int)przejazd.getRozklad().getTabelaPociagow().get(3).getSpoznienie()%60);
         }else {
             p4N.setText("");
-            p4N.setText("");
-            p4N.setText("");
+            p4G.setText("");
+            p4S.setText("");
         }
 
         if (przejazd.isTarczaSSPzapalona())

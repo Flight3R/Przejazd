@@ -119,14 +119,14 @@ public class Main {
         Przejazd przejazd = new Przejazd(new Polozenie(0,0), "przejazd", listaPasow, listaTorow, 0, przej);
 
 // GENEROWANIE POCIĄGÓW
-        Pociag pociagTestowy1 = new Pociag("1111",300,30000,100,25, torG, przejazd, pociag300L);
-        Pociag pociagTestowy2 = new Pociag("2222",300,40000,60, 60, torG, przejazd, pociag300L);
-        Pociag pociagTestowy3 = new Pociag("3333",300,50000,65,25, torD, przejazd, pociag300P);
-        Pociag pociagTestowy4 = new Pociag("4444", 200,20000,100,55, torD, przejazd, pociag200P);
-        Pociag pociagTestowy5 = new Pociag("5555",200,50000,80,95, torD, przejazd, pociag200P);
-        Pociag pociagTestowy6 = new Pociag("6666", 100,20000,70,140, torD, przejazd, pociag100P);
-        Pociag pociagTestowy7 = new Pociag("7777",100,25000,90,150, torG, przejazd, pociag100L);
-        Pociag pociagTestowy8 = new Pociag("8888", 100,10000,100,90, torG, przejazd, pociag100L);
+        Pociag pociagTestowy1 = new Pociag("1111",300,30000,100,35, torG, przejazd, pociag300L);
+        Pociag pociagTestowy2 = new Pociag("2222",300,40000,60, 70, torG, przejazd, pociag300L);
+        Pociag pociagTestowy3 = new Pociag("3333",300,50000,65,30, torD, przejazd, pociag300P);
+        Pociag pociagTestowy4 = new Pociag("4444", 200,20000,100,75, torD, przejazd, pociag200P);
+        Pociag pociagTestowy5 = new Pociag("5555",200,50000,80,110, torD, przejazd, pociag200P);
+        Pociag pociagTestowy6 = new Pociag("6666", 100,20000,70,150, torD, przejazd, pociag100P);
+        Pociag pociagTestowy7 = new Pociag("7777",100,25000,90,165, torG, przejazd, pociag100L);
+        Pociag pociagTestowy8 = new Pociag("8888", 100,10000,100,115, torG, przejazd, pociag100L);
 
         przejazd.dodajDoRozkladu(pociagTestowy1);
         przejazd.dodajDoRozkladu(pociagTestowy2);
