@@ -112,8 +112,11 @@ public class Pociag extends Pojazd {
             else if (czujnikZpodPociagiem)
                     tor.getCzujnikZjazdowySSP().aktywuj(getNazwa());
 
-            if ((getPolozenie().getX() < tor.getTarczaSSP().getPolozenie().getX() && tor.getTarczaSSP().isStop()) || (getPolozenie().getX() < przejazd.getPolozenie().getX() && getCel().getX() == przejazd.getPolozenie().getX() - getOdstep()))
+            if (getPolozenie().getX() < tor.getTarczaSSP().getPolozenie().getX()) {
+                if (tor.getTarczaSSP().isStop())
                     return przejazd.getPolozenie();
+            } else if (getPolozenie().getX() < przejazd.getPolozenie().getX() && getCel().getX() == przejazd.getPolozenie().getX() - getOdstep())
+                return przejazd.getPolozenie();
 
         } else {
             czujnikNpodPociagiem = getPolozenie().getX() < tor.getCzujnikNajazdowySSP().getPolozenie().getX() && tor.getCzujnikNajazdowySSP().getPolozenie().getX() < (getPolozenie().getX() + getDlugosc());
@@ -125,9 +128,12 @@ public class Pociag extends Pojazd {
             else if (czujnikZpodPociagiem)
                 tor.getCzujnikZjazdowySSP().aktywuj(getNazwa());
 
-            if ((getPolozenie().getX() > tor.getTarczaSSP().getPolozenie().getX() && tor.getTarczaSSP().isStop()) || (getPolozenie().getX() > przejazd.getPolozenie().getX() && getCel().getX() == przejazd.getPolozenie().getX() - getOdstep()))
+            if (getPolozenie().getX() > tor.getTarczaSSP().getPolozenie().getX()) {
+                if (tor.getTarczaSSP().isStop())
+                    return przejazd.getPolozenie();
+            } else if (getPolozenie().getX() > przejazd.getPolozenie().getX() && getCel().getX() == przejazd.getPolozenie().getX() - getOdstep())
                 return przejazd.getPolozenie();
-         }
+        }
         return tor.getKoniec();
     }
 
