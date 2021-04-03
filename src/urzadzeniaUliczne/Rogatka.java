@@ -27,6 +27,7 @@ public class Rogatka extends obiektSymulacji {
         System.out.println("Rogatka: " + nazwa + " otwarta");
         getLabel().setIcon(getIkona());
         otwarta = true;
+        polecenieZamkniecia = false;
     }
 
     public void zamknij() {
@@ -35,9 +36,11 @@ public class Rogatka extends obiektSymulacji {
 
     private void zamknijPrivate() throws InterruptedException {
         sleep(6000);
-        System.out.println("Rogatka: " + nazwa + " zamknieta");
-        getLabel().setIcon(ikona2);
-        otwarta = false;
+        if (polecenieZamkniecia) {
+            System.out.println("Rogatka: " + nazwa + " zamknieta");
+            getLabel().setIcon(ikona2);
+            otwarta = false;
+        }
     }
 
     @Override

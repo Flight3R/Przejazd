@@ -85,10 +85,7 @@ public class Auto extends Pojazd {
             else
                 ustawCel(Arrays.stream(new Polozenie[]{sprawdzAutoPrzed(),  sprawdzSwiatla()}).reduce((p1, p2) -> p1.getY() < p2.getY() ? p2 : p1).orElse(pas.getKoniec()));
 
-
             if (getCel().getY() != getPolozenie().getY()) {
-
-//                System.out.println(this + "   " + getDrogaHamowania());
 
                 if (Math.abs(getCel().getY() - getPolozenie().getY()) < getDrogaHamowania()*2)
                     hamuj(deltaT);

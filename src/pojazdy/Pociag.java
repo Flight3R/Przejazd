@@ -157,8 +157,6 @@ public class Pociag extends Pojazd {
 
             if (getCel().getX() != getPolozenie().getX()) {
 
-//                System.out.println(this); // >>>>>>>>>>>>>>>>>>>>>PRINT
-
                 if (Math.abs(getCel().getX() - getPolozenie().getX()) < getDrogaHamowania()*1.2) {
                     hamuj(deltaT);
                 } else

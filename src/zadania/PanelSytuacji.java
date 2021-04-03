@@ -81,15 +81,18 @@ public class PanelSytuacji extends JFrame implements Runnable {
 
 // ------------------ metody ------------------
     public void odswiez() {
-        for (PasRuchu pas : przejazd.getListaPasow()) {
-            for (Auto auto : pas.getListaAut()) {
-                if (!listaDynamiczna.contains(auto)) {
-                    listaDynamiczna.add(auto);
-                    auto.getLabel().setText(auto.getNazwa());
-                    auto.getLabel().setHorizontalTextPosition(0);
-                    innerPanel.add(auto.getLabel(),0);
+        try {
+            for (PasRuchu pas : przejazd.getListaPasow()) {
+                for (Auto auto : pas.getListaAut()) {
+                    if (!listaDynamiczna.contains(auto)) {
+                        listaDynamiczna.add(auto);
+                        auto.getLabel().setText(auto.getNazwa());
+                        auto.getLabel().setHorizontalTextPosition(0);
+                        innerPanel.add(auto.getLabel(), 0);
+                    }
                 }
             }
+        } catch (Exception e) {
         }
 
         for (Pociag pociag : przejazd.getPociagiObecne().getTabelaPociagow()) {
@@ -134,5 +137,4 @@ public class PanelSytuacji extends JFrame implements Runnable {
             }
         }
     }
-
 }

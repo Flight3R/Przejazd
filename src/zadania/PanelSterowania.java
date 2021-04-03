@@ -115,9 +115,10 @@ public class PanelSterowania extends JFrame implements Runnable {
 
         if (przejazd.isTarczaSSPzapalona())
             ostrzezeniaTextField.setText("PRZEJAZD NIEZABEZPIECZONY! ZAMKNIJ ROGATKI!");
+        else if (!przejazd.isRogatkaOtwarta())
+            ostrzezeniaTextField.setText("PRZEJAZD ZABEZPIECZONY");
         else
             ostrzezeniaTextField.setText("");
-
     }
 
     @Override
