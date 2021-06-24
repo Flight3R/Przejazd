@@ -38,7 +38,7 @@ public class PanelSytuacji extends JFrame implements Runnable {
         setPreferredSize(new Dimension(1300,800));
         setBounds(0,0,1280,720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("test");
+        setTitle("Przejazd");
 
         getContentPane().setLayout(new FlowLayout());
 
