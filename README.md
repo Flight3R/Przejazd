@@ -10,7 +10,7 @@ Program pozwala na zaobserwowanie oraz samodzielne sterowanie częścią urządz
 
 Obszar symulacji zawiera 5 km odcinek dwutorowego szlaku kolejowego oraz drogę dla samochodów o długości 1 km przecinającą tory kolejowe pod kątem prostym w samym środku mapy
 
-![środek](https://raw.githubusercontent.com/Flight3R/Przejazd/readme-res/środek.png)
+![środek](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/środek.png)
 
 ​																													Rys. 1: Środek przejazdu.
 
@@ -18,11 +18,11 @@ Obszar symulacji zawiera 5 km odcinek dwutorowego szlaku kolejowego oraz drogę 
 
 W programie można obserwować zachowanie dwóch rodzajów pojazdów: samochodów oraz pociągów. Każdy z pojazdów poruszających się po mapie ma swoje unikalne cechy takie jak masa, przyspieszenie oraz długość.
 
-![pociag](https://raw.githubusercontent.com/Flight3R/Przejazd/readme-res/pociag.png)
+![pociag](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/pociag.png)
 
 ​																																Rys. 2: Pociąg
 
-![samochod](https://raw.githubusercontent.com/Flight3R/Przejazd/readme-res/samochod.png)
+![samochod](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/samochod.png)
 
 ​																															Rys. 3: Samochód
 
@@ -49,15 +49,15 @@ Działanie samoczynnej blokady polega na podziale szlaku na odcinki izolowane, z
 
 Samoczynna sygnalizacja przejazdowa to system odpowiadający za sterowanie rogatkami oraz wczesne powiadamianie maszynisty w przypadku awarii i niepewności zabezpieczenia przejazdu kolejowego przed nadjechaniem pociągu. Zauważenie przez maszynistę semafora SSP  wskazującego zagrożenie (*Osp1*) pozwala na zwolnienie pociągu do prędkości umożliwiającej szybkie zatrzymanie przed przejazdem w przypadku potwierdzenia jego nieprawidłowej pracy 
 
-![sbl-i-ssp](https://raw.githubusercontent.com/Flight3R/Przejazd/readme-res/sbl-i-ssp.png)
+![sbl-i-ssp](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/sbl-i-ssp.png)
 
 ​																														Rys. 4: SBL, SSP i czujniki
 
-![sbl-s2](https://raw.githubusercontent.com/Flight3R/Przejazd/readme-res/sbl-s2.png)
+![sbl-s2](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/sbl-s2.png)
 
 ​																														Rys. 5: Blokada uzbrojona
 
-![sbl-s1](https://raw.githubusercontent.com/Flight3R/Przejazd/readme-res/sbl-s1.png)
+![sbl-s1](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/sbl-s1.png)
 
 ​																						Rys. 6: Blokada aktywowana (kolejny pociąg dostaje sygnał "stój")
 
@@ -75,6 +75,6 @@ Są stosowane do fizycznego oddzielenia samochodów od torów kolejowych. ich pr
 
 Umożliwia podgląd czasu, rozkładu przejazdu pociągów wraz z ich szacunkowym spóźnieniem oraz sterowaniem trybu działania sygnalizacji oraz rogatek. Wyświetlane są również ostrzeżenia mogące informować użytkownika o konieczności ręcznego zamknięcia rogatek w przypadku wyłączonego sterowania automatycznego.
 
-​																	 ![sterowanie](/https://raw.githubusercontent.com/Flight3R/Przejazd/readme-res/sterowanie.png)
+​																	 ![sterowanie](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/sterowanie.png)
 
 ​																									Rys. 7: Panel sterowania przejazdem
