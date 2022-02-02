@@ -20,11 +20,11 @@ W programie można obserwować zachowanie dwóch rodzajów pojazdów: samochodó
 
 ![pociag](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/pociag.png)
 
-​																																Rys. 2: Pociąg
+​																																Rys. 2: Pociąg.
 
 ![samochod](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/samochod.png)
 
-​																															Rys. 3: Samochód
+​																															Rys. 3: Samochód.
 
 ### Urządzenia kolejowe
 
@@ -41,25 +41,25 @@ Zawsze występują w parach:
 
 #### Semafor SBL
 
-W programie jest symulowane działanie dwustawnej samoczynnej blokady liniowej. Blokada liniowa jest elementem automatyki ruchu kolejowego zapewniającego, że w danym momencie odcinek izolowany jest zajmowany przez tylko jeden pociąg; zapobiega to najechaniu pociągów na siebie, a w ogólnym przypadku uniemożliwia wyprawienie pociągu na szlak jednotorowy  gdy jest on zajmowany przez inny pociąg.
+W programie jest symulowane działanie dwustawnej samoczynnej blokady liniowej. Blokada liniowa jest elementem automatyki ruchu kolejowego zapewniającym, że w danym momencie odcinek izolowany jest zajmowany przez tylko jeden pociąg; zapobiega to najechaniu pociągów na siebie, a w ogólnym przypadku uniemożliwia wyprawienie pociągu na szlak jednotorowy  gdy jest on zajmowany przez inny pociąg.
 
-Działanie samoczynnej blokady polega na podziale szlaku na odcinki izolowane, z których każdy jest chroniony semaforem SBL oraz parą czujników sterujących jego wskazaniami. Dwustawność blokady polega na wyświetlaniu na jej semaforze jednego z dwóch sygnałów: *"jedź"* (*S2*) lub *"stój"* (*S1*).
+Działanie samoczynnej blokady liniowej polega na podziale szlaku na odcinki izolowane, z których każdy jest chroniony semaforem SBL oraz parą czujników sterujących jego wskazaniami. Samnoczynność jest uzyskiwana poprzez automatyczną pracę w oparciu o stany tych czujników. Dwustawność to zdolność do wyświetlania na semaforach jednego z dwóch sygnałów: *"jedź"* (*S2*) lub *"stój"* (*S1*).
 
-#### Semafor SSP
+#### Tarcza SSP
 
-Samoczynna sygnalizacja przejazdowa to system odpowiadający za sterowanie rogatkami oraz wczesne powiadamianie maszynisty w przypadku awarii i niepewności zabezpieczenia przejazdu kolejowego przed nadjechaniem pociągu. Zauważenie przez maszynistę semafora SSP  wskazującego zagrożenie (*Osp1*) pozwala na zwolnienie pociągu do prędkości umożliwiającej szybkie zatrzymanie przed przejazdem w przypadku potwierdzenia jego nieprawidłowej pracy 
+Samoczynna sygnalizacja przejazdowa to system odpowiadający za sterowanie rogatkami oraz wczesne powiadamianie maszynisty w przypadku awarii i niepewności zabezpieczenia przejazdu kolejowego przed nadjechaniem pociągu. Zauważenie przez maszynistę tarczy SSP  wskazującej zagrożenie (*Osp1*) daje mu czas na zwolnienie pociągu do prędkości umożliwiającej szybkie zatrzymanie przed przejazdem w przypadku potwierdzenia jego nieprawidłowej pracy lub istniejącego zagrożenia.
 
 ![sbl-i-ssp](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/sbl-i-ssp.png)
 
-​																														Rys. 4: SBL, SSP i czujniki
+​																														Rys. 4: SBL, SSP i czujniki.
 
 ![sbl-s2](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/sbl-s2.png)
 
-​																														Rys. 5: Blokada uzbrojona
+​																														Rys. 5: Blokada uzbrojona.
 
 ![sbl-s1](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/sbl-s1.png)
 
-​																						Rys. 6: Blokada aktywowana (kolejny pociąg dostaje sygnał "stój")
+​																						Rys. 6: Blokada aktywowana (kolejny pociąg dostaje sygnał "stój").
 
 
 
@@ -77,4 +77,4 @@ Umożliwia podgląd czasu, rozkładu przejazdu pociągów wraz z ich szacunkowym
 
 ​																	 ![sterowanie](https://raw.githubusercontent.com/Flight3R/Przejazd/master/readme-res/sterowanie.png)
 
-​																									Rys. 7: Panel sterowania przejazdem
+​																									Rys. 7: Panel sterowania przejazdem.
